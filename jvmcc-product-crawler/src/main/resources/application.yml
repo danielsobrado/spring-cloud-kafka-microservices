@@ -1,3 +1,10 @@
 springfox:
   documentation:
     enabled: false
+jwt:
+  secret: jvmcc
+logging:
+  level:
+    root: info
+    org:
+      springframework: info

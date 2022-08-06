@@ -22,3 +22,5 @@ eureka:
 springfox:
   documentation:
     enabled: false
+jwt:
+  secret: jvmcc

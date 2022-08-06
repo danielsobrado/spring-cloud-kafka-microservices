@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewcrud.entities;
+package com.jds.jvmcc.reviewcrud.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

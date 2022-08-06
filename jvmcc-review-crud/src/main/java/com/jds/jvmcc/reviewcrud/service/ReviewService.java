@@ -1,10 +1,10 @@
-package com.jds.jvmcc.reviewcrud.services;
+package com.jds.jvmcc.reviewcrud.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.jds.jvmcc.reviewcrud.entities.Review;
+import com.jds.jvmcc.reviewcrud.entity.Review;
 
 /**
  * @author J. Daniel Sobrado

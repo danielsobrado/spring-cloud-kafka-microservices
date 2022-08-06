@@ -1,12 +1,12 @@
-package com.jds.jvmcc.reviewcrud.controllers;
+package com.jds.jvmcc.reviewcrud.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jds.jvmcc.reviewcrud.entities.Review;
-import com.jds.jvmcc.reviewcrud.services.ReviewService;
+import com.jds.jvmcc.reviewcrud.entity.Review;
+import com.jds.jvmcc.reviewcrud.service.ReviewService;
 
 import io.swagger.annotations.Api;
 
