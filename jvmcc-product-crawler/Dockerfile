@@ -15,12 +15,10 @@ RUN ./mvnw package
 FROM eclipse-temurin:17-jre-jammy as production
 RUN addgroup demogroup; adduser  --ingroup demogroup --disabled-password demo
 USER demo
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-EXPOSE 8080
-COPY --from=build /app/target/jvmcc-api-gateway-*.jar /jvmcc-api-gateway.jar
+EXPOSE 8081
+COPY --from=build /app/target/jvmcc-product-crawler-*.jar /jvmcc-product-crawler.jar
 CMD ["./mvnw", "spring-boot:run"]
 
-# docker build -t dalamar/jvmcc-api-gateway .
-# docker push dalamar/jvmcc-api-gateway
-# docker run -d -p 8080:8080 --name="jvmcc-api-gateway" jvmcc-api-gateway
+# docker build -t dalamar/jvmcc-product-crawler .
+# docker push dalamar/jvmcc-product-crawler
+# docker run -d -p 8081:8081 --name="jvmcc-product-crawler" jvmcc-product-crawler

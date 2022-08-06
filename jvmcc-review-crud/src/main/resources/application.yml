@@ -19,3 +19,6 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+springfox:
+  documentation:
+    enabled: false

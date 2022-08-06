@@ -8,12 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jds.jvmcc.reviewcrud.entities.Review;
 import com.jds.jvmcc.reviewcrud.services.ReviewService;
 
+import io.swagger.annotations.Api;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-05
  */
 @RestController
+@Api(tags = "Reviews")
 public class ReviewController {
 
     @Autowired

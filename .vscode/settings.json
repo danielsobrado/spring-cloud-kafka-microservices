@@ -13,5 +13,6 @@
             "username": "jvmcc",
             "password": "jvmcc"
         }
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "automatic"
 }

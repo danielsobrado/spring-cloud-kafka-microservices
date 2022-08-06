@@ -19,5 +19,6 @@ EXPOSE 8082
 COPY --from=build /app/target/jvmcc-review-crud-*.jar /jvmcc-review-crud.jar
 CMD ["./mvnw", "spring-boot:run"]
 
-# docker build -t jvmcc-review-crud .
+# docker build -t dalamar/jvmcc-review-crud .
+# docker push dalamar/jvmcc-review-crud
 # docker run -d -p 8082:8082 --name="jvmcc-review-crud" jvmcc-review-crud

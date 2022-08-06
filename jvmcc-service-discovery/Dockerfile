@@ -19,5 +19,6 @@ EXPOSE 8761
 COPY --from=build /app/target/jvmcc-service-discovery-*.jar /jvmcc-service-discovery.jar
 CMD ["./mvnw", "spring-boot:run"]
 
-# docker build -t jvmcc-service-discovery .
+# docker build -t dalamar/jvmcc-service-discovery .
+# docker push dalamar/jvmcc-service-discovery
 # docker run -d -p 8082:8082 --name="jvmcc-service-discovery" jvmcc-service-discovery

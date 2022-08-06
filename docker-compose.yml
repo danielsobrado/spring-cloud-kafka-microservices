@@ -1,0 +1,95 @@
+version: "3.8"
+services:
+  jvmcc-service-discovery:
+    container_name: jvmcc-service-discovery
+    image: dalamar/jvmcc-service-discovery:latest
+    ports:
+      - "8761:8761"
+  jvmcc-api-gateway:
+    container_name: jvmcc-api-gateway
+    image: dalamar/jvmcc-api-gateway:latest
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - jvmcc-service-discovery
+    links:
+      - jvmcc-service-discovery
+  jvmcc-product-crawler:
+    container_name: jvmcc-product-crawler
+    image: dalamar/jvmcc-product-crawler:latest
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/
+    ports:
+      - "8081:8081"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-service-discovery
+      - openldap
+    links:
+      - jvmcc-service-discovery
+  jvmcc-review-crud:
+      container_name: jvmcc-review-crud
+      image: dalamar/jvmcc-review-crud:latest
+      environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/
+      ports:
+        - "8082:8082"
+      deploy:
+          restart_policy:
+                  condition: on-failure
+      depends_on:
+        - jvmcc-service-discovery
+        - jvmcc-mysql
+        - openldap
+      links:
+        - jvmcc-service-discovery
+  jvmcc-mysql:
+    image: dalamar/jvmcc-mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=demo
+      - MYSQL_PASSWORD=demo
+      - MYSQL_DATABASE=demo
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - mysql_config:/etc/mysql/conf.d
+    healthcheck:
+      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
+  keycloak:
+    image: quay.io/keycloak/keycloak:18.0.2
+    container_name: keycloak
+    environment:
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KC_DB=mysql
+      - KC_DB_URL_HOST=mysql
+      - KC_DB_URL_DATABASE=keycloak
+      - KC_DB_USERNAME=keycloak
+      - KC_DB_PASSWORD=password
+    ports:
+      - "8080:8084"
+    command: start-dev
+    depends_on:
+      - jvmcc-mysql
+    healthcheck:
+      test: "curl -f http://localhost:8084/admin || exit 1"
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: openldap
+    environment:
+      - LDAP_ORGANISATION="MyCompany Inc."
+      - LDAP_DOMAIN=mycompany.com
+    ports:
+      - "389:389"
+volumes:
+  mysql_data:
+  mysql_config:
