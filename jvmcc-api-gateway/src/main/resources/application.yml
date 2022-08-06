@@ -1,0 +1,25 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: jvmcc-product-crawler
+          uri: lb://jvmcc-product-crawler
+          predicates:
+            - Path=/api/product**
+        - id: jvmcc-review-crud
+          uri: lb://jvmcc-review-crud
+          predicates:
+            - Path=/api/review**
+    kubernetes:
+      enabled: false
+  application:
+    name: api-gateway
+server:
+  port: 8080
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
