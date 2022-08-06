@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class Review {
+public class Review extends BaseEntity {
 
     @Column(name = "product_id", nullable = false)
     private String productId;

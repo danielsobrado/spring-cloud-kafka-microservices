@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "LocalMySQL8",
+            "database": "jvmcc",
+            "username": "jvmcc",
+            "password": "jvmcc"
+        }
+    ]
+}

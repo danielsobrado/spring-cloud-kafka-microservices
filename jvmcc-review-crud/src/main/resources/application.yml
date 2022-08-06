@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/demo
-    username: demo
-    password: demo
+    url: jdbc:mysql://localhost:3306/jvmcc
+    username: jvmcc
+    password: jvmcc
     driverClassName: com.mysql.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
