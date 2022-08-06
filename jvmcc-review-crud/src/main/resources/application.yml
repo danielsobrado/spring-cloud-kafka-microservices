@@ -1,14 +1,12 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/jvmcc
+    url: jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
     username: jvmcc
     password: jvmcc
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL5Dialect
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
+    generate-ddl: false
   application:
     name: jvmcc-review-crud
   cloud:

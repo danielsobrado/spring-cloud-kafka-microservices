@@ -1,7 +1,7 @@
 CREATE DATABASE jvmcc;
 USE jvmcc;  
 CREATE USER 'jvmcc'@'%' IDENTIFIED BY 'jvmcc';
-GRANT ALL PRIVILEGES ON * . * TO 'jvmcc'@'%';
+GRANT ALL PRIVILEGES ON *.* TO 'jvmcc'@'%';
 FLUSH privileges;
 
 CREATE TABLE IF NOT EXISTS review (
