@@ -16,6 +16,12 @@ A single point of entry to the application is offered via API Gateway. It routes
 
 Each microservice registers with the service discovery server so that other microservices can find it.
 
+### Spring Cloud Config Server
+
+* HTTP resource-based API for external configuration (name-value pairs or equivalent YAML content)
+* Encrypt and decrypt property values (symmetric or asymmetric)
+* Embeddable easily in a Spring Boot application using @EnableConfigServer
+
 ## High Volume and Low Latency
 
 Use the OpenTelemetry API to measure Java performance
