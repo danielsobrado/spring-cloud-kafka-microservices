@@ -21,6 +21,6 @@ eureka:
       defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
 springfox:
   documentation:
-    enabled: false
+    enabled: true
 jwt:
   secret: jvmcc
