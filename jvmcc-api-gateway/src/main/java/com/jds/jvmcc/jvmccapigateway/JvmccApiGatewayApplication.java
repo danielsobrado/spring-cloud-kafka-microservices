@@ -9,6 +9,11 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * @author J. Daniel Sobrado
+ * @version 1.0
+ * @since 2022-08-05
+ */
 @SpringBootApplication
 @EnableDiscoveryClient
 public class JvmccApiGatewayApplication {
