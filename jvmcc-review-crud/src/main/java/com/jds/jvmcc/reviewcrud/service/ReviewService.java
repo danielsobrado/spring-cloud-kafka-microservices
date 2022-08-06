@@ -1,10 +1,9 @@
 package com.jds.jvmcc.reviewcrud.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import com.jds.jvmcc.reviewcrud.entity.Review;
 
@@ -14,23 +13,12 @@ import com.jds.jvmcc.reviewcrud.entity.Review;
  * @since 2022-08-05
  */
 @Service
-public class ReviewService {
+public interface ReviewService {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    Review save(Review review);
 
-    /**
-     * @return
-     */
-    public Review getReview(String productId) {
-        return restTemplate.getForObject("http://review-crud-service/reviews/" + productId, Review.class);
-    }
+	Review findByProductId(String productId);
 
-    /**
-     * @return
-     */
-    public List<Review> getReviewList() {
-        return (List<Review>)restTemplate.getForObject("http://review-crud-service/reviews", List.class);
-    }
+	List<Review> findAll();
 
 }

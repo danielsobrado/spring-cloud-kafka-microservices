@@ -17,21 +17,23 @@ import io.swagger.annotations.Api;
  * @version 1.0
  * @since 2022-08-05
  */
-@RestController
+@RestController("/reviews")
 @Api(tags = "Reviews")
 public class ReviewController implements ReviewAPI {
 
     @Autowired
     private ReviewService reviewService;
 
-    @GetMapping("/reviews/{productId}")
+    @Override
+    @GetMapping("/{productId}")
     public Review getReview(@PathVariable String productId) {
-        return reviewService.getReview(productId);
+        return reviewService.findByProductId(productId);
     }
 
     @Override
+    @GetMapping("/")
     public List<Review> getReviewList() {
-        return reviewService.getReviewList();
+        return reviewService.findAll();
     }
 
 }

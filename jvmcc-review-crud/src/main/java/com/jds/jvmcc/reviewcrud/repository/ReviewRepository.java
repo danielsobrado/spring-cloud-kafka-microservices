@@ -1,5 +1,7 @@
 package com.jds.jvmcc.reviewcrud.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +14,6 @@ import com.jds.jvmcc.reviewcrud.entity.Review;
  */
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, String> {
+
+    Optional<Review> findByProductId(String productId);
 }
