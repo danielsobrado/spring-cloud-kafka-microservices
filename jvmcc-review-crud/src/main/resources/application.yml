@@ -9,6 +9,9 @@ spring:
     generate-ddl: false
   application:
     name: jvmcc-review-crud
+  mvc:
+    pathmatch:
+          matching-strategy: ant_path_matcher
   cloud:
     kubernetes:
       enabled: false

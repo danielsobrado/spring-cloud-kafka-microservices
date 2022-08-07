@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.jds.jvmcc</groupId>
 	<artifactId>jvmcc-configuration-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>jvmcc-configuration-server</name>
 	<description>Spring Cloud Kafka Microservices Example</description>
 	<properties>

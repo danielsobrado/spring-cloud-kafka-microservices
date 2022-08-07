@@ -64,6 +64,9 @@ services:
       - mysql_config:/etc/mysql/conf.d
     healthcheck:
       test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
+      interval: 10s
+      timeout: 5s
+      retries: 5
   keycloak:
     image: quay.io/keycloak/keycloak:18.0.2
     container_name: keycloak
@@ -82,12 +85,15 @@ services:
       - jvmcc-mysql
     healthcheck:
       test: "curl -f http://localhost:8084/admin || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
   openldap:
     image: osixia/openldap:1.5.0
     container_name: openldap
     environment:
-      - LDAP_ORGANISATION="MyCompany Inc."
-      - LDAP_DOMAIN=mycompany.com
+      - LDAP_ORGANISATION="J. Daniel Sobrado"
+      - LDAP_DOMAIN=danielsobrado.com
     ports:
       - "389:389"
 volumes:

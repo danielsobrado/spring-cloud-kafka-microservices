@@ -1,23 +1,21 @@
-FROM eclipse-temurin:17-jdk-alpine as base
-
+FROM eclipse-temurin:17-jdk-alpine as development
 WORKDIR /app
-
-COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-RUN ./mvnw dependency:resolve
-COPY src ./src
+COPY .mvn/ .mvn
+COPY src/ src
+RUN ./mvnw install -DskipTests
 
-FROM base as development
-CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'"]
-FROM base as build
-RUN ./mvnw package
+FROM eclipse-temurin:17-jdk-alpine as build
+COPY --from=development /app/target/jvmcc-review-crud-*.jar /jvmcc-review-crud.jar
+RUN ls -la
+RUN java -Djarmode=layertools -jar jvmcc-review-crud.jar extract
 
-FROM eclipse-temurin:17-jre-jammy as production
-RUN addgroup demogroup; adduser  --ingroup demogroup --disabled-password demo
-USER demo
-EXPOSE 8082
-COPY --from=build /app/target/jvmcc-review-crud-*.jar /jvmcc-review-crud.jar
-CMD ["./mvnw", "spring-boot:run"]
+FROM eclipse-temurin:17-jdk-alpine as production
+COPY --from=build dependencies/ ./
+COPY --from=build snapshot-dependencies/ ./
+COPY --from=build spring-boot-loader/ ./
+COPY --from=build application/ ./
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
 # docker build -t dalamar/jvmcc-review-crud .
 # docker push dalamar/jvmcc-review-crud

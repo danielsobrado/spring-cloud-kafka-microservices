@@ -30,10 +30,7 @@ public class NoAuthSecurityConfig {
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-		// Disable CSRF
-		http.cors().and().csrf().disable()
-				// Permit all requests without authentication
-				.authorizeRequests().anyRequest().permitAll();
+		http.authorizeRequests().anyRequest().permitAll();
 
         return http.build();
     }

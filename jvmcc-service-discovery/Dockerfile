@@ -1,24 +1,22 @@
-FROM eclipse-temurin:17-jdk-alpine as base
-
+FROM eclipse-temurin:17-jdk-alpine as development
 WORKDIR /app
-
-COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-RUN ./mvnw dependency:resolve
-COPY src ./src
+COPY .mvn/ .mvn
+COPY src/ src
+RUN ./mvnw install -DskipTests
 
-FROM base as development
-CMD ["./mvnw", "spring-boot:run", "-Dspring-boot.run.profiles=mysql", "-Dspring-boot.run.jvmArguments='-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000'"]
-FROM base as build
-RUN ./mvnw package
+FROM eclipse-temurin:17-jdk-alpine as build
+COPY --from=development /app/target/jvmcc-service-discovery-*.jar /jvmcc-service-discovery.jar
+RUN ls -la
+RUN java -Djarmode=layertools -jar jvmcc-service-discovery.jar extract
 
-FROM eclipse-temurin:17-jre-jammy as production
-RUN addgroup demogroup; adduser  --ingroup demogroup --disabled-password demo
-USER demo
-EXPOSE 8761
-COPY --from=build /app/target/jvmcc-service-discovery-*.jar /jvmcc-service-discovery.jar
-CMD ["./mvnw", "spring-boot:run"]
+FROM eclipse-temurin:17-jdk-alpine as production
+COPY --from=build dependencies/ ./
+COPY --from=build snapshot-dependencies/ ./
+COPY --from=build spring-boot-loader/ ./
+COPY --from=build application/ ./
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
 # docker build -t dalamar/jvmcc-service-discovery .
 # docker push dalamar/jvmcc-service-discovery
-# docker run -d -p 8082:8082 --name="jvmcc-service-discovery" jvmcc-service-discovery
+# docker run -d -p 8761:8761 --name="jvmcc-service-discovery" jvmcc-service-discovery

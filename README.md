@@ -24,7 +24,9 @@ Each microservice registers with the service discovery server so that other micr
 
 ## High Volume and Low Latency
 
-Use the OpenTelemetry API to measure Java performance
+We can structure the program in terms of data flows and the propagation of change via them with the aid of reactive programming. This can therefore help us achieve more concurrency with improved resource utilization in a completely non-blocking environment.
+
+Use the OpenTelemetry API to measure Java performance.
 
 ## High Availability
 
@@ -74,6 +76,12 @@ Using JaCoco to generate a a code coverage report.
 Use the the [Snyk Extension for Docker Desktop](https://snyk.io/blog/docker-desktop-with-snyk-and-new-docker-vulnerability-cheat-sheet/) to inspect our Spring Boot application, this [extension](https://docs.snyk.io/ide-tools/visual-studio-code-extension-for-snyk-code) is also available for VS Code, Eclipse and IntelliJ.
 
 Use docker buildx command to help you build multi-architecture images, in this case we'll build linux/amd64.
+
+Spring Boot includes both Maven and Gradle support for buildpacks. For example, building with Maven, we would run the command:
+
+```bash
+./mvnw spring-boot:build-image
+```
 
 It is safer to run apps with user privileges because it helps to reduce hazards. Docker containers fall under the same category. Docker containers and the running apps inside of them have root access by default. Running Docker containers as non-root users is therefore recommended.
 
