@@ -10,28 +10,25 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jds.jvmcc.reviewcrud.entity.Review;
 import com.jds.jvmcc.reviewcrud.service.ReviewService;
 
-import io.swagger.annotations.Api;
-
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-05
  */
 @RestController("/reviews")
-@Api(tags = "Reviews")
 public class ReviewController implements ReviewAPI {
 
     @Autowired
     private ReviewService reviewService;
 
     @Override
-    @GetMapping("/{productId}")
+    @GetMapping("/reviews/{productId}")
     public Review getReview(@PathVariable String productId) {
         return reviewService.findByProductId(productId);
     }
 
     @Override
-    @GetMapping("/")
+    @GetMapping("/list")
     public List<Review> getReviewList() {
         return reviewService.findAll();
     }

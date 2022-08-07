@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -39,7 +39,7 @@ public class BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idgen")
-    @ApiModelProperty(hidden = true)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
     @Column(
@@ -48,7 +48,7 @@ public class BaseEntity implements Serializable {
         updatable = false
     )
     @CreatedDate
-    @ApiModelProperty(hidden = true)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Date createDate;
 
     @Column(
@@ -56,7 +56,7 @@ public class BaseEntity implements Serializable {
         nullable = true
     )
     @LastModifiedDate
-    @ApiModelProperty(hidden = true)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Date updateDate;
 
     @PrePersist

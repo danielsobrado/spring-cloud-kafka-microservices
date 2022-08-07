@@ -1,9 +1,20 @@
-springfox:
-  documentation:
-    enabled: false
+server:
+  port: 8092
+  forward-headers-strategy: framework
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+springdoc:
+  swagger-ui:
+    use-root-path: true
 jwt:
   secret: jvmcc
 logging:
+  pattern: 
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
   level:
     root: info
     org:
