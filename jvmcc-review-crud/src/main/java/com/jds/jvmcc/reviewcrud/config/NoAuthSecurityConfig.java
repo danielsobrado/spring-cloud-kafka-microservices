@@ -30,8 +30,11 @@ public class NoAuthSecurityConfig {
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // Disable CSRF
+        // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
+		return http.csrf()
         // Permit all requests
-        return http.authorizeRequests().anyRequest().permitAll().and().build();
+        .disable().authorizeRequests().anyRequest().permitAll().and().build();
     }
 
     @Bean
