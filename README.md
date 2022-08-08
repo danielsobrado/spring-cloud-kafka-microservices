@@ -39,14 +39,21 @@ Use the OpenTelemetry API to measure Java performance.
 
 ## Cache
 
-In this case we are going to treat the Database as a scarce resource that needs to be used economically.
+The products could be cached in the database if the goal is to decrease the number of calls to external APIs.
 
-We should consider the following :
+In this scenario, we'll approach the database as a limited resource that demands wise utilization.
 
-* The expected number of writes/updates vs. number of reads.
-* What is more important: fast writes or fast reads.
-* Whether extra disk space is available and how "cheap" it is.
-* Whether the summary has to be always up to date, or it can be delayed.
+We need to think about the following:
+
+* The anticipated ratio of writes/updates to readers.
+* Which is more crucial: quick writes or quick reads.
+* The amount of "cheap" extra disk space that is offered.
+* Whether the summary has to be updated immediately or if it can wait.
+
+We'll examine a few possibilities, including:
+
+* Log all reviews in the database.
+* Only keep the total amount of reviews for each product in the database.
 
 ## Database
 
