@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jds.jvmcc</groupId>
-	<artifactId>jvmcc-product-crawler</artifactId>
+	<artifactId>jvmcc-product-service</artifactId>
 	<version>1.0</version>
-	<name>jvmcc-product-crawler</name>
+	<name>jvmcc-product-service</name>
 	<description>Spring Cloud Microservices Example</description>
 	<properties>
 		<java.version>17</java.version>
@@ -52,6 +52,11 @@
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>1.6.9</version>
 		 </dependency>
+		 <dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

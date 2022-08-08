@@ -6,9 +6,9 @@ COPY src/ src
 RUN ./mvnw install -DskipTests
 
 FROM eclipse-temurin:17-jdk-alpine as build
-COPY --from=development /app/target/jvmcc-product-crawler-*.jar /jvmcc-product-crawler.jar
+COPY --from=development /app/target/jvmcc-product-service-*.jar /jvmcc-product-service.jar
 RUN ls -la
-RUN java -Djarmode=layertools -jar jvmcc-product-crawler.jar extract
+RUN java -Djarmode=layertools -jar jvmcc-product-service.jar extract
 
 FROM eclipse-temurin:17-jdk-alpine as production
 COPY --from=build dependencies/ ./
@@ -17,6 +17,6 @@ COPY --from=build spring-boot-loader/ ./
 COPY --from=build application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
-# docker build -t dalamar/jvmcc-product-crawler .
-# docker push dalamar/jvmcc-product-crawler
-# docker run -d -p 8081:8081 --name="jvmcc-product-crawler" jvmcc-product-crawler
+# docker build -t dalamar/jvmcc-product-service .
+# docker push dalamar/jvmcc-product-service
+# docker run -d -p 8081:8081 --name="jvmcc-product-service" jvmcc-product-service

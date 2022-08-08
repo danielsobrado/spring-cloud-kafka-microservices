@@ -39,6 +39,15 @@ Use the OpenTelemetry API to measure Java performance.
 
 ## Cache
 
+In this case we are going to treat the Database as a scarce resource that needs to be used economically.
+
+We should consider the following :
+
+* The expected number of writes/updates vs. number of reads.
+* What is more important: fast writes or fast reads.
+* Whether extra disk space is available and how "cheap" it is.
+* Whether the summary has to be always up to date, or it can be delayed.
+
 ## Database
 
 Based on how this data will be used, a SQL or NoSQL database will be selected. Consistency is crucial, therefore we'll favor a SQL database and ACID compliance for complex queries and transactions.

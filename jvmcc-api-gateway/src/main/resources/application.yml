@@ -5,8 +5,8 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: jvmcc-product-crawler
-          uri: lb://jvmcc-product-crawler
+        - id: jvmcc-product-service
+          uri: lb://jvmcc-product-service
           predicates:
             - Path=/api/product**
         - id: jvmcc-review-crud

@@ -16,9 +16,9 @@ services:
       - jvmcc-service-discovery
     links:
       - jvmcc-service-discovery
-  jvmcc-product-crawler:
-    container_name: jvmcc-product-crawler
-    image: dalamar/jvmcc-product-crawler:latest
+  jvmcc-product-service:
+    container_name: jvmcc-product-service
+    image: dalamar/jvmcc-product-service:latest
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/

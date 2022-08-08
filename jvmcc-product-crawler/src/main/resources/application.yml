@@ -12,6 +12,8 @@ springdoc:
     use-root-path: true
 jwt:
   secret: jvmcc
+product:
+    url: https://www.adidas.co.uk/api/products/
 logging:
   pattern: 
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

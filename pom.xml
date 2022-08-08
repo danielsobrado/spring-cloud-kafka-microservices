@@ -14,7 +14,7 @@
 	<modules>
 		<module>jvmcc-configuration-server</module>
 		<module>jvmcc-service-discovery</module>
-		<module>jvmcc-product-crawler</module>
+		<module>jvmcc-product-service</module>
 		<module>jvmcc-review-crud</module>
 		<module>jvmcc-api-gateway</module>
 	</modules>
