@@ -1,7 +1,6 @@
 package com.jds.jvmcc.reviewcrud.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,10 +14,14 @@ import com.jds.jvmcc.reviewcrud.entity.Review;
 @Service
 public interface ReviewService {
 
-    Review save(Review review);
-
 	Review findByProductId(String productId);
-
+	Review findById(Long id);
 	List<Review> findAll();
-
+	List<Review> findAllByProductId(String productId);
+    Review save(Review review);
+	Review update(Review review);
+	void delete(Long id);
+	void deleteAllForProduct(String productId);
+	boolean exists(Long id);
+	Integer countByProductId(String productId);
 }

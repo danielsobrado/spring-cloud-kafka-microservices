@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: spring-web-flux-consumer
+
+# Configured wiremock server to run using port 9999.
+product:
+  service:
+    url: http://localhost:9999
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          reactive:
+            function:
+              client: debug

@@ -1,5 +1,6 @@
 package com.jds.jvmcc.reviewcrud.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,10 @@ import com.jds.jvmcc.reviewcrud.entity.Review;
 public interface ReviewRepository extends JpaRepository<Review, String> {
 
     Optional<Review> findByProductId(String productId);
+    Optional<List<Review>> findAllByProductId(String productId);
+    void deleteById(Long id);
+    void deleteAllByProductId(String productId);
+    boolean existsById(Long id);
+    Integer countByProductId(String productId);
+    Optional<Review> findById(Long id);
 }

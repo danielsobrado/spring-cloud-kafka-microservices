@@ -5,12 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
+import org.hibernate.annotations.Type;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,6 +32,7 @@ import lombok.NoArgsConstructor;
 })
 @SequenceGenerator(initialValue = 1, name = "idgen", sequenceName = "review_seq")
 @EqualsAndHashCode(callSuper=false)
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,12 +43,15 @@ public class Review extends BaseEntity {
     @Schema(example = "M20324", required = true)
     private String productId;
 
-    @Column(name = "average_review_score", nullable = false)
-    @Schema(example = "1.1", required = true)
-    private Float averageReviewScore;
+    @Column(name = "review_score", nullable = false, columnDefinition = "SMALLINT")
+    @Type(type = "org.hibernate.type.ShortType")
+    @Schema(example = "1", required = true)
+    // Validate that the number that is 1 to 5
+    @Min(1) @Max(5)
+    private Short reviewScore;
 
-    @Column(name = "number_reviews", nullable = false)
-    @Schema(example = "12", required = true)
-    private Integer numberReviews;
+    @Column(name = "comment", nullable = false)
+    @Schema(example = "This is my review", required = false)
+    private String comment;
 
 }

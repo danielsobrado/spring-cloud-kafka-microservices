@@ -25,4 +25,16 @@ public interface ReviewAPI {
 	@Operation(summary = "Get Review", description = "Get review by product ID")
 	public Review getReview(String productId);
 
+	@Operation(summary = "Create Review", description = "Create a new review for a product")
+	public Review createReview(String productId, Review review);
+
+	@Operation(summary = "Update Review", description = "Update an existing review for a product")
+	public Review updateReview(String productId, Review review);
+
+	@Operation(summary = "Delete Review", description = "Delete an existing review for a product")
+	public void deleteReview(String productId, Long id);
+
+	@Operation(summary = "Delete All Reviews", description = "Delete all reviews for a product")
+	public void deleteReview(String productId);
+
 }

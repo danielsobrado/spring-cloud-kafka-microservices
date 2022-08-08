@@ -1,4 +1,4 @@
-package com.jds.jvmcc.productcrawler.entity;
+package com.jds.jvmcc.productservice.entity;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
@@ -20,17 +20,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ProductReviewAgg {
+public class Review {
 
     @Schema(example = "M20324", required = true)
     private String productId;
 
-    @Column(name = "average_review_score", nullable = false)
-    @Schema(example = "1.1", required = true)
-    private Float averageReviewScore;
+    @Schema(example = "1", required = true)
+    private Integer reviewScore;
 
-    @Column(name = "number_reviews", nullable = false)
-    @Schema(example = "12", required = true)
-    private Integer numberReviews;
+    @Schema(example = "1", required = true)
+    private String reviewComment;
 
 }

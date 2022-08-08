@@ -1,4 +1,4 @@
-package com.jds.jvmcc.productcrawler;
+package com.jds.jvmcc.productservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

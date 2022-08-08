@@ -26,6 +26,8 @@ Each microservice registers with the service discovery server so that other micr
 
 We can structure the program in terms of data flows and the propagation of change via them with the aid of reactive programming. This can therefore help us achieve more concurrency with improved resource utilization in a completely non-blocking environment.
 
+Instead of using the blocking sychronous RestTemplate client, we'll use the asynchoronous WebClient API that was added in Spring 5 to obtain JSON data from the URL.
+
 Use the OpenTelemetry API to measure Java performance.
 
 ## High Availability
@@ -36,6 +38,9 @@ Use the OpenTelemetry API to measure Java performance.
 
 * Fix security vulnerabilities in our Java image.
 * Run as non-root user for security purposes.
+* Escape HTML characters in the input of the REST API by using org.apache.commons.commons-text [StringEscapeUtils] (<https://commons.apache.org/proper/commons-text/apidocs/org/apache/commons/text/StringEscapeUtils.html>)
+* Escape of SQL is managed by JPA.
+* Recommended to review the [ESAPI](<https://github.com/ESAPI/esapi-java-legacy>) project by OWASP.
 
 ## Cache
 
