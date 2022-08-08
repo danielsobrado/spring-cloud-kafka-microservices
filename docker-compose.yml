@@ -32,9 +32,9 @@ services:
       - openldap
     links:
       - jvmcc-service-discovery
-  jvmcc-review-crud:
-      container_name: jvmcc-review-crud
-      image: dalamar/jvmcc-review-crud:latest
+  jvmcc-review-service:
+      container_name: jvmcc-review-service
+      image: dalamar/jvmcc-review-service:latest
       environment:
         - SPRING_PROFILES_ACTIVE=docker
         - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/

@@ -11,7 +11,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5Dialect
     generate-ddl: false
   application:
-    name: jvmcc-review-crud
+    name: jvmcc-review-service
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER

@@ -9,8 +9,8 @@ spring:
           uri: lb://jvmcc-product-service
           predicates:
             - Path=/api/product**
-        - id: jvmcc-review-crud
-          uri: lb://jvmcc-review-crud
+        - id: jvmcc-review-service
+          uri: lb://jvmcc-review-service
           predicates:
             - Path=/api/review**
     kubernetes:

@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jds.jvmcc</groupId>
-	<artifactId>jvmcc-review-crud</artifactId>
+	<artifactId>jvmcc-review-service</artifactId>
 	<version>1.0</version>
-	<name>jvmcc-review-crud</name>
+	<name>jvmcc-review-service</name>
 	<description>Spring Cloud Microservices Example</description>
 	<properties>
 		<java.version>17</java.version>
