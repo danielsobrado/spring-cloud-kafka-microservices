@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @since 2022-08-05
  */
 @SpringBootTest(classes = JvmccReviewServiceApplication.class)
-class JvmccReviewCrudApplicationTests {
+class JvmccReviewServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
