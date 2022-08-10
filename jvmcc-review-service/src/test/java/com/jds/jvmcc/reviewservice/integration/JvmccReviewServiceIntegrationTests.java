@@ -1,16 +1,23 @@
-package com.jds.jvmcc.reviewservice;
+package com.jds.jvmcc.reviewservice.integration;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.jds.jvmcc.reviewservice.JvmccReviewServiceApplication;
+import com.jds.jvmcc.reviewservice.entity.Review;
 
 /**
  * @author J. Daniel Sobrado
@@ -37,8 +44,19 @@ class JvmccReviewServiceIntegrationTests {
 
 	}
 
-	@Test
-	void contextLoads() {
-	}
+	@Autowired
+	protected TestRestTemplate testRestTemplate ;
+
+    @Test
+    @Sql({ "/initSQL.sql" })
+    public void testGetDepartmentById() {
+
+        ResponseEntity<Review> response = testRestTemplate.getForEntity( "/reviews/{productId}",Review.class,"M20324");
+        Review review =  response.getBody();
+
+        assertEquals((short)3,review.getReviewScore());
+        assertEquals("Test Comment", review.getComment());
+
+    }
 
 }
