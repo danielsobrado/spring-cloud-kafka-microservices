@@ -8,7 +8,7 @@ spring:
     password: jvmcc
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     generate-ddl: false
   application:
     name: jvmcc-review-service

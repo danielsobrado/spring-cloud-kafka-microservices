@@ -5,13 +5,22 @@ spring:
   main: 
       web-application-type: none
   datasource:
-    url: jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
+    url: jdbc:tc:mysql:8.0.28:////eis-db:3306/eis-db
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    driverClassName: com.mysql.jdbc.Driver
+    initialization-mode: always
     username: jvmcc
     password: jvmcc
-    driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5Dialect
-    generate-ddl: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    jpa.show-sql: true
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+  sql:
+    init:
+      mode: always 
   application:
     name: jvmcc-review-service
   mvc:

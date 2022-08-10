@@ -1,15 +1,17 @@
-package com.jds.jvmcc.reviewservice.repository;
+package com.jds.jvmcc.reviewservice.service;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.TestPropertySource;
 
-import com.jds.jvmcc.reviewservice.JvmccReviewServiceApplication;
 import com.jds.jvmcc.reviewservice.entity.Review;
-import com.jds.jvmcc.reviewservice.service.ReviewService;
+import com.jds.jvmcc.reviewservice.repository.ReviewRepository;
+import com.jds.jvmcc.reviewservice.service.impl.ReviewServiceImpl;
 
 /**
  * @author J. Daniel Sobrado
@@ -25,17 +27,18 @@ import com.jds.jvmcc.reviewservice.service.ReviewService;
 //             com.jds.jvmcc.reviewservice.service.ReviewService.class},
 //     webEnvironment = WebEnvironment.RANDOM_PORT
 // )
-@TestPropertySource(properties ={"spring.config.location=classpath:application-test.yml"})
-@SpringBootTest(classes = JvmccReviewServiceApplication.class)
-public class ReviewRepositoryTests {
+// @TestPropertySource(properties ={"spring.config.location=classpath:application-test.yml"})
+// @SpringBootTest(classes = JvmccReviewServiceApplication.class)
+@ExtendWith(MockitoExtension.class)
+public class ReviewServiceTests {
 
     static final String PRODUCT_ID = "12345";
 
-    @Autowired
-    private ReviewService reviewService;
+    @InjectMocks
+    private ReviewServiceImpl reviewService;
 
-    // @Autowired
-    // private ReviewRepository reviewRepository;
+    @Mock
+    private ReviewRepository reviewRepository;
 
     // @Bean
     // ServletWebServerFactory servletWebServerFactory() {
@@ -46,9 +49,9 @@ public class ReviewRepositoryTests {
     //     reviewService.deleteAllByProductId(PRODUCT_ID);
     // }
 
-    // JUnit test for saveReview() method
+    @DisplayName("JUnit test for saveReview() method")
     @Test
-    // @Order(1)
+    @Order(1)
     // @Rollback(value = false)
     public void saveReviewTest(){
 
