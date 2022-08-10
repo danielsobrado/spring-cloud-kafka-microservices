@@ -5,7 +5,7 @@ spring:
   main: 
       web-application-type: none
   datasource:
-    url: jdbc:tc:mysql:8.0.28:////eis-db:3306/eis-db
+    url: jdbc:tc:mysql:8.0.28:////jvmcc-db:3306/jvmcc-db
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     driverClassName: com.mysql.jdbc.Driver
     initialization-mode: always
