@@ -27,7 +27,7 @@ public class ProductController {
     public ProductReviewAgg getProduct(@PathVariable("product_id") String productId) {
         log.info("Getting product {}", productId);
         // Load some user data asynchronously, e.g. from a DB:
-        Mono<BaseUserInfo> userInfo = getBaseUserInfo(id);
+/*         Mono<BaseUserInfo> userInfo = getBaseUserInfo(id);
 
         // Load user data with WebClient from a separate API:
         Mono<ReviewSubscription> productSubscription = client.get()
@@ -43,8 +43,9 @@ public class ProductController {
 
         // The resulting mono of combined data can be returned immediately,
         // without waiting or blocking, and WebFlux will handle sending
-        // the response later, once all the data is ready:
-        return product;
+        // the response later, once all the data is ready: */
+        // return product;
+        return new ProductReviewAgg();
 
     }
 }
