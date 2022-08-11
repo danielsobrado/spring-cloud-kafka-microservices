@@ -10,7 +10,7 @@ Reactive and non-reactive strategies are two ways we might approach this use cas
 
 We'll use REST APIs to interface between the services in a non-reactive manner, and we'll store the data in a MySQL database.
 
-From a reactive standpoint, we could combine Spring WebFlux with Cloud Streaming using a Kafka Middleware, and a MongoDB Database with ready-to-use reactive drivers for Spring Boot to store the data.
+From a reactive standpoint, we could combine Spring WebFlux with Cloud Streaming using a Kafka Middleware, and a MongoDB Database with ready-to-use reactive drivers for Spring Boot to store the data.
 
 ### API Gateway
 
@@ -21,6 +21,10 @@ A single point of entry to the application is offered via API Gateway. It routes
 Each microservice registers with the service discovery server so that other microservices can find it.
 
 ### Spring Cloud Config Server
+
+Spring's client/server approach for storing and serving distributed configurations across many apps and contexts is known as Spring Cloud Config.
+
+This configuration store can be changed during program runtime and is ideally versioned under Git version control.
 
 * HTTP resource-based API for external configuration (name-value pairs or equivalent YAML content)
 * Encrypt and decrypt property values (symmetric or asymmetric)
@@ -36,6 +40,10 @@ Use the OpenTelemetry API to measure Java performance.
 
 ## High Availability
 
+Modularity, redundancy, and monitoring are the foundations of availability; if one service fails, another must be prepared to take over.
+The degree of decoupling we can achieve depends on how modular the services are; they should be autonomous, replaceable, and have a clear API.
+
+Understanding when a service is not responding and another service needs to take over requires monitoring.
 ## Resilience
 
 Due to the interdependence of the microservices, we must use a circuit breaker approach to ensure that, in the event of an outage or a cluttered service, we may restart without losing any data.
@@ -98,7 +106,11 @@ For the purpose of this example, we will create a demo database and some initial
 
 ## Testing
 
-Using JaCoco to generate a a code coverage report.
+To prevent large loads of Spring Boot contexts and calls to external APIs during unit testing, we can simply mock the repositories and external REST endpoints.
+
+We have two options for integration testing: either assume that the infrastructure is ready (DB, Middleware...) and create additional schemas for testing during the test cases, or utilize TestContainers to deploy new containers while testing (Assuming that docker is available).
+
+Using JaCoco to generate a code coverage report.
 
 ## Build and Deployment
 
