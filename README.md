@@ -26,6 +26,21 @@ Using a Microservices-based design has some disadvantages:
 
 A single point of entry to the application is offered via API Gateway. It routes the incoming request to the proper microservices. The user can't tell that they are being redirected. Consequently, the user is able to access the program using the same url.
 
+We'll follow the following steps:
+
+* Start Eureka server(s)
+* Start Review servise(s)
+* Start Product service(s)
+* Start App Gateway
+  
+  ```bash
+    java -Dapp_port=443 -jar .\target\jvmcc-api-gateway-1.0.jar
+  ```
+
+Securing a Spring Cloud Gateway application acting as a resource server is no different from a regular resource service.
+
+Note: [SSLScan](https://github.com/rbsec/sslscan) can be used to verify the ciphers that are allowed.
+
 ### Service discovery Server
 
 Each microservice registers with the service discovery server so that other microservices can find it.
@@ -118,6 +133,14 @@ And see in your browser:
 
 Note: When testing in a local machine you might need to configure the ```\etc\hosts``` to find host names in your machine. ( ```C:\Windows\System32\drivers\etc\hosts``` for windows.)
 
+### API Gateway High Availability
+
+We simply need to establish several services and register them with the Service Discovery server to form a cluster in order to achieve High Availability in the Application Gateway.
+
+![API Gateway High Availability](documentation/APIGateway-HA.JPG?raw=true "API Gateway High Availability")
+
+Since API Gateway is stateless and requires a load balancer in front, such as NginX, it cannot be used for external access.
+
 ## Resilience
 
 Due to the interdependence of the microservices, we must use a circuit breaker approach to ensure that, in the event of an outage or a cluttered service, we may restart without losing any data.
@@ -149,6 +172,33 @@ Authentication & Authorization:
 Communication:
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
+
+You can create a key with:
+
+```bash
+keytool -genkeypair -alias jvmcc -keystore \src\main\resources\jvmcc-keystore.p12 -keypass jvmcc-secret -storeType PKCS12 -storepass jvmcc-secret -keyalg RSA -keysize 2048 -validity 365 -dname "C=MA, ST=ST, L=L, O=jvmcc, OU=jvmcc, CN=localhost" -ext "SAN=dns:localhost"
+```
+
+This can be configured at the API Gateway level with:
+
+```yml
+server:
+  ssl:
+    enabled: true
+    key-alias: jvmcc
+    key-store-password: jvmcc-secret
+    key-store: classpath:jvmcc-keystore.p12
+    key-store-type: PKCS12
+```
+
+**Note**: This will trigger a warning in the browser as the certificate is not signed from a recognized authority, you can upload the certificate locally to avoid this warning.
+
+Depending on the desired level of security, the security can be applied at the microservice level, requiring LDAP and mTLS for each inter-service communication, or it can be delegated to the API Gateway to prevent any unencrypted data flow in the network.
+
+Other advanced security meassures:
+
+* Database activity monitoring (DAM) for privileged use and application access.
+* File integrity monitoring (FIM) to avoid file and configuration tampering.
 
 ## Cache
 
@@ -239,6 +289,10 @@ The Eclipse Temurin project offers procedures and code to facilitate the product
 A Docker build can use a single base image for compilation, packaging, and unit testing when using multi-stage builds.
 
 The application runtime is stored in a different image. The finished image is safer and smaller as a result.
+
+## TODO
+
+* Distributed Tracing [ZipKin](https://github.com/openzipkin/zipkin)
 
 ## Notes
 

@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: api-gateway
   cloud:
     gateway:
       discovery:
@@ -8,18 +10,32 @@ spring:
         - id: jvmcc-product-service
           uri: lb://jvmcc-product-service
           predicates:
-            - Path=/api/product**
+            - Path=/product**
         - id: jvmcc-review-service
           uri: lb://jvmcc-review-service
           predicates:
-            - Path=/api/review**
+            - Path=/review**
     kubernetes:
       enabled: false
-  application:
-    name: api-gateway
 server:
-  port: 8080
+  port: ${app_port}
+  ssl:
+    enabled: true
+    key-alias: jvmcc
+    key-store-password: jvmcc-secret
+    key-store: classpath:jvmcc-keystore.p12
+    key-store-type: PKCS12
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+    # defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
+      defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
+management:
+  endpoint:
+    gateway:
+      enabled: true
+      uri: /management/gateway
+  endpoints:
+    web:
+      exposure:
+        include: gateway
