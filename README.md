@@ -114,7 +114,7 @@ java -jar .\target\jvmcc-product-service-1.0.jar --server.port=8096
 
 And see in your browser:
 
-![Eureka High Availability](https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/documentation/Eureka-HA.JPG "Eureka High Availability")
+![Eureka High Availability](https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/documentation/Eureka-HA.JPG)
 
 Note: When testing in a local machine you might need to configure the ```\etc\hosts``` to find host names in your machine. ( ```C:\Windows\System32\drivers\etc\hosts``` for windows.)
 
