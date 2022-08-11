@@ -13,7 +13,11 @@ We'll use REST APIs to interface between the services in a non-reactive manner, 
 From a reactive standpoint, we could combine Spring WebFlux with Cloud Streaming using a Kafka Middleware, and a MongoDB Database with ready-to-use reactive drivers for Spring Boot to store the data.
 
 Using a Microservices-based design has some disadvantages:
-* Communication between services is difficult to manage and is complicated (temporary unavailability of the service, API contract maintenance, eventual consistency also can be tricky if not handled properly)
+
+* Communication between services is difficult to manage and is complicated:
+  * Temporary unavailability of the service
+  * API contract maintenance
+  * Eventual consistency
 * It can be quite difficult to debug.
 * Microservices are often highly expensive.
 * The very worst thing you can do is develop a distributed monolith if you don't know how microservices should be built.
@@ -50,6 +54,70 @@ Modularity, redundancy, and monitoring are the foundations of availability; if o
 The degree of decoupling we can achieve depends on how modular the services are; they should be autonomous, replaceable, and have a clear API.
 
 Understanding when a service is not responding and another service needs to take over requires monitoring.
+
+### Service Discovery High Availability (Eureka Server)
+
+We'll configure Eureka Server as a Cluster for High Availability.
+
+Configure multiple profiles for each server:
+
+```yml
+spring:
+  profiles: peer-1
+  application:
+    name: eureka-server-clustered
+server:
+  port: 9001  
+eureka:
+  instance:
+    hostname: jvmcc-eureka-1-server.com    
+  client:
+    registerWithEureka: true
+    fetchRegistry: true       
+    serviceUrl:
+      defaultZone: http://jvmcc-eureka-2-server.com:9002/eureka/,http://jvmcc-eureka-3-server.com:9003/eureka/
+ ```
+
+Configure Eureka Clients for High Availability:
+
+```yml
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-1-server.com:9002/eureka, http://jvmcc-eureka-1-server.com.com:9003/eureka
+```
+
+Test the Eureka server without High Availability:
+
+```bash
+java -jar -Dspring.profiles.active=default ./target/jvmcc-service-discovery-1.0.jar
+```
+
+Test the Eureka server with High Availability:
+
+```bash
+java -jar -Dspring.profiles.active=jvmcc-eureka-1 ./target/jvmcc-service-discovery-1.0.jar
+java -jar -Dspring.profiles.active=jvmcc-eureka-2 ./target/jvmcc-service-discovery-1.0.jar
+java -jar -Dspring.profiles.active=jvmcc-eureka-3 ./target/jvmcc-service-discovery-1.0.jar
+```
+
+You want to raise multiple instances of your micro-services on different ports and register them in Eureka, you could do:
+
+```bash
+java -jar .\target\jvmcc-review-service-1.0.jar --server.port=8091
+java -jar .\target\jvmcc-review-service-1.0.jar --server.port=8092
+java -jar .\target\jvmcc-product-service-1.0.jar --server.port=8094
+java -jar .\target\jvmcc-product-service-1.0.jar --server.port=8095
+java -jar .\target\jvmcc-product-service-1.0.jar --server.port=8096
+
+```
+
+And see in your browser:
+
+![Eureka High Availability](Eureka-HA.JPG "Eureka High Availability")
+
+Note: When testing in a local machine you might need to configure the ```\etc\hosts``` to find host names in your machine. ( ```C:\Windows\System32\drivers\etc\hosts``` for windows.)
+
 ## Resilience
 
 Due to the interdependence of the microservices, we must use a circuit breaker approach to ensure that, in the event of an outage or a cluttered service, we may restart without losing any data.
@@ -58,11 +126,29 @@ We'll use [Resilient4J](https://www.baeldung.com/spring-cloud-circuit-breaker) b
 
 ## Security
 
+Security can be applied multiple levels:
+
+* **OS Vulnerabilities**: Keep OS patched and so frwquent VA scans.
+* **Penetration testing for front-end**: Follow OWASP
+* **Dependency scan**: for the libraries used in the code/
+
+We are using the following security best practices:
+
 * Fix security vulnerabilities in our Java image.
 * Run as non-root user for security purposes.
 * Escape HTML characters in the input of the REST API by using org.apache.commons.commons-text [StringEscapeUtils] (<https://commons.apache.org/proper/commons-text/apidocs/org/apache/commons/text/StringEscapeUtils.html>)
 * Escape of SQL is managed by JPA.
 * Recommended to review the [ESAPI](<https://github.com/ESAPI/esapi-java-legacy>) project by OWASP.
+
+Authentication & Authorization:
+
+* Basic user/password authentication
+* JWT tokens / Oauth
+* LDAP Server
+
+Communication:
+
+* Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
 
 ## Cache
 

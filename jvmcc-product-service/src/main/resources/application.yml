@@ -1,16 +1,28 @@
 server:
   port: 8092
   forward-headers-strategy: framework
+spring:
+  application:
+    name: jvmcc-product-service
+security:
+  basicAuth:  
+    username: jvmcc
+    password: jvmcc
+jwt:
+  secret: jvmcc
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}
+      # defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
+      defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
   instance:
-    preferIpAddress: true
+    preferIpAddress: false
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
 springdoc:
   swagger-ui:
-    use-root-path: true
-jwt:
+    use-root-path: false
+  show-actuator: true
   secret: jvmcc
 product:
     url: https://www.adidas.co.uk/api/products/

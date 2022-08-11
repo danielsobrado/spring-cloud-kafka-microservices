@@ -19,7 +19,6 @@ import io.swagger.v3.oas.annotations.info.Info;
  * @version 1.0
  * @since 2022-08-05
  */
-@Profile(Profiles.NO_AUTH)
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableJpaRepositories(basePackages = "com.jds.jvmcc.reviewservice.repository")

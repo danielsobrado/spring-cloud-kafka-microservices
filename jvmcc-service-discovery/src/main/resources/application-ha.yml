@@ -1,5 +1,5 @@
 ---
-# To operate a single instance in standalone mode, this default profile is used:
+# This default profile is used when running a single instance completely standalone:
 spring:
   profiles: default
   application:
