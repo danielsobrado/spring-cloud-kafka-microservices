@@ -84,6 +84,14 @@ We'll examine a few possibilities, including:
 * Cache the product retrieval for a period of time, if we assume that it doesn't change very often.
 * If we suppose that the query of Products is more frequent than the insertion of Reviews, we could use a [Redis](https://www.baeldung.com/spring-boot-redis-cache) distributed cache to store aggregations.
 
+In order to approach our caching strategy, we must make the following assumptions:
+
+* Reviews are occasionally updated but frequently read.
+* We cache a product locally because it doesn't change frequently in the third-party API.
+* Requests to view product scores outnumber requests to add fresh reviews by a wide margin.
+
+This is something that can develop based on usage and data gathered in a real-world situation.
+
 ## Database
 
 Based on how this data will be used, a SQL or NoSQL database will be selected. Consistency is crucial, therefore we'll favor a SQL database and ACID compliance for complex queries and transactions.
