@@ -12,11 +12,12 @@
 	<artifactId>jvmcc</artifactId>
 
 	<modules>
-		<module>jvmcc-configuration-server</module>
+		<module>jvmcc-common-libs</module>
 		<module>jvmcc-service-discovery</module>
+		<module>jvmcc-api-gateway</module>
+		<module>jvmcc-configuration-server</module>
 		<module>jvmcc-product-service</module>
 		<module>jvmcc-review-service</module>
-		<module>jvmcc-api-gateway</module>
 	</modules>
 
 </project>

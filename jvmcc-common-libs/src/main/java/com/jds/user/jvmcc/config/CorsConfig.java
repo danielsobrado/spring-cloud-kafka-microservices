@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.config;
+package com.jds.jvmcc.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import org.springframework.web.filter.CorsFilter;
  */
 public class CorsConfig {
 
-    private String originPermitida = "*"; // TODO: Configure this value to permit only the domain that you have been assigned
+    private String originsPermited = "*"; // TODO: Configure this value to permit only the domain that you have been assigned
 
 	@Bean
 	public FilterRegistrationBean<CorsFilter> corsFilter() {
@@ -23,7 +23,7 @@ public class CorsConfig {
 
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.setAllowCredentials(true);
-		corsConfiguration.addAllowedOrigin(originPermitida);
+		corsConfiguration.addAllowedOrigin(originsPermited);
 		corsConfiguration.addAllowedHeader("Authorization");
 		corsConfiguration.addAllowedHeader("Content-Type");
 		corsConfiguration.addAllowedHeader("Accept");

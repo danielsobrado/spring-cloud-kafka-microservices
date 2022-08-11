@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.exception;
+package com.jds.jvmcc.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

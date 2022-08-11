@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.config;
+package com.jds.jvmcc.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.LdapShaPasswordEncoder;
 
-import com.jds.jvmcc.reviewservice.entity.Role;
+import com.jds.jvmcc.entity.Role;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.config;
+package com.jds.jvmcc.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

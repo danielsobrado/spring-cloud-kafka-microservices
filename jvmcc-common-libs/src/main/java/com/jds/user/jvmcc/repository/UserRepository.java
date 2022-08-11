@@ -1,9 +1,9 @@
-package com.jds.jvmcc.reviewservice.repository;
+package com.jds.jvmcc.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.jds.jvmcc.reviewservice.entity.UserEntity;
+import com.jds.jvmcc.entity.UserEntity;
 
 /**
  * @author J. Daniel Sobrado

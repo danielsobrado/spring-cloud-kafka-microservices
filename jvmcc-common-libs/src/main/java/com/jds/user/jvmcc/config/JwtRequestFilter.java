@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.config;
+package com.jds.jvmcc.config;
 
 import java.io.IOException;
 
@@ -15,8 +15,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.jds.jvmcc.reviewservice.service.impl.UserDetailsServiceImpl;
-import com.jds.jvmcc.reviewservice.util.JWTTokenUtil;
+import com.jds.jvmcc.service.impl.UserDetailsServiceImpl;
+import com.jds.jvmcc.util.JWTTokenUtil;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;

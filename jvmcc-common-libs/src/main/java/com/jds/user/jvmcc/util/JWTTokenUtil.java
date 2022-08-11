@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.util;
+package com.jds.jvmcc.util;
 
 import java.io.Serializable;
 import java.util.Date;

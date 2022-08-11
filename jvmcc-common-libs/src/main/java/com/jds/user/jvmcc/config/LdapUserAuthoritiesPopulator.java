@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.config;
+package com.jds.jvmcc.config;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.ldap.userdetails.LdapAuthoritiesPopulator;
 import org.springframework.stereotype.Component;
 
-import com.jds.jvmcc.reviewservice.entity.Role;
+import com.jds.jvmcc.entity.Role;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,5 @@
-package com.jds.jvmcc.reviewservice.util;
+package com.jds.jvmcc.util;
+
 import org.apache.commons.text.StringEscapeUtils;
 
 /**

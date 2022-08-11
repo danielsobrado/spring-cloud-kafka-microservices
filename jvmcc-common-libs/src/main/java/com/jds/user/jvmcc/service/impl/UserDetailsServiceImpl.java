@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.service.impl;
+package com.jds.jvmcc.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,9 +13,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jds.jvmcc.reviewservice.entity.Role;
-import com.jds.jvmcc.reviewservice.entity.UserEntity;
-import com.jds.jvmcc.reviewservice.repository.UserRepository;
+import com.jds.jvmcc.entity.Role;
+import com.jds.jvmcc.entity.UserEntity;
+import com.jds.jvmcc.repository.UserRepository;
 
 /**
  * @author J. Daniel Sobrado

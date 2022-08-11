@@ -18,10 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jds.jvmcc.exception.ResourceNotFoundException;
+import com.jds.jvmcc.util.SecurityUtil;
+
 import com.jds.jvmcc.reviewservice.entity.Review;
-import com.jds.jvmcc.reviewservice.exception.ResourceNotFoundException;
 import com.jds.jvmcc.reviewservice.service.ReviewService;
-import com.jds.jvmcc.reviewservice.util.SecurityUtil;
 
 import lombok.extern.slf4j.Slf4j;
 

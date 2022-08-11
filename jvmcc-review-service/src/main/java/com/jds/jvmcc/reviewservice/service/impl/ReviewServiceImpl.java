@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jds.jvmcc.exception.ResourceNotFoundException;
 import com.jds.jvmcc.reviewservice.entity.Review;
-import com.jds.jvmcc.reviewservice.exception.ResourceNotFoundException;
 import com.jds.jvmcc.reviewservice.repository.ReviewRepository;
 import com.jds.jvmcc.reviewservice.service.ReviewService;
 

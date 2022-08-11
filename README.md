@@ -69,6 +69,16 @@ We may still keep the services separate and share code among them based on versi
 
 Some util classes have developed on a different project that is [jvmcc-common-libs](), which we import in our services.
 
+By Adding our dependency to our microservices we resuse common code:
+
+```xml
+<dependency>
+    <groupId>com.jds.jvmcc</groupId>
+    <artifactId>jvmcc-common-libs</artifactId>
+    <version>1.0</version>
+</dependency>
+```
+
 ## High Availability
 
 Modularity, redundancy, and monitoring are the foundations of availability; if one service fails, another must be prepared to take over.
@@ -239,6 +249,12 @@ In order to approach our caching strategy, we must make the following assumption
 * Requests to view product scores outnumber requests to add fresh reviews by a wide margin.
 
 This is something that can develop based on usage and data gathered in a real-world situation.
+
+You might see a warning from Spring Cloud saying:
+
+*WARN Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.*
+
+Remember that while Caffeine can replace Ehcache as a high-performance, nearly ideal caching library for use with monoliths, it is unable to serve as a distributed cache like Ehcache or Redis.
 
 ## Database
 

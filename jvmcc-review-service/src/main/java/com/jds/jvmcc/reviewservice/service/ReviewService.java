@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jds.jvmcc.exception.ResourceNotFoundException;
 import com.jds.jvmcc.reviewservice.entity.Review;
-import com.jds.jvmcc.reviewservice.exception.ResourceNotFoundException;
 
 /**
  * @author J. Daniel Sobrado

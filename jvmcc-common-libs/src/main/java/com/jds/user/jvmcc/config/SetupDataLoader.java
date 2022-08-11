@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.config;
+package com.jds.jvmcc.config;
 
 import java.util.Set;
 
@@ -8,10 +8,10 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.jds.jvmcc.reviewservice.entity.Role;
-import com.jds.jvmcc.reviewservice.entity.UserEntity;
-import com.jds.jvmcc.reviewservice.repository.RoleRepository;
-import com.jds.jvmcc.reviewservice.repository.UserRepository;
+import com.jds.jvmcc.entity.Role;
+import com.jds.jvmcc.entity.UserEntity;
+import com.jds.jvmcc.repository.RoleRepository;
+import com.jds.jvmcc.repository.UserRepository;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.entity;
+package com.jds.jvmcc.entity;
 
 import java.util.Set;
 
