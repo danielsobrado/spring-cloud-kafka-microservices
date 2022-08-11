@@ -63,6 +63,12 @@ Instead of using the blocking sychronous RestTemplate client, we'll use the asyn
 
 Use the OpenTelemetry API to measure Java performance.
 
+## Reusability
+
+We may still keep the services separate and share code among them based on versions by using client libraries.
+
+Some util classes have developed on a different project that is [jvmcc-common-libs](), which we import in our services.
+
 ## High Availability
 
 Modularity, redundancy, and monitoring are the foundations of availability; if one service fails, another must be prepared to take over.
@@ -169,7 +175,13 @@ Authentication & Authorization:
 * JWT tokens / Oauth
 * LDAP Server
 
-Communication:
+## Identity Federation with LDAP
+
+By utilizing the identity federation principle, LDAP/AD enables users on one domain to access another domain without the need for additional authentication.
+
+A common identity federation system like LDAP can be used to centralize and delegate tasks like keeping track of user privileges, monitoring and auditing application access, submitting requests for access control, and revoking access from departing employees.
+
+## Network Communication
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
 
