@@ -12,6 +12,12 @@ We'll use REST APIs to interface between the services in a non-reactive manner, 
 
 From a reactive standpoint, we could combine Spring WebFlux with Cloud Streaming using a Kafka Middleware, and a MongoDB Database with ready-to-use reactive drivers for Spring Boot to store the data.
 
+Using a Microservices-based design has some disadvantages:
+* Communication between services is difficult to manage and is complicated (temporary unavailability of the service, API contract maintenance, eventual consistency also can be tricky if not handled properly)
+* It can be quite difficult to debug.
+* Microservices are often highly expensive.
+* The very worst thing you can do is develop a distributed monolith if you don't know how microservices should be built.
+
 ### API Gateway
 
 A single point of entry to the application is offered via API Gateway. It routes the incoming request to the proper microservices. The user can't tell that they are being redirected. Consequently, the user is able to access the program using the same url.
