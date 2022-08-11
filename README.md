@@ -185,13 +185,13 @@ Authentication & Authorization:
 * JWT tokens / Oauth
 * LDAP Server
 
-## Identity Federation with LDAP
+### Identity Federation with LDAP
 
 By utilizing the identity federation principle, LDAP/AD enables users on one domain to access another domain without the need for additional authentication.
 
 A common identity federation system like LDAP can be used to centralize and delegate tasks like keeping track of user privileges, monitoring and auditing application access, submitting requests for access control, and revoking access from departing employees.
 
-## Network Communication
+### Network Communication
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
 
