@@ -178,6 +178,7 @@ We are using the following security best practices:
 * Escape HTML characters in the input of the REST API by using org.apache.commons.commons-text [StringEscapeUtils] (<https://commons.apache.org/proper/commons-text/apidocs/org/apache/commons/text/StringEscapeUtils.html>)
 * Escape of SQL is managed by JPA.
 * Recommended to review the [ESAPI](<https://github.com/ESAPI/esapi-java-legacy>) project by OWASP.
+* Use encrypted password instead of plain text.
 
 Authentication & Authorization:
 
