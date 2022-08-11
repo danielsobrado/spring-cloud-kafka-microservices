@@ -4,13 +4,6 @@ server:
 spring:
   main: 
       web-application-type: none
-  datasource:
-    url: jdbc:tc:mysql:8.0.28:////jvmcc-db:3306/jvmcc_test_db
-    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-    driverClassName: com.mysql.jdbc.Driver
-    initialization-mode: always
-    username: jvmcc
-    password: jvmcc
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     generate-ddl: true

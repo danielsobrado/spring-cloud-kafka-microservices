@@ -27,9 +27,7 @@ import lombok.NoArgsConstructor;
  */
 @Schema(description = "Review")
 @Entity(name = "review")
-@Table(name = "review", uniqueConstraints = {
-        @UniqueConstraint(name = "product_id_unique", columnNames = "product_id"),
-})
+@Table(name = "review")
 @SequenceGenerator(initialValue = 1, name = "idgen", sequenceName = "review_seq")
 @EqualsAndHashCode(callSuper=false)
 @Builder

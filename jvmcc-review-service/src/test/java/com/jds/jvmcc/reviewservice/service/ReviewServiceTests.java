@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.jds.jvmcc.reviewservice.entity.Review;
 import com.jds.jvmcc.reviewservice.repository.ReviewRepository;
@@ -16,19 +17,9 @@ import com.jds.jvmcc.reviewservice.service.impl.ReviewServiceImpl;
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
- * @since 2022-08-09
+ * @since 2022-08-10
  */
-// @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-// @ActiveProfiles("test")
-// @SpringBootTest(
-//     classes = {JvmccReviewServiceApplication.class,
-//             com.jds.jvmcc.reviewservice.repository.ReviewRepositoryTests.class, 
-//             com.jds.jvmcc.reviewservice.repository.ReviewRepository.class,
-//             com.jds.jvmcc.reviewservice.service.ReviewService.class},
-//     webEnvironment = WebEnvironment.RANDOM_PORT
-// )
-// @TestPropertySource(properties ={"spring.config.location=classpath:application-test.yml"})
-// @SpringBootTest(classes = JvmccReviewServiceApplication.class)
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class ReviewServiceTests {
 
@@ -40,19 +31,8 @@ public class ReviewServiceTests {
     @Mock
     private ReviewRepository reviewRepository;
 
-    // @Bean
-    // ServletWebServerFactory servletWebServerFactory() {
-    //     return new TomcatServletWebServerFactory();
-    // }
-
-    // void setup(){
-    //     reviewService.deleteAllByProductId(PRODUCT_ID);
-    // }
-
     @DisplayName("JUnit test for saveReview() method")
     @Test
-    @Order(1)
-    // @Rollback(value = false)
     public void saveReviewTest(){
 
         Review review = Review.builder()
@@ -61,7 +41,7 @@ public class ReviewServiceTests {
                 .comment("This is a test comment")
                 .build();
 
-        // review = reviewService.save(review);
+        review = reviewService.save(review);
 
         //assertNotNull(review.getId());
         // assertTrue(review.getId() > 0);
