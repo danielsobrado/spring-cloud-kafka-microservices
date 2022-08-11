@@ -1,16 +1,20 @@
 # Spring Cloud Microservices Demo
 
-Example of a Microservices Deployment using Spring Cloud
+Example of a Microservices Deployment using Spring Cloud.We implement two microservices, one that collects product reviews from a third-party website and another that combines all the reviews related to a given product.
+
+The system's security, high reliability, ability to handle a large number of requests, and consideration of the database as a bottleneck that should be impacted as little as possible are its critical aspects.
 
 ## Microservices Architecture
+
+Reactive and non-reactive strategies are two ways we might approach this use case.
+
+We'll use REST APIs to interface between the services in a non-reactive manner, and we'll store the data in a MySQL database.
+
+From a reactive standpoint, we could combine Spring WebFlux with Cloud Streaming using a Kafka Middleware, and a MongoDB Database with ready-to-use reactive drivers for Spring Boot to store the data.
 
 ### API Gateway
 
 A single point of entry to the application is offered via API Gateway. It routes the incoming request to the proper microservices. The user can't tell that they are being redirected. Consequently, the user is able to access the program using the same url.
-
-#### Advantages
-
-#### Disadvantages
 
 ### Service discovery Server
 
@@ -33,6 +37,10 @@ Use the OpenTelemetry API to measure Java performance.
 ## High Availability
 
 ## Resilience
+
+Due to the interdependence of the microservices, we must use a circuit breaker approach to ensure that, in the event of an outage or a cluttered service, we may restart without losing any data.
+
+We'll use [Resilient4J](https://www.baeldung.com/spring-cloud-circuit-breaker) but other approaches can also be used, like Hystrix, Sentinel or Spring Retry.
 
 ## Security
 
@@ -59,6 +67,8 @@ We'll examine a few possibilities, including:
 
 * Log all reviews in the database.
 * Only keep the total amount of reviews for each product in the database.
+* Cache the product retrieval for a period of time, if we assume that it doesn't change very often.
+* If we suppose that the query of Products is more frequent than the insertion of Reviews, we could use a [Redis](https://www.baeldung.com/spring-boot-redis-cache) distributed cache to store aggregations.
 
 ## Database
 
