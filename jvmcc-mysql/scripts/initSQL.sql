@@ -1,6 +1,6 @@
-CREATE DATABASE jvmcc;
+CREATE DATABASE IF NOT EXISTS jvmcc;
 USE jvmcc;  
-CREATE USER 'jvmcc'@'%' IDENTIFIED BY 'jvmcc';
+CREATE USER IF NOT EXISTS 'jvmcc'@'%' IDENTIFIED BY 'jvmcc';
 GRANT ALL PRIVILEGES ON *.* TO 'jvmcc'@'%';
 FLUSH privileges;
 

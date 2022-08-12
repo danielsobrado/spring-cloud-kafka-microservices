@@ -3,7 +3,7 @@ FROM mysql/mysql-server:8.0
 ENV MYSQL_DATABASE=jvmcc \
     MYSQL_ROOT_PASSWORD=jvmcc
 
-ADD scripts/initSQL.sql /docker-entrypoint-initdb.d
+COPY ./scripts/initSQL.sql /
 
 EXPOSE 3306
 

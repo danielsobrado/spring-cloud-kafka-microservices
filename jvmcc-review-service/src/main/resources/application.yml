@@ -18,7 +18,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   config:
-    import: optional:configserver:http://root:root@localhost:8888
+    import: optional:configserver:http://root:root@localhost:8888/
 security:
   basicAuth:  
     username: jvmcc
@@ -28,8 +28,8 @@ jwt:
 eureka:
   client:
     serviceUrl:
-      # defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
-      defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
+      defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
+      # defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
   instance:
     preferIpAddress: false
     leaseRenewalIntervalInSeconds: 1
