@@ -303,6 +303,12 @@ MongoDB was chosen because it is a distributed database that is fast. For high a
 
 There are already integrated reactive drivers for Spring WebFlux and Spring Boot.
 
+```bash
+docker run -p 27017:27017 --name jvmcc-mongodb -d dalamar/jvmcc-mongodb
+ ```
+
+To view the data in the container you can download [Compass](https://www.mongodb.com/es/products/compass) and connect to the DB.
+
 ## Testing
 
 To prevent large loads of Spring Boot contexts and calls to external APIs during unit testing, we can simply mock the repositories and external REST endpoints.
