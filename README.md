@@ -22,6 +22,20 @@ Using a Microservices-based design has some disadvantages:
 * Microservices are often highly expensive.
 * The very worst thing you can do is develop a distributed monolith if you don't know how microservices should be built.
 
+To use reactive and non-reactive approaches in the deployment we can user Spring Profiles and Docker Compose Profiles.
+
+For a reactive solution use:
+
+```bash
+docker compose --profile reactive up
+```
+
+For a non-reactive solution use:
+
+```bash
+docker compose --profile non-reactive up
+```
+
 ### API Gateway
 
 A single point of entry to the application is offered via API Gateway. It routes the incoming request to the proper microservices. The user can't tell that they are being redirected. Consequently, the user is able to access the program using the same url.
@@ -282,6 +296,12 @@ docker exec -it mysql-server mysql -uroot -p
 ```
 
 For the purpose of this example, we will create a demo database and some initial data on an init SQL file that will be triggered on the Docker entrypoint file.
+
+## Use MongoDB
+
+MongoDB was chosen because it is a distributed database that is fast. For high availability, MongoDB automatically maintains replica sets,
+
+There are already integrated reactive drivers for Spring WebFlux and Spring Boot.
 
 ## Testing
 

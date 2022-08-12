@@ -1,0 +1,5 @@
+{"_id":{"$oid":"5b02eb23c8f996535a85686a"},"product_id":"M20324","review_score":"1","comment":"test comment 1"}
+{"_id":{"$oid":"5b02ef76c8f996535a85686b"},"product_id":"AC7836","review_score":"2","comment":"test comment 2"}
+{"_id":{"$oid":"5b02ef92c8f996535a85686c"},"product_id":"C77154","review_score":"3","comment":"test comment 3"}
+{"_id":{"$oid":"5b02efb1c8f996535a85686d"},"product_id":"BB5476","review_score":"4","comment":"test comment 4"}
+{"_id":{"$oid":"5b02efb1c8f996535a85686e"},"product_id":"B42000","review_score":"5","comment":"test comment 5"}

@@ -5,6 +5,7 @@ services:
     image: dalamar/jvmcc-service-discovery:latest
     ports:
       - "8761:8761"
+  # API Gateway container. This container is the only container exposed to the outside
   jvmcc-api-gateway:
     container_name: jvmcc-api-gateway
     image: dalamar/jvmcc-api-gateway:latest
@@ -20,8 +21,8 @@ services:
     container_name: jvmcc-product-service
     image: dalamar/jvmcc-product-service:latest
     environment:
-      - SPRING_PROFILES_ACTIVE=docker
-      - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/
+        JAVA_OPTS: "-Dspring.profiles.active=docker"
+        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
     ports:
       - "8081:8081"
     deploy:
@@ -36,8 +37,8 @@ services:
       container_name: jvmcc-review-service
       image: dalamar/jvmcc-review-service:latest
       environment:
-        - SPRING_PROFILES_ACTIVE=docker
-        - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/
+        JAVA_OPTS: "-Dspring.profiles.active=docker"
+        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
       ports:
         - "8082:8082"
       deploy:
@@ -51,14 +52,11 @@ services:
         - jvmcc-service-discovery
   jvmcc-mysql:
     image: dalamar/jvmcc-mysql
+    environment:
+        JAVA_OPTS: "-Dspring.profiles.active=docker"
+        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
     ports:
       - 3306:3306
-    environment:
-      - MYSQL_ROOT_PASSWORD=
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      - MYSQL_USER=demo
-      - MYSQL_PASSWORD=demo
-      - MYSQL_DATABASE=demo
     volumes:
       - mysql_data:/var/lib/mysql
       - mysql_config:/etc/mysql/conf.d
@@ -67,6 +65,17 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    profiles:
+      - non-reactive
+  jvmcc-mongodb:
+    container_name: mongodbreviews
+    build:
+      context: ./mongoData
+    image: adidas/mongodb:1.0.0
+    ports:
+      - 27017:27017
+    profiles:
+      - reactive
   keycloak:
     image: quay.io/keycloak/keycloak:18.0.2
     container_name: keycloak
@@ -93,7 +102,7 @@ services:
     container_name: openldap
     environment:
       - LDAP_ORGANISATION="J. Daniel Sobrado"
-      - LDAP_DOMAIN=danielsobrado.com
+      - LDAP_DOMAIN=jvmcc.com
     ports:
       - "389:389"
 volumes:
