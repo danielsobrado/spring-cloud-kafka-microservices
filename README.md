@@ -265,7 +265,7 @@ In order to approach our caching strategy, we must make the following assumption
 
 This is something that can develop based on usage and data gathered in a real-world situation.
 
-You might see a warning from Spring Cloud saying:
+The following warning could appear in Spring Cloud's logs:
 
 *WARN Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.*
 
