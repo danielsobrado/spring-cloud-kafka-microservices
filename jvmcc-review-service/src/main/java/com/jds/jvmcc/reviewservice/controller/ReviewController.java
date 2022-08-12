@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,7 +34,8 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Validated
-@RestController("/reviews")
+@RestController
+@RequestMapping("/review")
 public class ReviewController implements ReviewAPI {
 
     @Autowired
@@ -41,7 +43,7 @@ public class ReviewController implements ReviewAPI {
 
     @Override
     @GetMapping("/{productId}")
-    public ResponseEntity<Review> getReview(@PathVariable @Pattern(regexp = "[A-Z]{1,10}") String productId) {
+    public ResponseEntity<Review> getReview(@PathVariable @Pattern(regexp = "[A-Z0-9]{6}") String productId) {
         log.debug("Finding review for productId: {}", productId);
         return reviewService.findByProductId(productId)
             .map(ResponseEntity::ok)
@@ -75,8 +77,8 @@ public class ReviewController implements ReviewAPI {
     }
 
     @Override
-    @DeleteMapping("/{productId}")
-    public ResponseEntity<String> deleteProductReviews(@PathVariable @Pattern(regexp = "[A-Z]{1,10}") String productId) {
+    @DeleteMapping("/delete/{productId}")
+    public ResponseEntity<String> deleteProductReviews(@PathVariable @Pattern(regexp = "[A-Z0-9]{6}") String productId) {
         log.debug("Deleting review for productId: {}", productId);
         productId = SecurityUtil.cleanIt(productId);
         reviewService.deleteAllForProduct(productId);
@@ -84,18 +86,24 @@ public class ReviewController implements ReviewAPI {
     }
 
     @Override
-    @DeleteMapping("/{productId}/{id}")
-    public ResponseEntity<String> deleteReview(@PathVariable @Pattern(regexp = "[A-Z]{1,10}") String productId, @PathVariable Long id) {
+    @DeleteMapping("/delete/{productId}/{id}")
+    public ResponseEntity<String> deleteReview(@PathVariable @Pattern(regexp = "[A-Z0-9]{6}") String productId, @PathVariable Long id) {
         log.debug("Deleting review with id: {}", id);
         reviewService.delete(id);
         return new ResponseEntity<>("Review deleted successfully!.", HttpStatus.OK);
     }
 
     @Override
-    @GetMapping("/list")
+    @GetMapping("/")
     public List<Review> getReviewList() {
         log.debug("Finding all reviews");
         return reviewService.findAll();
     }
+
+    // @GetMapping("/hello")
+    // public String hello() {
+    //     log.debug("Hello");
+    //     return "Hello!";
+    // }
 
 }

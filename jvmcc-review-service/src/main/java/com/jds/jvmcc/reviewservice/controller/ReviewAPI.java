@@ -2,6 +2,9 @@ package com.jds.jvmcc.reviewservice.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
+
 import org.springframework.http.ResponseEntity;
 
 import com.jds.jvmcc.reviewservice.entity.Review;
@@ -25,18 +28,18 @@ public interface ReviewAPI {
 	public List<Review> getReviewList();
 
 	@Operation(summary = "Get Review", description = "Get review by product ID")
-	public ResponseEntity<Review> getReview(String productId);
+	public ResponseEntity<Review> getReview(@Pattern(regexp = "[A-Z0-9]{6}") String productId);
 
 	@Operation(summary = "Create Review", description = "Create a new review for a product")
-	public Review createReview(String productId, Review review);
+	public Review createReview(String productId, @Valid Review review);
 
 	@Operation(summary = "Update Review", description = "Update an existing review for a product")
-	public ResponseEntity<Review> updateReview(String productId, Review review);
+	public ResponseEntity<Review> updateReview(String productId, @Valid Review review);
 
 	@Operation(summary = "Delete All Reviews for a Product", description = "Delete all reviews for a product")
-	public ResponseEntity<String> deleteProductReviews(String productId);
+	public ResponseEntity<String> deleteProductReviews(@Pattern(regexp = "[A-Z0-9]{6}") String productId);
 
 	@Operation(summary = "Delete Review", description = "Delete an existing review for a product")
-	public ResponseEntity<String> deleteReview(String productId, Long id);
+	public ResponseEntity<String> deleteReview(@Pattern(regexp = "[A-Z0-9]{6}")  String productId, Long id);
 
 }

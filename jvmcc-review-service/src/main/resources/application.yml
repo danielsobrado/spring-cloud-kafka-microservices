@@ -3,9 +3,13 @@ server:
   forward-headers-strategy: framework
 spring:
   profiles:
-    active: dev
+    active: noauth
   application:
     name: jvmcc-review-service
+  security:
+    user:
+      name: jvmcc
+      password: jvmcc
   datasource:
     url: jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
     username: jvmcc
@@ -19,14 +23,11 @@ spring:
       matching-strategy: ANT_PATH_MATCHER
   config:
     import: optional:configserver:http://root:root@localhost:8888/
-security:
-  basicAuth:  
-    username: jvmcc
-    password: jvmcc
 jwt:
   secret: jvmcc
 eureka:
   client:
+    enabled: false
     serviceUrl:
       defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
       # defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
@@ -47,3 +48,6 @@ logging:
     root: info
     org:
       springframework: info
+    com:
+      jds:
+        jmvcc: info

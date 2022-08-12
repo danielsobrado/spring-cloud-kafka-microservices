@@ -13,16 +13,19 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-06
  */
+@Profile(Profiles.NO_AUTH)
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableConfigurationProperties
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-@Profile(Profiles.NO_AUTH)
 public class NoAuthSecurityConfig {
 
     @Bean
@@ -32,6 +35,7 @@ public class NoAuthSecurityConfig {
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        log.info("Configuring no auth security filter chain");
         // Disable CSRF
         // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
 		return http.csrf().disable()
@@ -41,7 +45,9 @@ public class NoAuthSecurityConfig {
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
+        log.info("Configuring CORS");
         return new WebMvcConfigurer() {
+            
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
