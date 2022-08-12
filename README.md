@@ -81,7 +81,7 @@ Use the OpenTelemetry API to measure Java performance.
 
 We may still keep the services separate and share code among them based on versions by using client libraries.
 
-Some util classes have developed on a different project that is [jvmcc-common-libs](), which we import in our services.
+Some util classes have developed on a different project that is [jvmcc-common-libs](https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/jvmcc-common-libs), which we import in our services.
 
 By Adding our dependency to our microservices we resuse common code:
 
@@ -92,6 +92,10 @@ By Adding our dependency to our microservices we resuse common code:
     <version>1.0</version>
 </dependency>
 ```
+
+By using Swagger/Open API we allow third parties to test our API and to [generate code automatically](https://www.baeldung.com/java-openapi-generator-server) for them.
+
+![Swagger/Open API](documentation/OpenAPI.JPG?raw=true "Swagger/Open API")
 
 ## High Availability
 
