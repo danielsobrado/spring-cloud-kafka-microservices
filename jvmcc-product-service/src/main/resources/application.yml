@@ -4,17 +4,23 @@ server:
 spring:
   application:
     name: jvmcc-product-service
-security:
-  basicAuth:  
+  security:
+    user:
+      name: jvmcc
+      password: jvmcc
+  datasource:
+    url: jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
     username: jvmcc
     password: jvmcc
+    driverClassName: com.mysql.cj.jdbc.Driver
 jwt:
   secret: jvmcc
 eureka:
   client:
+    enabled: false
     serviceUrl:
-      # defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
-      defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
+      defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
+      # defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
   instance:
     preferIpAddress: false
     leaseRenewalIntervalInSeconds: 1
@@ -33,3 +39,6 @@ logging:
     root: info
     org:
       springframework: info
+    com:
+      jds:
+        jmvcc: info

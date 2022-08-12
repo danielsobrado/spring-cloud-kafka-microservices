@@ -1,5 +1,6 @@
 package com.jds.jvmcc.productservice.controller;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/product")
 public class ProductController {
 
-    @GetMapping("/product/{product_id}")
+    @Value("${product.url:Hello default}")
+    private String message;
+
+    @GetMapping("/{product_id}")
     public ProductReviewAgg getProduct(@PathVariable("product_id") String productId) {
         log.info("Getting product {}", productId);
         // Load some user data asynchronously, e.g. from a DB:
@@ -43,5 +47,11 @@ public class ProductController {
         // return product;
         return new ProductReviewAgg();
 
+    }
+
+    @GetMapping("/url")
+    public String getUrl() {
+        log.info("Getting url ");
+        return message;
     }
 }

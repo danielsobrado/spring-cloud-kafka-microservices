@@ -1,1 +1,2 @@
-foo:bar
+product:
+    url: https://www.adidas.co.uk/api/products/
