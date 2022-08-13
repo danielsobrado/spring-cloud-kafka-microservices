@@ -1,0 +1,48 @@
+server:
+  port: 8092
+  forward-headers-strategy: framework
+spring:
+  application:
+    name: jvmcc-product-reactive-service
+  profiles:
+    active: development
+  security:
+    user:
+      name: jvmcc
+      password: jvmcc
+  datasource:
+    url: jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
+    username: jvmcc
+    password: jvmcc
+    driverClassName: com.mysql.cj.jdbc.Driver
+  config:
+    import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
+jwt:
+  secret: jvmcc
+eureka:
+  client:
+    enabled: false
+    serviceUrl:
+      defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
+      # defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
+  instance:
+    preferIpAddress: false
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+springdoc:
+  swagger-ui:
+    use-root-path: false
+  show-actuator: true
+  secret: jvmcc
+product:
+    url: https://www.adidas.co.uk/api/products/
+logging:
+  pattern: 
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  level:
+    root: info
+    org:
+      springframework: info
+    com:
+      jds:
+        jmvcc: info
