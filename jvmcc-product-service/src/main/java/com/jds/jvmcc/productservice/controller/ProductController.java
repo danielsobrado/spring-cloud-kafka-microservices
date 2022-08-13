@@ -20,8 +20,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/product")
 public class ProductController {
 
-    @Value("${product.url:Hello default}")
+    @Value("${product.url:Not found default}")
     private String message;
+
+    
+    @GetMapping("/url")
+    public String getUrl() {
+        log.info("Getting url from Configuration Server");
+        return message;
+    }
 
     @GetMapping("/{product_id}")
     public ProductReviewAgg getProduct(@PathVariable("product_id") String productId) {
@@ -49,9 +56,4 @@ public class ProductController {
 
     }
 
-    @GetMapping("/url")
-    public String getUrl() {
-        log.info("Getting url ");
-        return message;
-    }
 }

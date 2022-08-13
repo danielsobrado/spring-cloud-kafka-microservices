@@ -22,7 +22,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   config:
-    import: optional:configserver:http://root:root@localhost:8888/
+    import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
 jwt:
   secret: jvmcc
 eureka:

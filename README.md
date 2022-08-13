@@ -122,6 +122,18 @@ spring:
           clone-on-start: true
 ```
 
+By configuring our client to look for the Config Server on the applications.yml:
+
+```yml
+spring:
+  config:
+    import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
+```
+
+We can retrieve them:
+
+![Config Server Property](documentation/ConfigServerProperty.JPG?raw=true "Config Server Property")
+
 ## High Availability
 
 Modularity, redundancy, and monitoring are the foundations of availability; if one service fails, another must be prepared to take over.

@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: jvmcc-product-service
+  profiles:
+    active: development
   security:
     user:
       name: jvmcc
@@ -13,6 +15,8 @@ spring:
     username: jvmcc
     password: jvmcc
     driverClassName: com.mysql.cj.jdbc.Driver
+  config:
+    import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
 jwt:
   secret: jvmcc
 eureka:
