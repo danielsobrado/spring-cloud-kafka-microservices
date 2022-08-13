@@ -79,7 +79,11 @@ Use the OpenTelemetry API to measure Java performance.
 
 ## Reusability
 
-We may still keep the services separate and share code among them based on versions by using client libraries.
+Increase dependability, productivity, effectiveness, expedite development, and lower operational costs are the main advantages of reusable software.
+
+### Use Client Libraries
+
+We may still keep the services separate and share code among them based on versions by using **client libraries**.
 
 Some util classes have developed on a different project that is [jvmcc-common-libs](https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/jvmcc-common-libs), which we import in our services.
 
@@ -93,15 +97,19 @@ By Adding our dependency to our microservices we resuse common code:
 </dependency>
 ```
 
+### Document the APIs with Swagger/Open API
+
 By using Swagger/Open API we allow third parties to test our API and to [generate code automatically](https://www.baeldung.com/java-openapi-generator-server) for them.
 
 ![Swagger/Open API](documentation/OpenAPI.JPG?raw=true "Swagger/Open API")
 
-By using a Configuration Server, we can cetralize our properties and manage them from a git repository for all our micro-services:
+### Centralize the Configuration
+
+By using a [Configuration Server](https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/jvmcc-configuration-server), we can cetralize our properties and manage them from a git repository for all our micro-services:
 
 ![Config Server](documentation/ConfigServer.JPG?raw=true "Config Server")
 
-We'll configure our path for the properties:
+We'll configure our path for the [properties](https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/config-repo):
 
 ```yml
 spring:
