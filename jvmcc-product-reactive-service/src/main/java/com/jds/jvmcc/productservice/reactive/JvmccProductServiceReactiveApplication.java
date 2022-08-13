@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-13
+ * 
+ * Non-blocking reactive implementation for the product service.
  */
 // @EnableDiscoveryClient
 @SpringBootApplication

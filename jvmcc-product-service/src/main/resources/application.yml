@@ -17,6 +17,15 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   config:
     import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
 jwt:
   secret: jvmcc
 eureka:

@@ -43,7 +43,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		// Create users
 		createUserIfNotFound("user", userRole);
-		createUserIfNotFound("admin", adminRole);
+		createUserIfNotFound("jvmcc", adminRole);
 
 		alreadySetup = true;
 	}
@@ -62,7 +62,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 	private final UserEntity createUserIfNotFound(final String name, final Role role) {
 		UserEntity user = userRepository.findByUsername(name);
 		if (user == null) {
-			user = new UserEntity(name, "$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6");
+			user = new UserEntity(name, "jvmcc");
 			user.setRoles(Set.of(role));
 			user = userRepository.save(user);
 		}

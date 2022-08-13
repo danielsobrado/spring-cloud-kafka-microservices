@@ -1,6 +1,7 @@
 package com.jds.jvmcc.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
  * @version 1.0
  * @since 2022-08-05
  */
+@Profile(Profiles.MULTI_AUTH)
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {

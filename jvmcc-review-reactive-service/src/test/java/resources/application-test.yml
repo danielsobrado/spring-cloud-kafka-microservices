@@ -1,11 +1,9 @@
-spring:
-  application:
-    name: spring-web-flux-consumer
-
-# Configured wiremock server to run using port 9999.
-product:
-  service:
-    url: http://localhost:9999
+server:
+  port: 8091
+  forward-headers-strategy: framework
+eureka:
+  client:
+    enabled: false
 logging:
   pattern: 
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

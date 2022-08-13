@@ -1,4 +1,4 @@
-package com.jds.jvmcc.exception;
+package com.jds.jvmcc.productservice.reactive.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
- * @since 2022-08-06
+ * @since 2022-08-13
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
 public class ResourceNotFoundException extends RuntimeException {

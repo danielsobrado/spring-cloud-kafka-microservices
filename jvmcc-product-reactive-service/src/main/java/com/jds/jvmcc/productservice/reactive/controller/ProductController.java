@@ -23,15 +23,15 @@ public class ProductController {
     @Value("${product.url:Not found default}")
     private String message;
 
-    
-    @GetMapping("/url")
-    public String getUrl() {
-        log.info("Getting url from Configuration Server");
-        return message;
+    private final QuoteMongoReactiveRepository quoteMongoReactiveRepository;
+
+    public QuoteReactiveController(final QuoteMongoReactiveRepository quoteMongoReactiveRepository) {
+        this.quoteMongoReactiveRepository = quoteMongoReactiveRepository;
     }
 
+
     @GetMapping("/{product_id}")
-    public ProductReviewAgg getProduct(@PathVariable("product_id") String productId) {
+    public Mono<ProductReviewAgg> getProduct(@PathVariable("product_id") String productId) {
         log.info("Getting product {}", productId);
         // Load some user data asynchronously, e.g. from a DB:
 /*         Mono<BaseUserInfo> userInfo = getBaseUserInfo(id);

@@ -1,4 +1,4 @@
-package com.jds.jvmcc.productservice;
+package com.jds.jvmcc.productservice.client;
 
 // import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 // import static com.github.tomakehurst.wiremock.client.WireMock.post;
