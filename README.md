@@ -101,6 +101,19 @@ By using a Configuration Server, we can cetralize our properties and manage them
 
 ![Config Server](documentation/ConfigServer.JPG?raw=true "Config Server")
 
+We'll configure our path for the properties:
+
+```yml
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/danielsobrado/spring-cloud-kafka-microservices
+          searchPaths: 'config-repo'
+          clone-on-start: true
+```
+
 ## High Availability
 
 Modularity, redundancy, and monitoring are the foundations of availability; if one service fails, another must be prepared to take over.
