@@ -1,19 +1,23 @@
-info:
-  component: JVMCC Configuration Server
 server:
   port: 8888
-
 spring:
+  application:
+    name: jvmcc
+  profiles:
+    active: development
+  security:
+    user:
+      name: jvmcc
+      password: jvmcc
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/config-repo
+          uri: https://github.com/danielsobrado/spring-cloud-kafka-microservices
+          searchPaths: 'config-repo'
           clone-on-start: true
-  security:
-    user:
-      name: root
-      password: jvmcc
+info:
+  component: JVMCC Configuration Server
 encrypt:
   keyStore:
     location: classpath:jvmcc-keystore.p12
@@ -22,6 +26,12 @@ encrypt:
     secret: jvmcc-secret
     type: PKCS12
 logging:
-  levels:
-    org.springframework.boot.env.PropertySourcesLoader: TRACE
-    org.springframework.web: DEBUG
+  pattern: 
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  level:
+    root: info
+    org:
+      springframework: info
+    com:
+      jds:
+        jmvcc: info

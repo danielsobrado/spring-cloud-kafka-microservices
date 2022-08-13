@@ -97,6 +97,10 @@ By using Swagger/Open API we allow third parties to test our API and to [generat
 
 ![Swagger/Open API](documentation/OpenAPI.JPG?raw=true "Swagger/Open API")
 
+By using a Configuration Server, we can cetralize our properties and manage them from a git repository for all our micro-services:
+
+![Config Server](documentation/ConfigServer.JPG?raw=true "Config Server")
+
 ## High Availability
 
 Modularity, redundancy, and monitoring are the foundations of availability; if one service fails, another must be prepared to take over.
