@@ -21,8 +21,8 @@ services:
     container_name: jvmcc-product-service
     image: dalamar/jvmcc-product-service:latest
     environment:
-        JAVA_OPTS: "-Dspring.profiles.active=docker"
-        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
+        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
     ports:
       - "8081:8081"
     deploy:
@@ -39,8 +39,8 @@ services:
     container_name: jvmcc-product-reactive-service
     image: dalamar/jvmcc-product-reactive-service:latest
     environment:
-        JAVA_OPTS: "-Dspring.profiles.active=docker"
-        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
+        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
     ports:
       - "8081:8081"
     deploy:
@@ -57,8 +57,8 @@ services:
       container_name: jvmcc-review-service
       image: dalamar/jvmcc-review-service:latest
       environment:
-        JAVA_OPTS: "-Dspring.profiles.active=docker"
-        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
+        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
       ports:
         - "8082:8082"
       deploy:
@@ -76,8 +76,9 @@ services:
       container_name: jvmcc-review-reactive-service
       image: dalamar/jvmcc-review-reactive-service:latest
       environment:
-        JAVA_OPTS: "-Dspring.profiles.active=docker"
-        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
+        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
+        - SPRING_DATA_MONGODB_HOST=mongo
       ports:
         - "8082:8082"
       deploy:
@@ -94,13 +95,13 @@ services:
   jvmcc-mysql:
     image: dalamar/jvmcc-mysql
     environment:
-        JAVA_OPTS: "-Dspring.profiles.active=docker"
-        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
-        MYSQL_USER: jvmcc
-        MYSQL_PASSWORD: jvmcc
-        MYSQL_DATABASE: jvmcc
-        MYSQL_ROOT_PASSWORD: root
-        MYSQL_ROOT_HOST: '%'  
+        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
+        - MYSQL_USER=jvmcc
+        - MYSQL_PASSWORD=jvmcc
+        - MYSQL_DATABASE=jvmcc
+        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_ROOT_HOST='%'  
     ports:
       - 3306:3306
     volumes:

@@ -2,10 +2,7 @@ package com.jds.jvmcc.productservice.service.impl;
 
 import java.util.List;
 
-import org.springframework.web.reactive.function.client.WebClient;
-
 import com.jds.jvmcc.productservice.entity.Product;
-import com.jds.jvmcc.productservice.entity.Review;
 import com.jds.jvmcc.productservice.service.ProductConsumerService;
 
 import lombok.extern.slf4j.Slf4j;

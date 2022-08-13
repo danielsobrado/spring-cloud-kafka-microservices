@@ -25,7 +25,7 @@
 		<spring.cloud.config.label>master</spring.cloud.config.label>
 		<spring.cloud.config.name>jvmcc-product-service</spring.cloud.config.name>
 		<spring.cloud.config.profile>default</spring.cloud.config.profile>
-		<spring.cloud.config.uri>https://jvmcc-product-reactive-service</spring.cloud.config.uri>
+		<spring.cloud.config.uri>https://jvmcc-product-service</spring.cloud.config.uri>
 		<testcontainers.version>1.17.3</testcontainers.version>
 	</properties>
 	<dependencies>
@@ -45,11 +45,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
-
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
 			<version>${spring-cloud-starter-circuitbreaker-resilience4j.version}</version>
@@ -66,27 +61,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>io.jsonwebtoken</groupId>
-			<artifactId>jjwt</artifactId>
-			<version>${jjwt.version}</version>
-		</dependency>
-
-		<dependency>
-            <groupId>org.springframework.ldap</groupId>
-            <artifactId>spring-ldap-core</artifactId>
-		</dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-ldap</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.unboundid</groupId>
-            <artifactId>unboundid-ldapsdk</artifactId>
-        </dependency>
-
-		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>${springdoc-openapi-ui.version}</version>
@@ -95,12 +69,6 @@
 		 <dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>com.jds.jvmcc</groupId>
-			<artifactId>jvmcc-common-libs</artifactId>
-			<version>1.0</version>
 		</dependency>
 
 		<dependency>
@@ -121,11 +89,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<!-- <dependency>
 		    <groupId>org.springframework.cloud</groupId>
 		    <artifactId>spring-cloud-contract-wiremock</artifactId>		  
