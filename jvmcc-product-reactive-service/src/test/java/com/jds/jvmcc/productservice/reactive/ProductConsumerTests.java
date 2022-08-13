@@ -1,4 +1,4 @@
-package com.jds.jvmcc.productservice;
+package com.jds.jvmcc.productservice.reactive;
 
 // import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 // import static com.github.tomakehurst.wiremock.client.WireMock.post;
@@ -15,8 +15,8 @@ package com.jds.jvmcc.productservice;
 // import org.springframework.test.context.junit4.SpringRunner;
 // import org.springframework.web.reactive.function.client.WebClient;
 
-// import com.jds.jvmcc.productservice.service.ProductConsumerService;
-// import com.jds.jvmcc.productservice.util.JacksonUtils;
+// import com.jds.jvmcc.productservice.reactive.service.ProductConsumerService;
+// import com.jds.jvmcc.productservice.reactive.util.JacksonUtils;
 
 // import reactor.core.publisher.Mono;
 // import reactor.test.StepVerifier;
@@ -29,7 +29,7 @@ package com.jds.jvmcc.productservice;
 // /**
 //  * @author J. Daniel Sobrado
 //  * @version 1.0
-//  * @since 2022-08-08
+//  * @since 2022-08-13
 //  */
 // public class ProductConsumerTests {
 //     @Autowired

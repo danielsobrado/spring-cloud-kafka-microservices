@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.integration;
+package com.jds.jvmcc.reviewservice.reactive.integration;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -10,19 +10,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.jds.jvmcc.reviewservice.entity.Review;
-import com.jds.jvmcc.reviewservice.repository.ReviewRepository;
-import com.jds.jvmcc.reviewservice.service.impl.ReviewServiceImpl;
+import com.jds.jvmcc.reviewservice.reactive.entity.Review;
+import com.jds.jvmcc.reviewservice.reactive.repository.ReviewRepository;
+import com.jds.jvmcc.reviewservice.reactive.service.impl.ReviewServiceImpl;
 
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
- * @since 2022-08-10
+ * @since 2022-08-13
  */
 @ActiveProfiles("test")
-@SpringBootTest(classes = {com.jds.jvmcc.reviewservice.JvmccReviewServiceApplication.class, 
-	com.jds.jvmcc.reviewservice.service.impl.ReviewServiceImpl.class,
-	com.jds.jvmcc.reviewservice.repository.ReviewRepository.class})
+@SpringBootTest(classes = {com.jds.jvmcc.reviewservice.reactive.JvmccReviewServiceApplication.class, 
+	com.jds.jvmcc.reviewservice.reactive.service.impl.ReviewServiceImpl.class,
+	com.jds.jvmcc.reviewservice.reactive.repository.ReviewRepository.class})
 @EnableAutoConfiguration
 class JvmccReviewServiceMySQlIntegrationTests {
 

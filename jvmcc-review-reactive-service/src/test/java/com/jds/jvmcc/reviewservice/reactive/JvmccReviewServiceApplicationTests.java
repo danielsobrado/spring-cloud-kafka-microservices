@@ -1,4 +1,4 @@
-package com.jds.jvmcc.productservice.reactive;
+package com.jds.jvmcc.reviewservice.reactive;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -8,8 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @version 1.0
  * @since 2022-08-13
  */
-@SpringBootTest
-class JvmccProductServiceApplicationTests {
+@SpringBootTest(classes = JvmccReviewServiceApplication.class)
+class JvmccReviewServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
