@@ -121,6 +121,8 @@ services:
     image: adidas/mongodb:1.0.0
     ports:
       - 27017:27017
+    volumes:
+      - mongodata:/data/db
     profiles:
       - reactive
   keycloak:
@@ -155,3 +157,4 @@ services:
 volumes:
   mysql_data:
   mysql_config:
+  mongodata:
