@@ -33,6 +33,26 @@ services:
       - openldap
     links:
       - jvmcc-service-discovery
+    profiles:
+      - non-reactive
+  jvmcc-product-reactive-service:
+    container_name: jvmcc-product-reactive-service
+    image: dalamar/jvmcc-product-reactive-service:latest
+    environment:
+        JAVA_OPTS: "-Dspring.profiles.active=docker"
+        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
+    ports:
+      - "8081:8081"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-service-discovery
+      - openldap
+    links:
+      - jvmcc-service-discovery
+    profiles:
+      - reactive
   jvmcc-review-service:
       container_name: jvmcc-review-service
       image: dalamar/jvmcc-review-service:latest
@@ -50,6 +70,27 @@ services:
         - openldap
       links:
         - jvmcc-service-discovery
+      profiles:
+        - non-reactive
+  jvmcc-review-reactive-service:
+      container_name: jvmcc-review-reactive-service
+      image: dalamar/jvmcc-review-reactive-service:latest
+      environment:
+        JAVA_OPTS: "-Dspring.profiles.active=docker"
+        SPRING_CONFIG_URI: "http://jvmcc-config-server:9000"
+      ports:
+        - "8082:8082"
+      deploy:
+          restart_policy:
+                  condition: on-failure
+      depends_on:
+        - jvmcc-service-discovery
+        - jvmcc-mongodb
+        - openldap
+      links:
+        - jvmcc-service-discovery
+      profiles:
+        - reactive
   jvmcc-mysql:
     image: dalamar/jvmcc-mysql
     environment:
