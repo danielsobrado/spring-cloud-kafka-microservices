@@ -26,9 +26,9 @@ public class Review {
     private String productId;
 
     @Schema(example = "1", required = true)
-    private Integer reviewScore;
+    private Integer rating;
 
     @Schema(example = "1", required = true)
-    private String reviewComment;
+    private String comment;
 
 }

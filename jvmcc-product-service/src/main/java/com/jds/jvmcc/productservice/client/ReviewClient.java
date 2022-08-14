@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jds.jvmcc.productservice.config.LocalClientConfiguration;
 import com.jds.jvmcc.productservice.entity.Review;
@@ -25,5 +26,9 @@ public interface ReviewClient {
     @Headers("Content-Type: application/json")
     @GetMapping(value = "/review/")
     List<Review> getReviews();
+
+    @Headers("Content-Type: application/json")
+    @GetMapping(value = "/review/{productId}", produces = "application/json")
+    List<Review> getReviewsByProductId(@PathVariable("productId") String productId);
 
 }

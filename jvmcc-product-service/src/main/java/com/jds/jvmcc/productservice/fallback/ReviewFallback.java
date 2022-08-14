@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.jds.jvmcc.productservice.client.ReviewClient;
-import com.jds.jvmcc.productservice.entity.Post;
 import com.jds.jvmcc.productservice.entity.Review;
 
 /**
@@ -22,8 +21,8 @@ public class ReviewFallback implements ReviewClient {
         return Collections.emptyList();
     }
 
-    // @Override
-    // public Review getReviewsByProductId(String productId) {
-    //     return null;
-    // }
+    @Override
+    public List<Review> getReviewsByProductId(String productId) {
+        return Collections.emptyList();
+    }
 }

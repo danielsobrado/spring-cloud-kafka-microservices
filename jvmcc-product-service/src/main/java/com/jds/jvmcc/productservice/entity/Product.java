@@ -26,7 +26,7 @@ public class Product {
     private String productId;
 
     @Schema(example = "ION05", required = true)
-    private String model_number;
+    private String model;
 
     @Schema(example = "Stan Smith Shoes", required = true)
     private String name;

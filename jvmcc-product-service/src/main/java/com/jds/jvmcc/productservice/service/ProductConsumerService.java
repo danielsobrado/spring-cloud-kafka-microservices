@@ -1,7 +1,5 @@
 package com.jds.jvmcc.productservice.service;
 
-import org.springframework.stereotype.Service;
-
 import com.jds.jvmcc.productservice.entity.Product;
 
 /**

@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-13
+ * 
+ * Retrieve products from the third party service
  */
 @Slf4j
 @Service
