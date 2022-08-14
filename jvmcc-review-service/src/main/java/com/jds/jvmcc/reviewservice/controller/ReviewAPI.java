@@ -28,7 +28,7 @@ public interface ReviewAPI {
 	public List<Review> getReviewList();
 
 	@Operation(summary = "Get Review", description = "Get review by product ID")
-	public ResponseEntity<Review> getReview(@Pattern(regexp = "[A-Z0-9]{6}") String productId);
+	public List<Review> getReviews(@Pattern(regexp = "[A-Z0-9]{6}") String productId);
 
 	@Operation(summary = "Create Review", description = "Create a new review for a product")
 	public Review createReview(String productId, @Valid Review review);

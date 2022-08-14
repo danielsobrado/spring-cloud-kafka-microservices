@@ -24,6 +24,8 @@ import static com.jds.jvmcc.productservice.integration.ProductMocks.setupMockPro
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import static com.jds.jvmcc.productservice.integration.ProductConstants.*;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
@@ -48,18 +50,16 @@ public class ProductReviewsAggIntegrationTest {
     }
     
     @Test
-    public void whenGetProducts_thenProductsShouldBeReturned() {
-        var product = productClient.getProduct(ProductConstants.PRODUCT_ID);
+    public void whenGetProduct_thenProductShouldBeReturned() {
+        var product = productClient.getProduct(PRODUCT_ID);
         assertNotNull(product);
     }
 
     @Test
-    public void whenGetProducts_thenTheCorrectProductsShouldBeReturned() {
+    public void whenGetProduct_thenTheCorrectProductShouldBeReturned() {
         var product = productClient.getProduct(ProductConstants.PRODUCT_ID);
 
-        assertEquals(ProductConstants.PRODUCT_ID, product.getProductId());
-        assertEquals(
-                new Product(ProductConstants.PRODUCT_ID, ProductConstants.PRODUCT_MODEL, ProductConstants.PRODUCT_NAME),
-                product);
+        assertEquals(PRODUCT_ID, product.getProductId());
+        assertEquals(new Product(PRODUCT_ID, PRODUCT_MODEL, PRODUCT_NAME), product);
     }
 }

@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jds.jvmcc.productservice.config.ProductClientConfiguration;
 import com.jds.jvmcc.productservice.entity.Product;
+import com.jds.jvmcc.productservice.exception.HandleFeignException;
+import com.jds.jvmcc.productservice.exception.ProductConsumerExceptionHandler;
 import com.jds.jvmcc.productservice.fallback.ProductFallback;
 
 import feign.Headers;
@@ -23,5 +25,6 @@ public interface ProductClient {
 
     @Headers("Content-Type: application/json")
     @GetMapping(value = "/products/{productId}", produces = "application/json")
+    @HandleFeignException(ProductConsumerExceptionHandler.class)
     Product getProduct(@PathVariable("productId") String productId);
 }

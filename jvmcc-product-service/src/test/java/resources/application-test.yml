@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-web-flux-consumer
+    name: product-service
 
 # Configured wiremock server to run using port 9999.
 product:

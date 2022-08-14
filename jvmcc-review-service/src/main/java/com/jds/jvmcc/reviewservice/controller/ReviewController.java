@@ -20,10 +20,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jds.jvmcc.exception.ResourceNotFoundException;
-import com.jds.jvmcc.util.SecurityUtil;
-
 import com.jds.jvmcc.reviewservice.entity.Review;
 import com.jds.jvmcc.reviewservice.service.ReviewService;
+import com.jds.jvmcc.util.SecurityUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,11 +42,9 @@ public class ReviewController implements ReviewAPI {
 
     @Override
     @GetMapping("/{productId}")
-    public ResponseEntity<Review> getReview(@PathVariable @Pattern(regexp = "[A-Z0-9]{6}") String productId) {
-        log.debug("Finding review for productId: {}", productId);
-        return reviewService.findByProductId(productId)
-            .map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
+    public List<Review> getReviews(@PathVariable @Pattern(regexp = "[A-Z0-9]{6}") String productId) {
+        log.debug("Finding reviews for productId: {}", productId);
+        return reviewService.findAllByProductId(productId);
     }
 
     @Override

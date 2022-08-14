@@ -19,26 +19,28 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 @TestConfiguration
 @ActiveProfiles("ribbon-test")
 public class RibbonTestConfig {
-    @Autowired
-    private WireMockServer mockProductsService;
 
     @Autowired
-    private WireMockServer secondMockProductsService;
+    private WireMockServer mockProductService;
+
+    @Autowired
+    private WireMockServer secondMockProductService;
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    public WireMockServer mockProductsService() {
+    public WireMockServer mockProductService() {
         return new WireMockServer(options().dynamicPort());
     }
 
-    @Bean(name="secondMockProductsService", initMethod = "start", destroyMethod = "stop")
-    public WireMockServer secondProductsMockService() {
+    @Bean(name="secondMockProductService", initMethod = "start", destroyMethod = "stop")
+    public WireMockServer secondProductMockService() {
         return new WireMockServer(options().dynamicPort());
     }
 
     @Bean
     public ServerList ribbonServerList() {
         return new StaticServerList<>(
-          new Server("localhost", mockProductsService.port()),
-          new Server("localhost", secondMockProductsService.port()));
+          new Server("localhost", mockProductService.port()),
+          new Server("localhost", secondMockProductService.port()));
     }
+    
 }

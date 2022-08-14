@@ -67,14 +67,15 @@ class JvmccReviewServiceMySQlIntegrationTests {
     @Order(2)
     public void findByProductIdTest(){
 
-        var review = reviewService.findByProductId(PRODUCT_ID).orElse(null);
+        var reviews = reviewService.findAllByProductId(PRODUCT_ID);
 
-        Assertions.assertNotNull(review);
-
+        Assertions.assertNotNull(reviews);
+        Assertions.assertEquals(1, reviews.size());
+        
         // Check that the review was saved with the correct values
-        Assertions.assertEquals(PRODUCT_ID, review.getProductId());
-        Assertions.assertEquals((short)3, review.getReviewScore());
-        Assertions.assertEquals("This is a test comment", review.getComment());
+        Assertions.assertEquals(PRODUCT_ID, reviews.get(0).getProductId());
+        Assertions.assertEquals((short)3, reviews.get(0).getReviewScore());
+        Assertions.assertEquals("This is a test comment", reviews.get(0).getComment());
     }
 
     @DisplayName("JUnit test for countByProductId() method")

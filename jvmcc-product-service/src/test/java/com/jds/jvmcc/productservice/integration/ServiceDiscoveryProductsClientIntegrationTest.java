@@ -22,6 +22,8 @@ import com.jds.jvmcc.productservice.client.ProductClient;
 import com.jds.jvmcc.productservice.entity.Product;
 import com.netflix.discovery.EurekaClient;
 
+import static com.jds.jvmcc.productservice.integration.ProductConstants.*;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
@@ -49,11 +51,9 @@ public class ServiceDiscoveryProductsClientIntegrationTest {
 
     @Test
     public void whenGetProduct_thenTheCorrectProdutuctAreReturned() {
-        var product = productClient.getProduct(ProductConstants.PRODUCT_ID);
+        var product = productClient.getProduct(PRODUCT_ID);
 
-        assertEquals(ProductConstants.PRODUCT_ID, product.getProductId());
-        assertEquals(
-                new Product(ProductConstants.PRODUCT_ID, ProductConstants.PRODUCT_MODEL, ProductConstants.PRODUCT_NAME),
-                product);
+        assertEquals(PRODUCT_ID, product.getProductId());
+        assertEquals(new Product(PRODUCT_ID, PRODUCT_MODEL, PRODUCT_NAME), product);
     }
 }

@@ -18,7 +18,7 @@ spring:
   config:
     import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
 feign:
-  hystrix:
+  circuitbreaker:
     enabled: true
   client:
     config:
@@ -26,6 +26,27 @@ feign:
         connectTimeout: 5000
         readTimeout: 5000
         loggerLevel: basic
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint: 
+    health: 
+      showDetails: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: 
+          - metrics
+          - health
+          - circuitbreakers
+          - circuitbreakerevents
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:  
+        registerHealthIndicator: true
 jwt:
   secret: jvmcc
 eureka:

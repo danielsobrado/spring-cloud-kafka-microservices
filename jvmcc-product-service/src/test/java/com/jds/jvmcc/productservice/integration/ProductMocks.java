@@ -22,7 +22,7 @@ public class ProductMocks {
             .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
             .withBody(
               copyToString(
-                ProductMocks.class.getClassLoader().getResourceAsStream("payload/get-products-response.json"),
+                ProductMocks.class.getClassLoader().getResourceAsStream("payload/get-product-response.json"),
                 defaultCharset()))));
     }
 }

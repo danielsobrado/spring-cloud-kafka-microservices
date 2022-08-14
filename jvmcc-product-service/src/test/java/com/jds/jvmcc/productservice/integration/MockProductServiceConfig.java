@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jds.jvmcc.productservice.entity.Product;
 
+import static com.jds.jvmcc.productservice.integration.ProductConstants.*;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
@@ -19,10 +21,6 @@ import com.jds.jvmcc.productservice.entity.Product;
 @RestController
 @ActiveProfiles("eureka-test")
 public class MockProductServiceConfig {
-
-    private static final String PRODUCT_ID = "M20324";
-    private static final String PRODUCT_NAME = "Stan Smith Shoes";
-    private static final String PRODUCT_MODEL = "ION05";
 
     @RequestMapping("/product")
     public List<Product> getProducts() {

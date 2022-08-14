@@ -23,6 +23,8 @@ import com.jds.jvmcc.productservice.JvmccProductServiceApplication;
 import com.jds.jvmcc.productservice.client.ProductClient;
 import com.jds.jvmcc.productservice.entity.Product;
 
+import static com.jds.jvmcc.productservice.integration.ProductConstants.*;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
@@ -34,40 +36,40 @@ import com.jds.jvmcc.productservice.entity.Product;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = { RibbonTestConfig.class })
 public class LoadBalancerProductReviewAggIntegrationTest {
-    @Autowired
-    private WireMockServer mockProductsService;
 
     @Autowired
-    private WireMockServer secondMockProductsService;
+    private WireMockServer mockProductService;
+
+    @Autowired
+    private WireMockServer secondMockProductService;
 
     @Autowired
     private ProductClient productClient;
 
     @BeforeEach
     void setUp() throws IOException {
-        setupMockProductsResponse(mockProductsService);
-        setupMockProductsResponse(secondMockProductsService);
+        setupMockProductsResponse(mockProductService);
+        setupMockProductsResponse(secondMockProductService);
     }
 
     @Test
     void whenGetProduct_thenRequestsAreLoadBalanced() {
         for (int k = 0; k < 10; k++) {
-            productClient.getProduct(ProductConstants.PRODUCT_ID);
+            productClient.getProduct(PRODUCT_ID);
         }
 
-        mockProductsService.verify(
+        mockProductService.verify(
           moreThan(0), getRequestedFor(WireMock.urlEqualTo("/product")));
-        secondMockProductsService.verify(
+        secondMockProductService.verify(
           moreThan(0), getRequestedFor(WireMock.urlEqualTo("/product")));
     }
 
     @Test
     public void whenGetProduct_thenTheCorrectProductShouldBeReturned() {
-        var product = productClient.getProduct(ProductConstants.PRODUCT_ID);
+        var product = productClient.getProduct(PRODUCT_ID);
 
-        assertEquals(ProductConstants.PRODUCT_ID, product.getProductId());
-        assertEquals(
-                new Product(ProductConstants.PRODUCT_ID, ProductConstants.PRODUCT_MODEL, ProductConstants.PRODUCT_NAME),
-                product);
+        assertEquals(PRODUCT_ID, product.getProductId());
+        assertEquals(new Product(PRODUCT_ID, PRODUCT_MODEL, PRODUCT_NAME), product);
     }
+
 }

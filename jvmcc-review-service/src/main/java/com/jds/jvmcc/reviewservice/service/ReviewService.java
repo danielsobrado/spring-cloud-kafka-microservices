@@ -19,8 +19,6 @@ import com.jds.jvmcc.reviewservice.entity.Review;
 public interface ReviewService {
 
 	@Transactional(readOnly = true)
-	Optional<Review> findByProductId(String productId);
-	@Transactional(readOnly = true)
 	Optional<Review> findById(Long id);
 	@Transactional(readOnly = true)
 	List<Review> findAll();
