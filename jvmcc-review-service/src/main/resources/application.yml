@@ -47,7 +47,8 @@ logging:
   level:
     root: info
     org:
-      springframework: info
+      springframework: 
+        cache: trace
     com:
       jds:
         jmvcc: info

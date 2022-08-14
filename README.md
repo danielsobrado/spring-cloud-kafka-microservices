@@ -312,6 +312,14 @@ The following warning could appear in Spring Cloud's logs:
 
 Remember that while Caffeine can replace Ehcache as a high-performance, nearly ideal caching library for use with monoliths, it is unable to serve as a distributed cache like Ehcache or Redis.
 
+We are going to cache the main function that aggregates review statistics in our example:
+
+![Cacheable](documentation/Cacheable.JPG?raw=true "Cacheable")
+
+We can increase the log level of the cache to *trace* and see that after the second request we are hitting the cache:
+
+![Cache Hit](documentation/CacheHit.JPG?raw=true "Cache Hit")
+
 ## Database
 
 Based on how this data will be used, a SQL or NoSQL database will be selected. Consistency is crucial, therefore we'll favor a SQL database and ACID compliance for complex queries and transactions.
