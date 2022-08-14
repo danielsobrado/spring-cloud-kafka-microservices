@@ -6,16 +6,22 @@
 		<version>2.7.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<packaging>pom</packaging>
-	<modelVersion>4.0.0</modelVersion>
 
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>jvmcc</groupId>
 	<artifactId>jvmcc</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>jvmcc</name>
+	<description>Spring Cloud Microservices Example</description>
 
 	<modules>
 		<module>jvmcc-common-libs</module>
 		<module>jvmcc-service-discovery</module>
 		<module>jvmcc-api-gateway</module>
 		<module>jvmcc-configuration-server</module>
+		<module>jvmcc-zipkin-server</module>
 		<module>jvmcc-product-service</module>
 		<module>jvmcc-review-service</module>
 	</modules>

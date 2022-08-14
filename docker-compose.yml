@@ -96,6 +96,36 @@ services:
         - jvmcc-service-discovery
       profiles:
         - reactive
+  jvmcc-configuration-service:
+      container_name: jvmcc-configuration-service
+      image: dalamar/jvmcc-configuration-service:latest
+      environment:
+        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - SPRING_CONFIG_URI="http://jvmcc-configuration-server:9000"
+      ports:
+        - "8888:8888"
+      deploy:
+          restart_policy:
+                  condition: on-failure
+      depends_on:
+        - jvmcc-service-discovery
+      links:
+        - jvmcc-service-discovery
+  jvmcc-zipkin-service:
+      container_name: jvmcc-zipkin-service
+      image: dalamar/jvmcc-zipkin-service:latest
+      environment:
+        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - SPRING_CONFIG_URI="http://jvmcc-zipkin-server:9000"
+      ports:
+        - "9411:9411"
+      deploy:
+          restart_policy:
+                  condition: on-failure
+      depends_on:
+        - jvmcc-service-discovery
+      links:
+        - jvmcc-service-discovery
   jvmcc-mysql:
     image: dalamar/jvmcc-mysql
     environment:
