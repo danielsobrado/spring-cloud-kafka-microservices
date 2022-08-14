@@ -22,7 +22,7 @@ import com.jds.jvmcc.productservice.service.impl.ProductReviewAggServiceImpl;
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
- * @since 2022-08-08
+ * @since 2022-08-14
  * 
  * Unit test for {@link ProductReviewAggServiceImpl}
  */
