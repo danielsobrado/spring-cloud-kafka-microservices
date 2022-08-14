@@ -1,5 +1,6 @@
 package com.jds.jvmcc.productservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -23,12 +24,15 @@ import lombok.NoArgsConstructor;
 public class Product {
 
     @Schema(example = "M20324", required = true)
+    @JsonProperty("id")
     private String productId;
 
     @Schema(example = "ION05", required = true)
+    @JsonProperty("model_number")
     private String model;
 
     @Schema(example = "Stan Smith Shoes", required = true)
+    @JsonProperty("name")
     private String name;
 
 }

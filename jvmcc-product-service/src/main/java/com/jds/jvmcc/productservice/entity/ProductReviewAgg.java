@@ -1,5 +1,6 @@
 package com.jds.jvmcc.productservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
@@ -25,18 +26,23 @@ import lombok.NoArgsConstructor;
 public class ProductReviewAgg {
 
     @Schema(example = "M20324", required = true)
+    @JsonProperty("id")
     private String productId;
 
     @Schema(example = "Stan Smith Shoes", required = true)
+    @JsonProperty("name")
     private String name;
 
     @Schema(example = "ION05", required = true)
+    @JsonProperty("model")
     private String model;
 
     @Schema(example = "1.1", required = true)
+    @JsonProperty("average_rating")
     private Double averageReviewScore;
 
     @Schema(example = "12", required = true)
+    @JsonProperty("total_reviews")
     private Integer reviewCount;
 
     // Create constructor based on product

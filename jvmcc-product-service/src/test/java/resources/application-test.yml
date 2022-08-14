@@ -14,3 +14,9 @@ logging:
           reactive:
             function:
               client: debug
+products-service:
+  ribbon:
+    listOfServers: http://localhost:9561
+eureka:
+  client:
+    enabled: false

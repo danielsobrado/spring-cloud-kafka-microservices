@@ -25,7 +25,9 @@
 		<spring.cloud.config.name>jvmcc-product-service</spring.cloud.config.name>
 		<spring.cloud.config.profile>default</spring.cloud.config.profile>
 		<spring.cloud.config.uri>https://jvmcc-product-service</spring.cloud.config.uri>
+		<spring-cloud-starter-netflix-ribbon.version>2.2.10.RELEASE</spring-cloud-starter-netflix-ribbon.version>
 		<testcontainers.version>1.17.3</testcontainers.version>
+		<wiremock.version>2.27.2</wiremock.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -47,6 +49,12 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
+
+		<dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+			<version>${spring-cloud-starter-netflix-ribbon.version}</version>
+        </dependency>
 
 		<dependency>
 			<groupId>io.github.openfeign</groupId>
@@ -131,22 +139,24 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- <dependency>
-		    <groupId>org.springframework.cloud</groupId>
-		    <artifactId>spring-cloud-contract-wiremock</artifactId>		  
-		    <scope>test</scope>
-		</dependency>
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-contract-stub-runner</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-web</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency> -->
+            <groupId>org.testcontainers</groupId>
+            <artifactId>testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>${wiremock.version}</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 	<dependencyManagement>
