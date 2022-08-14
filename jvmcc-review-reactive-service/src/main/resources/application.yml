@@ -5,19 +5,33 @@ spring:
   profiles:
     active: noauth
   application:
-    name: jvmcc-review-service
+    name: jvmcc-review-reactive-service
   security:
     user:
       name: jvmcc
       password: jvmcc
-  datasource:
-    url: jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
-    username: jvmcc
-    password: jvmcc
-    driverClassName: com.mysql.cj.jdbc.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    generate-ddl: false
+  data:
+    mongodb:
+      host: ${MONGO_HOST:localhost}
+      port: ${MONGO_PORT:27017}
+      authentication-database: ${MONGO_AUTH_DB:admin}
+      database: ${MONGO_DB_NAME:jvmcc}
+      username: ${MONGO_USERNAME:jvmcc}
+      password: ${MONGO_PASSWORD:jvmcc}
+  cloud:
+    stream:
+      default-binder: kafka
+      kafka:
+        binder:
+          autoCreateTopics: true
+          brokers:
+            - ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
+      bindings:
+        input:
+          binder: kafka
+          destination: ${TOPIC_NAME:reviews}
+          content-type: application/json
+          group: ${KAFKA_GROUP:data-mongo}
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER

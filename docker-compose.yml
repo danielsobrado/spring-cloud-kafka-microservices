@@ -49,6 +49,8 @@ services:
     depends_on:
       - jvmcc-service-discovery
       - openldap
+      - zookeeper
+      - kafka
     links:
       - jvmcc-service-discovery
     profiles:
@@ -88,6 +90,8 @@ services:
         - jvmcc-service-discovery
         - jvmcc-mongodb
         - openldap
+        - zookeeper
+        - kafka
       links:
         - jvmcc-service-discovery
       profiles:
@@ -124,6 +128,27 @@ services:
       - 27017:27017
     volumes:
       - mongodata:/data/db
+    profiles:
+      - reactive
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    profiles:
+      - reactive
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_LISTENERS: OUTSIDE://kafka:9092,INSIDE://localhost:9093
+      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://kafka:9092,INSIDE://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: OUTSIDE:PLAINTEXT,INSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: OUTSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
+    depends_on:
+      - zookeeper
     profiles:
       - reactive
   keycloak:
