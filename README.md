@@ -314,9 +314,15 @@ Remember that while Caffeine can replace Ehcache as a high-performance, nearly i
 
 We are going to cache the main function that aggregates review statistics in our example:
 
-![Cacheable](documentation/Cacheable.JPG?raw=true "Cacheable")
+![Cacheable](documentation/CacheableFunction.JPG?raw=true "Cacheable")
 
 We can increase the log level of the cache to *trace* and see that after the second request we are hitting the cache:
+
+```yml
+    org:
+      springframework: 
+        cache: trace
+```
 
 ![Cache Hit](documentation/CacheHit.JPG?raw=true "Cache Hit")
 
