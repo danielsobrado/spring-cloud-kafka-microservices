@@ -38,7 +38,7 @@ public class ProductReviewAggServiceImpl implements ProductReviewAggService {
          */
         @Override
         public Optional<ProductReviewAgg> getProductSummary(String productId) {
-                log.info("Getting product with id: {}", productId);
+                log.info("getProductSummary: Getting product with id: {}", productId);
                 
                 var product = productConsumerService.getProduct(productId);
                 // If the product is not found, return null.

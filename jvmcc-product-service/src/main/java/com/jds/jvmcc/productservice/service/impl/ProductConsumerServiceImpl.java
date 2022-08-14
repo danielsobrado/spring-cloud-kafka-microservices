@@ -1,6 +1,8 @@
 package com.jds.jvmcc.productservice.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.jds.jvmcc.productservice.client.ProductClient;
@@ -18,14 +20,16 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
+@CacheConfig(cacheNames = "productCache")
 public class ProductConsumerServiceImpl implements ProductConsumerService {
 
         @Autowired
         private ProductClient productClient;
 
         @Override
+        @Cacheable
         public Product getProduct(String productId) {
-                log.info("Getting product with id: {}", productId);
+                log.info("getProduct: Getting product with id: {}", productId);
                 return productClient.getProduct(productId);
         }
 

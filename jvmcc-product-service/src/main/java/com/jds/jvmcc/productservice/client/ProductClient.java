@@ -17,7 +17,7 @@ import feign.Headers;
  * @version 1.0
  * @since 2022-08-13
  */
-@FeignClient(name = "product-url", 
+@FeignClient(name = "product-client", 
     url = "https://www.adidas.co.uk/api/", 
     configuration = ProductClientConfiguration.class, 
     fallback = ProductFallback.class)

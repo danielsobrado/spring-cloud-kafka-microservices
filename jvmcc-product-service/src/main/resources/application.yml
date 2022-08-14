@@ -17,9 +17,14 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   config:
     import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
+  main:
+    allow-bean-definition-overriding: true
+  cache:
+    caffeine:
+      spec: expireAfterWrite=300s
 feign:
   circuitbreaker:
-    enabled: true
+    enabled: false
   client:
     config:
       default:
@@ -41,7 +46,6 @@ management:
           - health
           - circuitbreakers
           - circuitbreakerevents
-
 resilience4j:
   circuitbreaker:
     configs:
@@ -73,6 +77,7 @@ logging:
     root: info
     org:
       springframework: info
+      cache: trace
     com:
       jds:
         jmvcc: info

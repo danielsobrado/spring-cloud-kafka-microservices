@@ -28,7 +28,7 @@ public class ReviewConsumerServiceImpl implements ReviewConsumerService {
         @Override
         public List<Review> getReviewsByProduct(String productId) {
                 log.info("Getting reviews for product with id: {}", productId);
-                return reviewClient.getReviews();
+                return reviewClient.getReviewsByProductId(productId);
         }
 
         @Override
