@@ -378,11 +378,11 @@ A technique for tracking requests as they move through distributed systems is ca
 
 We've included ZipKin as part of this deployment:
 
-![Zipkin Services](documentation/ZipkinServices.JPG.JPG?raw=true "Zipkin Services")
+![Zipkin Services](documentation/ZipkinServices.JPG?raw=true "Zipkin Services")
 
 It assists in assembling the timings required to resolve latency issues in service topologies. 
 
-![Zipkin Traces](documentation/CacheHit.JPG?raw=true "Zipkin Traces")
+![Zipkin Traces](documentation/ZipkinTraces.JPG?raw=true "Zipkin Traces")
 
 ## Build and Deployment
 
