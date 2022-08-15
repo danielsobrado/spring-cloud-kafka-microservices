@@ -372,6 +372,18 @@ We have two options for integration testing: either assume that the infrastructu
 
 Using JaCoco to generate a code coverage report.
 
+## Monitoring
+
+A technique for tracking requests as they move through distributed systems is called distributed tracing. An interaction is tracked by distributed tracing by assigning it a special identifier. This identifier is carried by the transaction as it communicates with infrastructure, containers, and microservices.
+
+We've included ZipKin as part of this deployment:
+
+![Zipkin Services](documentation/ZipkinServices.JPG.JPG?raw=true "Zipkin Services")
+
+It assists in assembling the timings required to resolve latency issues in service topologies. 
+
+![Zipkin Traces](documentation/CacheHit.JPG?raw=true "Zipkin Traces")
+
 ## Build and Deployment
 
 [Spring initializr](https://start.spring.io/) has been used to generate the initial projects.

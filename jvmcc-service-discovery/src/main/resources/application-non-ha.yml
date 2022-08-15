@@ -2,12 +2,13 @@
 # This default profile is used when running a single instance completely standalone:
 spring:
   profiles: default
-spring:
   application:
     name: jvmcc-service-discovery
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+  zipkin:
+    base-url: http://localhost:9411
 server:
   port: 8761
 eureka:

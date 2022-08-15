@@ -16,6 +16,8 @@ spring:
           uri: https://github.com/danielsobrado/spring-cloud-kafka-microservices
           searchPaths: 'config-repo'
           clone-on-start: true
+  zipkin:
+    base-url: http://localhost:9411
 info:
   component: JVMCC Configuration Server
 encrypt:

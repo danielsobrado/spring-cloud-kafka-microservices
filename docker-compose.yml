@@ -111,11 +111,10 @@ services:
         - jvmcc-service-discovery
       links:
         - jvmcc-service-discovery
-  jvmcc-zipkin-service:
-      container_name: jvmcc-zipkin-service
-      image: dalamar/jvmcc-zipkin-service:latest
+  zipkin-server:
+      container_name: zipkin-server
+      image: openzipkin/zipkin:2.21.0
       environment:
-        - JAVA_OPTS="-Dspring.profiles.active=docker"
         - SPRING_CONFIG_URI="http://jvmcc-zipkin-server:9000"
       ports:
         - "9411:9411"

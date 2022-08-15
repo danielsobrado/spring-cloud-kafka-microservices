@@ -23,6 +23,8 @@ spring:
       matching-strategy: ANT_PATH_MATCHER
   config:
     import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
+  zipkin:
+    base-url: http://localhost:9411
 jwt:
   secret: jvmcc
 eureka:
@@ -42,8 +44,8 @@ springdoc:
 keycloak:
   enabled: false
 logging:
-  pattern: 
-    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  # pattern: 
+    # console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
   level:
     root: info
     org:

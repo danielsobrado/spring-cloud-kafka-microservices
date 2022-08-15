@@ -21,7 +21,6 @@
 		<module>jvmcc-service-discovery</module>
 		<module>jvmcc-api-gateway</module>
 		<module>jvmcc-configuration-server</module>
-		<module>jvmcc-zipkin-server</module>
 		<module>jvmcc-product-service</module>
 		<module>jvmcc-review-service</module>
 	</modules>

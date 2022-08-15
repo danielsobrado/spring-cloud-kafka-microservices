@@ -22,6 +22,8 @@ spring:
   cache:
     caffeine:
       spec: expireAfterWrite=300s
+  zipkin:
+    base-url: http://localhost:9411
 feign:
   circuitbreaker:
     enabled: false
@@ -71,8 +73,10 @@ springdoc:
 product:
     url: https://www.adidas.co.uk/api/products/
 logging:
-  pattern: 
-    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  file:
+    name: ${java.io.tmpdir}/application.log
+  # pattern: 
+  #   console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
   level:
     root: info
     org:
