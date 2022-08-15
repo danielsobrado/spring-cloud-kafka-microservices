@@ -3,23 +3,34 @@ services:
   jvmcc-service-discovery:
     container_name: jvmcc-service-discovery
     image: dalamar/jvmcc-service-discovery:latest
+    build:
+      context: .
+      dockerfile: jvmcc-service-discovery/Dockerfile
     ports:
       - "8761:8761"
+    networks:
+      - jvmcc-local
   # API Gateway container. This container is the only container exposed to the outside
   jvmcc-api-gateway:
     container_name: jvmcc-api-gateway
     image: dalamar/jvmcc-api-gateway:latest
+    build:
+      context: .
+      dockerfile: jvmcc-api-gateway/Dockerfile
     environment:
       - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/
     ports:
       - "8080:8080"
     depends_on:
       - jvmcc-service-discovery
-    links:
-      - jvmcc-service-discovery
+    networks:
+      - jvmcc-local
   jvmcc-product-service:
     container_name: jvmcc-product-service
     image: dalamar/jvmcc-product-service:latest
+    build:
+      context: .
+      dockerfile: jvmcc-product-service/Dockerfile
     environment:
         - JAVA_OPTS="-Dspring.profiles.active=docker"
         - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
@@ -31,13 +42,16 @@ services:
     depends_on:
       - jvmcc-service-discovery
       - openldap
-    links:
-      - jvmcc-service-discovery
     profiles:
       - non-reactive
+    networks:
+      - jvmcc-local
   jvmcc-product-reactive-service:
     container_name: jvmcc-product-reactive-service
     image: dalamar/jvmcc-product-reactive-service:latest
+    build:
+      context: .
+      dockerfile: jvmcc-product-reactive-service/Dockerfile
     environment:
         - JAVA_OPTS="-Dspring.profiles.active=docker"
         - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
@@ -51,82 +65,101 @@ services:
       - openldap
       - zookeeper
       - kafka
+    profiles:
+      - reactive
+    networks:
+      - jvmcc-local
+  jvmcc-review-service:
+    container_name: jvmcc-review-service
+    image: dalamar/jvmcc-review-service:latest
+    build:
+      context: .
+      dockerfile: jvmcc-review-service/Dockerfile
+    environment:
+      - JAVA_OPTS="-Dspring.profiles.active=docker"
+      - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
+    ports:
+      - "8082:8082"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-service-discovery
+      - jvmcc-mysql
+      - openldap
+    profiles:
+      - non-reactive
+    networks:
+      - jvmcc-local
+  jvmcc-review-reactive-service:
+    container_name: jvmcc-review-reactive-service
+    image: dalamar/jvmcc-review-reactive-service:latest
+    build:
+      context: .
+      dockerfile: jvmcc-review-reactive-service/Dockerfile
+    environment:
+      - JAVA_OPTS="-Dspring.profiles.active=docker"
+      - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
+      - SPRING_DATA_MONGODB_HOST=mongo
+    ports:
+      - "8082:8082"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-service-discovery
+      - jvmcc-mongodb
+      - openldap
+      - zookeeper
+      - kafka
     links:
       - jvmcc-service-discovery
     profiles:
       - reactive
-  jvmcc-review-service:
-      container_name: jvmcc-review-service
-      image: dalamar/jvmcc-review-service:latest
-      environment:
-        - JAVA_OPTS="-Dspring.profiles.active=docker"
-        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
-      ports:
-        - "8082:8082"
-      deploy:
-          restart_policy:
-                  condition: on-failure
-      depends_on:
-        - jvmcc-service-discovery
-        - jvmcc-mysql
-        - openldap
-      links:
-        - jvmcc-service-discovery
-      profiles:
-        - non-reactive
-  jvmcc-review-reactive-service:
-      container_name: jvmcc-review-reactive-service
-      image: dalamar/jvmcc-review-reactive-service:latest
-      environment:
-        - JAVA_OPTS="-Dspring.profiles.active=docker"
-        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
-        - SPRING_DATA_MONGODB_HOST=mongo
-      ports:
-        - "8082:8082"
-      deploy:
-          restart_policy:
-                  condition: on-failure
-      depends_on:
-        - jvmcc-service-discovery
-        - jvmcc-mongodb
-        - openldap
-        - zookeeper
-        - kafka
-      links:
-        - jvmcc-service-discovery
-      profiles:
-        - reactive
-  jvmcc-configuration-service:
-      container_name: jvmcc-configuration-service
-      image: dalamar/jvmcc-configuration-service:latest
-      environment:
-        - JAVA_OPTS="-Dspring.profiles.active=docker"
-        - SPRING_CONFIG_URI="http://jvmcc-configuration-server:9000"
-      ports:
-        - "8888:8888"
-      deploy:
-          restart_policy:
-                  condition: on-failure
-      depends_on:
-        - jvmcc-service-discovery
-      links:
-        - jvmcc-service-discovery
+    networks:
+      - jvmcc-local
+  jvmcc-configuration-server:
+    container_name: jvmcc-configuration-server
+    image: dalamar/jvmcc-configuration-server:latest
+    build:
+      context: .
+      dockerfile: jvmcc-configuration-server/Dockerfile
+    environment:
+      - JAVA_OPTS="-Dspring.profiles.active=docker"
+      - SPRING_CONFIG_URI="http://jvmcc-configuration-server:9000"
+    ports:
+      - "8888:8888"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-service-discovery
+    links:
+      - jvmcc-service-discovery
+    networks:
+      - jvmcc-local
   zipkin-server:
-      container_name: zipkin-server
-      image: openzipkin/zipkin:2.21.0
-      environment:
-        - SPRING_CONFIG_URI="http://jvmcc-zipkin-server:9000"
-      ports:
-        - "9411:9411"
-      deploy:
-          restart_policy:
-                  condition: on-failure
-      depends_on:
-        - jvmcc-service-discovery
-      links:
-        - jvmcc-service-discovery
+    container_name: zipkin-server
+    image: openzipkin/zipkin:2.21.0
+    environment:
+      - SPRING_CONFIG_URI="http://jvmcc-zipkin-server:9000"
+    ports:
+      - "9411:9411"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-service-discovery
+    links:
+      - jvmcc-service-discovery
+    networks:
+      - jvmcc-local
   jvmcc-mysql:
+    container_name: jvmcc-mysql
     image: dalamar/jvmcc-mysql
+    build:
+      context: .
+      dockerfile: jvmcc-configuration-server/Dockerfile
     environment:
         - JAVA_OPTS="-Dspring.profiles.active=docker"
         - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
@@ -148,10 +181,13 @@ services:
       retries: 5
     profiles:
       - non-reactive
+    networks:
+      - jvmcc-local
   jvmcc-mongodb:
-    container_name: mongodbreviews
+    container_name: jvmcc-mongodb
     build:
       context: ./mongoData
+      dockerfile: jvmcc-mongodb/Dockerfile
     image: adidas/mongodb:1.0.0
     ports:
       - 27017:27017
@@ -159,12 +195,16 @@ services:
       - mongodata:/data/db
     profiles:
       - reactive
+    networks:
+      - jvmcc-local
   zookeeper:
     image: 'bitnami/zookeeper:latest'
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
     profiles:
       - reactive
+    networks:
+      - jvmcc-local
   kafka:
     image: 'bitnami/kafka:latest'
     ports:
@@ -180,12 +220,14 @@ services:
       - zookeeper
     profiles:
       - reactive
+    networks:
+      - jvmcc-local
   keycloak:
     image: quay.io/keycloak/keycloak:18.0.2
     container_name: keycloak
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
+      - KEYCLOAK_ADMIN=jvmcc
+      - KEYCLOAK_ADMIN_PASSWORD=jvmcc
       - KC_DB=mysql
       - KC_DB_URL_HOST=mysql
       - KC_DB_URL_DATABASE=keycloak
@@ -209,7 +251,14 @@ services:
       - LDAP_DOMAIN=jvmcc.com
     ports:
       - "389:389"
+    networks:
+      - jvmcc-local
 volumes:
   mysql_data:
   mysql_config:
   mongodata:
+
+networks:
+  jvmcc-local:
+    external: true
+      

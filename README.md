@@ -390,15 +390,25 @@ It assists in assembling the timings required to resolve latency issues in serv
 
 Use the the [Snyk Extension for Docker Desktop](https://snyk.io/blog/docker-desktop-with-snyk-and-new-docker-vulnerability-cheat-sheet/) to inspect our Spring Boot application, this [extension](https://docs.snyk.io/ide-tools/visual-studio-code-extension-for-snyk-code) is also available for VS Code, Eclipse and IntelliJ.
 
-Use docker buildx command to help you build multi-architecture images, in this case we'll build linux/amd64.
-
-Spring Boot includes both Maven and Gradle support for buildpacks. For example, building with Maven, we would run the command:
-
-```bash
-./mvnw spring-boot:build-image
-```
+### Docker
 
 It is safer to run apps with user privileges because it helps to reduce hazards. Docker containers fall under the same category. Docker containers and the running apps inside of them have root access by default. Running Docker containers as non-root users is therefore recommended.
+
+Use docker buildx command to help you build multi-architecture images (e.g. build for linux/amd64).
+
+To build a service we'll use from the root directory:
+
+```bash
+docker compose build jvmcc-review-service
+```
+
+This will copy the entire repository so that it can be assembled on a Docker instance. Although it will compile all services for each subproject, it is the quickest approach without having set up a local Nexus repository to serve our own dependencies because we are utilizing a shared client library and parent .pom that shares dependencies and properties.
+
+```bash
+To build the full project:
+
+docker compose build
+```
 
 ### Base Spring Boot Image
 
