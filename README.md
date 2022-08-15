@@ -414,7 +414,7 @@ The application runtime is stored in a different image. The finished image is sa
 
 ## TODO
 
-* Distributed Tracing [ZipKin](https://github.com/openzipkin/zipkin)
+* Distributed Cache: Use Redis instead of Caffeine, or [2 levels cache](https://programs.wiki/wiki/redis-caffeine-two-level-cache-allows-smooth-access-speed.html).
 
 ## Notes
 
