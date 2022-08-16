@@ -17,17 +17,8 @@
 	<name>jvmcc-review-service</name>
 	<description>Spring Cloud Microservices Example</description>
 	
-	<properties>
-		<spring.version>3.1.3</spring.version>
-		<jjwt.version>0.9.1</jjwt.version>
-		<springdoc-openapi-ui.version>1.6.9</springdoc-openapi-ui.version>
-		<spring-cloud-starter-circuitbreaker-resilience4j.version>2.1.3</spring-cloud-starter-circuitbreaker-resilience4j.version>
-		<testcontainers.version>1.17.3</testcontainers.version>
-	</properties>
-	
 	<dependencies>
 
-		<!-- mvc -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -215,7 +206,6 @@
 			<plugin>
 				<groupId>org.springdoc</groupId>
 				<artifactId>springdoc-openapi-maven-plugin</artifactId>
-				<version>${springdoc-openapi-maven-plugin.version}</version>
 			</plugin>
 			<!-- <plugin>
 				<groupId>org.jacoco</groupId>
