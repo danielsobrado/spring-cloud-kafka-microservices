@@ -251,6 +251,18 @@ By utilizing the identity federation principle, LDAP/AD enables users on one dom
 
 A common identity federation system like LDAP can be used to centralize and delegate tasks like keeping track of user privileges, monitoring and auditing application access, submitting requests for access control, and revoking access from departing employees.
 
+You can start the LDAP server with:
+
+```bash
+docker compose up -d jvmcc-ldap-server
+```
+
+The [bootstrap.ldif] (https://github.com/danielsobrado/spring-cloud-kafka-microservices/blob/main/jvmcc-ldap-server/bootstrap.ldif) is used to generate some users and groups on startup.
+
+You can connect to the server by using Apache Directory Studio:
+
+![LDAPStudio.JPG](documentation/LDAPStudio.JPG?raw=true "LDAP Studio")
+
 ### Network Communication
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.

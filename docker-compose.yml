@@ -250,7 +250,7 @@ services:
       context: .
       dockerfile: jvmcc-ldap-server/Dockerfile
     environment:
-      - LDAP_ORGANISATION="J. Daniel Sobrado"
+      - LDAP_ORGANISATION="danielsobrado.com"
       - LDAP_DOMAIN=jvmcc.com
     ports:
       - "389:389"
