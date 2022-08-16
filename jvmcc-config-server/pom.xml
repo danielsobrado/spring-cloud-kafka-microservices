@@ -10,9 +10,9 @@
 	</parent>
 
 	<groupId>com.jds.jvmcc</groupId>
-	<artifactId>jvmcc-configuration-server</artifactId>
+	<artifactId>jvmcc-config-server</artifactId>
 	<version>1.0</version>
-	<name>jvmcc-configuration-server</name>
+	<name>jvmcc-config-server</name>
 	<description>Spring Cloud Microservices Example</description>
 	
 	<dependencies>

@@ -7,12 +7,12 @@ RUN apk add git
 RUN git clone https://github.com/danielsobrado/spring-cloud-kafka-microservices.git
 RUN chmod -R 777 spring-cloud-kafka-microservices
 WORKDIR /app/spring-cloud-kafka-microservices
-RUN ./mvnw install -pl .,jvmcc-configuration-server -DskipTests
+RUN ./mvnw install -pl .,jvmcc-config-server -DskipTests
 
 FROM eclipse-temurin:17-jdk-alpine as build
-COPY --from=development /app/spring-cloud-kafka-microservices/jvmcc-configuration-server/target/jvmcc-configuration-server-*.jar /jvmcc-configuration-server.jar
+COPY --from=development /app/spring-cloud-kafka-microservices/jvmcc-config-server/target/jvmcc-config-server-*.jar /jvmcc-config-server.jar
 RUN ls -la
-RUN java -Djarmode=layertools -jar jvmcc-configuration-server.jar extract
+RUN java -Djarmode=layertools -jar jvmcc-config-server.jar extract
 
 FROM eclipse-temurin:17-jdk-alpine as production
 COPY --from=build dependencies/ ./
@@ -21,6 +21,6 @@ COPY --from=build spring-boot-loader/ ./
 COPY --from=build application/ ./
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
-# docker build -t dalamar/jvmcc-configuration-server .
-# docker push dalamar/jvmcc-configuration-server
-# docker run -d -p 8888:8888 --name="jvmcc-configuration-server" jvmcc-configuration-server
+# docker build -t dalamar/jvmcc-config-server .
+# docker push dalamar/jvmcc-config-server
+# docker run -d -p 8888:8888 --name="jvmcc-config-server" jvmcc-config-server
