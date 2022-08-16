@@ -22,16 +22,16 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   config:
-    import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
+    import: optional:configserver:http://jvmcc:jvmcc@jvmcc-configuration-server/
   zipkin:
-    base-url: http://localhost:9411
+    base-url: http://zipkin-server:9411
 jwt:
   secret: jvmcc
 eureka:
   client:
     enabled: false
     serviceUrl:
-      defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
+      defaultZone: http://jvmcc-default-eureka-server.com/eureka
       # defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
   instance:
     preferIpAddress: false

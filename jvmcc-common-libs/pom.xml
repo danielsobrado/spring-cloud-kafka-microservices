@@ -139,11 +139,12 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>3.0.0-M7</version>
+                <version>${maven-failsafe-plugin.version}</version>
             </plugin>
             <plugin>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                <version>${springdoc-openapi-maven-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

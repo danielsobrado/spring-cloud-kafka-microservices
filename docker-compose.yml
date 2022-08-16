@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: jvmcc-service-discovery/Dockerfile
     ports:
-      - "8761:8761"
+      - "9000:9000"
     networks:
       - jvmcc-local
   # API Gateway container. This container is the only container exposed to the outside
@@ -18,7 +18,7 @@ services:
       context: .
       dockerfile: jvmcc-api-gateway/Dockerfile
     environment:
-      - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:8761/eureka/
+      - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery/eureka/
     ports:
       - "8080:8080"
     depends_on:
@@ -33,9 +33,7 @@ services:
       dockerfile: jvmcc-product-service/Dockerfile
     environment:
         - JAVA_OPTS="-Dspring.profiles.active=docker"
-        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
-    ports:
-      - "8081:8081"
+        - SPRING_CONFIG_URI="http://jvmcc-config-server"
     deploy:
         restart_policy:
                 condition: on-failure
@@ -54,7 +52,7 @@ services:
       dockerfile: jvmcc-product-reactive-service/Dockerfile
     environment:
         - JAVA_OPTS="-Dspring.profiles.active=docker"
-        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
+        - SPRING_CONFIG_URI="http://jvmcc-config-server"
     ports:
       - "8081:8081"
     deploy:
@@ -77,7 +75,7 @@ services:
       dockerfile: jvmcc-review-service/Dockerfile
     environment:
       - JAVA_OPTS="-Dspring.profiles.active=docker"
-      - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
+      - SPRING_CONFIG_URI="http://jvmcc-config-server"
     ports:
       - "8082:8082"
     deploy:
@@ -99,7 +97,7 @@ services:
       dockerfile: jvmcc-review-reactive-service/Dockerfile
     environment:
       - JAVA_OPTS="-Dspring.profiles.active=docker"
-      - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
+      - SPRING_CONFIG_URI="http://jvmcc-config-server"
       - SPRING_DATA_MONGODB_HOST=mongo
     ports:
       - "8082:8082"
@@ -126,7 +124,7 @@ services:
       dockerfile: jvmcc-configuration-server/Dockerfile
     environment:
       - JAVA_OPTS="-Dspring.profiles.active=docker"
-      - SPRING_CONFIG_URI="http://jvmcc-configuration-server:9000"
+      - SPRING_CONFIG_URI="http://jvmcc-configuration-server"
     ports:
       - "8888:8888"
     deploy:
@@ -142,15 +140,13 @@ services:
     container_name: zipkin-server
     image: openzipkin/zipkin:2.21.0
     environment:
-      - SPRING_CONFIG_URI="http://jvmcc-zipkin-server:9000"
+      - SPRING_CONFIG_URI="http://zipkin-server"
     ports:
       - "9411:9411"
     deploy:
         restart_policy:
                 condition: on-failure
     depends_on:
-      - jvmcc-service-discovery
-    links:
       - jvmcc-service-discovery
     networks:
       - jvmcc-local
@@ -159,14 +155,14 @@ services:
     image: dalamar/jvmcc-mysql
     build:
       context: .
-      dockerfile: jvmcc-configuration-server/Dockerfile
+      dockerfile: jvmcc-mysql/Dockerfile
     environment:
         - JAVA_OPTS="-Dspring.profiles.active=docker"
-        - SPRING_CONFIG_URI="http://jvmcc-config-server:9000"
-        - MYSQL_USER=jvmcc
-        - MYSQL_PASSWORD=jvmcc
-        - MYSQL_DATABASE=jvmcc
-        - MYSQL_ROOT_PASSWORD=root
+        - SPRING_CONFIG_URI="http://jvmcc-config-server"
+        - MYSQL_USER=$${MYSQL_USER:jvmcc}
+        - MYSQL_PASSWORD=$${MYSQL_PASSWORD:jvmcc}
+        - MYSQL_DATABASE=$${MYSQL_DATABASE:jvmcc}
+        - MYSQL_ROOT_PASSWORD=$${MYSQL_ROOT_PASSWORD:root}
         - MYSQL_ROOT_HOST='%'  
     ports:
       - 3306:3306
@@ -175,7 +171,7 @@ services:
       - mysql_config:/etc/mysql/conf.d
     command: mysqld --init-file="/initSQL.sql"
     healthcheck:
-      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD}"
+      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD:root}"
       interval: 10s
       timeout: 5s
       retries: 5
@@ -187,7 +183,7 @@ services:
     container_name: jvmcc-mongodb
     image: dalamar/jvmcc-mongodb
     build:
-      context: ./mongoData
+      context: .
       dockerfile: jvmcc-mongodb/Dockerfile
     ports:
       - 27017:27017
@@ -226,13 +222,13 @@ services:
     image: quay.io/keycloak/keycloak:18.0.2
     container_name: keycloak
     environment:
-      - KEYCLOAK_ADMIN=jvmcc
-      - KEYCLOAK_ADMIN_PASSWORD=jvmcc
-      - KC_DB=mysql
-      - KC_DB_URL_HOST=mysql
-      - KC_DB_URL_DATABASE=keycloak
-      - KC_DB_USERNAME=keycloak
-      - KC_DB_PASSWORD=password
+      - KEYCLOAK_ADMIN=$${KEYCLOAK_ADMIN:jvmcc}
+      - KEYCLOAK_ADMIN_PASSWORD=$${KEYCLOAK_ADMIN_PASSWORD:jvmcc}
+      - KC_DB=$${KC_DB:mysql}
+      - KC_DB_URL_HOST=$${KC_DB_URL_HOST:mysql}
+      - KC_DB_URL_DATABASE=$${KC_DB_URL_DATABASE:keycloak}
+      - KC_DB_USERNAME=$${KC_DB_USERNAME:keycloak}
+      - KC_DB_PASSWORD=$${KC_DB_PASSWORD:password}
     ports:
       - "8080:8084"
     command: start-dev
@@ -243,6 +239,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    profiles:
+      - donotstart
   jvmcc-ldap-server:
     image: jvmcc-ldap-server
     container_name: jvmcc-ldap-server

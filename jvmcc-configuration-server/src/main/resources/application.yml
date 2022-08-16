@@ -17,7 +17,7 @@ spring:
           searchPaths: 'config-repo'
           clone-on-start: true
   zipkin:
-    base-url: http://localhost:9411
+    base-url: http://jvmcc-zipkin-server
 info:
   component: JVMCC Configuration Server
 encrypt:

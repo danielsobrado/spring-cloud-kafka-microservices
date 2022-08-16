@@ -18,23 +18,22 @@ spring:
   zipkin:
     base-url: http://localhost:9411
 server:
-  port: ${app_port}
+  port: ${API_PORT:9090}
   ssl:
     enabled: true
-    key-alias: jvmcc
+    key-alias: ${GATEWAY_ALIAS:jvmcc}
     key-store-password: jvmcc-secret
     key-store: classpath:jvmcc-keystore.p12
     key-store-type: PKCS12
 eureka:
   client:
     serviceUrl:
-    # defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
-      defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
+      defaultZone: http://jvmcc-default-eureka-server/eureka
+    #  defaultZone: http://jvmcc-eureka-1-server:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
 management:
   endpoint:
     gateway:
       enabled: true
-      uri: /management/gateway
   endpoints:
     web:
       exposure:

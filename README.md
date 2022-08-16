@@ -424,11 +424,19 @@ docker compose build jvmcc-review-service
 
 This will copy the entire repository so that it can be assembled on a Docker instance. Although it will compile all services for each subproject, it is the quickest approach without having set up a local Nexus repository to serve our own dependencies because we are utilizing a shared client library and parent .pom that shares dependencies and properties.
 
-```bash
 To build the full project:
 
+```bash
 docker compose build
 ```
+
+Start the project on non-reactive mode:
+
+```bash
+docker-compose --compatibility --profile non-reactive up
+```
+
+The project in reactive mode is still "*Work In Progress*".
 
 ### Base Spring Boot Image
 
@@ -445,6 +453,7 @@ The application runtime is stored in a different image. The finished image is sa
 ## TODO
 
 * Distributed Cache: Use Redis instead of Caffeine, or [2 levels cache](https://programs.wiki/wiki/redis-caffeine-two-level-cache-allows-smooth-access-speed.html).
+* Use [Jib](https://snyk.io/blog/building-java-container-images-using-jib/) to containerize the Java microservices.
 
 ## Notes
 
