@@ -107,7 +107,7 @@ By using Swagger/Open API we allow third parties to test our API and to [generat
 
 ### Centralize the Configuration
 
-By using a [Configuration Server](https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/jvmcc-configuration-server), we can cetralize our properties and manage them from a git repository for all our micro-services:
+By using a [Configuration Server](https://github.com/danielsobrado/spring-cloud-kafka-microservices/tree/main/jvmcc-config-server), we can cetralize our properties and manage them from a git repository for all our micro-services:
 
 ![Config Server](documentation/ConfigServer.JPG?raw=true "Config Server")
 

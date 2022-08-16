@@ -22,7 +22,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   config:
-    import: optional:configserver:http://jvmcc:jvmcc@jvmcc-configuration-server/
+    import: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server/
   zipkin:
     base-url: http://zipkin-server:9411
 jwt:
