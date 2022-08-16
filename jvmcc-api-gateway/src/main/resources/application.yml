@@ -1,3 +1,11 @@
+server:
+  port: 9090
+  ssl:
+    enabled: true
+    key-alias: jvmcc
+    key-store-password: jvmcc-secret
+    key-store: classpath:jvmcc-keystore.p12
+    key-store-type: PKCS12
 spring:
   application:
     name: api-gateway
@@ -27,17 +35,10 @@ spring:
                 name: reviewCircuitBreaker
                 fallbackUri: forward://review-fallback
                 enabled: true
-
+  config:
+    import: "optional:configserver:"
   zipkin:
     base-url: http://localhost:9411
-server:
-  port: ${API_PORT:9090}
-  ssl:
-    enabled: true
-    key-alias: ${GATEWAY_ALIAS:jvmcc}
-    key-store-password: jvmcc-secret
-    key-store: classpath:jvmcc-keystore.p12
-    key-store-type: PKCS12
 eureka:
   client:
     serviceUrl:
