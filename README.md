@@ -257,7 +257,7 @@ You can start the LDAP server with:
 docker compose up -d jvmcc-ldap-server
 ```
 
-The [bootstrap.ldif] (https://github.com/danielsobrado/spring-cloud-kafka-microservices/blob/main/jvmcc-ldap-server/bootstrap.ldif) is used to generate some users and groups on startup.
+The [bootstrap.ldif](https://github.com/danielsobrado/spring-cloud-kafka-microservices/blob/main/jvmcc-ldap-server/bootstrap.ldif) is used to generate some users and groups on startup.
 
 You can connect to the server by using Apache Directory Studio:
 
