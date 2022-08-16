@@ -41,7 +41,7 @@ services:
                 condition: on-failure
     depends_on:
       - jvmcc-service-discovery
-      - openldap
+      - jvmcc-ldap-server
     profiles:
       - non-reactive
     networks:
@@ -62,7 +62,7 @@ services:
                 condition: on-failure
     depends_on:
       - jvmcc-service-discovery
-      - openldap
+      - jvmcc-ldap-server
       - zookeeper
       - kafka
     profiles:
@@ -86,7 +86,7 @@ services:
     depends_on:
       - jvmcc-service-discovery
       - jvmcc-mysql
-      - openldap
+      - jvmcc-ldap-server
     profiles:
       - non-reactive
     networks:
@@ -109,7 +109,7 @@ services:
     depends_on:
       - jvmcc-service-discovery
       - jvmcc-mongodb
-      - openldap
+      - jvmcc-ldap-server
       - zookeeper
       - kafka
     links:
@@ -185,10 +185,10 @@ services:
       - jvmcc-local
   jvmcc-mongodb:
     container_name: jvmcc-mongodb
+    image: dalamar/jvmcc-mongodb
     build:
       context: ./mongoData
       dockerfile: jvmcc-mongodb/Dockerfile
-    image: adidas/mongodb:1.0.0
     ports:
       - 27017:27017
     volumes:
@@ -243,22 +243,29 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  openldap:
-    image: osixia/openldap:1.5.0
-    container_name: openldap
+  jvmcc-ldap-server:
+    image: jvmcc-ldap-server
+    container_name: jvmcc-ldap-server
+    build:
+      context: .
+      dockerfile: jvmcc-ldap-server/Dockerfile
     environment:
       - LDAP_ORGANISATION="J. Daniel Sobrado"
       - LDAP_DOMAIN=jvmcc.com
     ports:
       - "389:389"
+    volumes:
+      - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
     networks:
       - jvmcc-local
 volumes:
   mysql_data:
   mysql_config:
   mongodata:
-
+  ldap_data:
+  ldap_config:
 networks:
   jvmcc-local:
-    external: true
+    external: false
       

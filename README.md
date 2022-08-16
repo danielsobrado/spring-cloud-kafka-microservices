@@ -53,6 +53,8 @@ We'll follow the following steps:
 
 Securing a Spring Cloud Gateway application acting as a resource server is no different from a regular resource service.
 
+Every interaction with the microservices should happen trough the API Gateway only, all other connections should be blocked by the firewall.
+
 Note: [SSLScan](https://github.com/rbsec/sslscan) can be used to verify the ciphers that are allowed.
 
 ### Service discovery Server
@@ -241,6 +243,8 @@ Authentication & Authorization:
 * JWT tokens / Oauth
 * LDAP Server
 
+Additionally, I'll suggest to install BURP Suite and test at least for the [OWASP Top 10](https://portswigger.net/support/using-burp-to-test-for-the-owasp-top-ten).
+
 ### Identity Federation with LDAP
 
 By utilizing the identity federation principle, LDAP/AD enables users on one domain to access another domain without the need for additional authentication.
@@ -332,6 +336,8 @@ Based on how this data will be used, a SQL or NoSQL database will be selected. C
 
 We will favor NoSQL for large volumes of data that are not transactional in nature. The BASE model will be applicable.
 
+NoSQL DBs like [MongoDB support transactions] (https://www.mongodb.com/docs/manual/core/transactions/), we'll choose MongoDB for the reactive version of this example.
+
 ### Use MySQL
 
 Start MySQL Server for testing:
@@ -354,9 +360,11 @@ For the purpose of this example, we will create a demo database and some initial
 
 ## Use MongoDB
 
-MongoDB was chosen because it is a distributed database that is fast. For high availability, MongoDB automatically maintains replica sets,
+MongoDB was chosen because it is a distributed database that is fast. For high availability, MongoDB automatically maintains replica sets.
 
-There are already integrated reactive drivers for Spring WebFlux and Spring Boot.
+An operation on a single document in MongoDB is atomic. 
+
+There are already integrated reactive drivers for Spring WebFlux and Spring Boot. Multi-document transaction is supported by MongoDB.
 
 ```bash
 docker run -p 27017:27017 --name jvmcc-mongodb -d dalamar/jvmcc-mongodb
