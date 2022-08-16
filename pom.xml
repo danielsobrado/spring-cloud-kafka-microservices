@@ -59,6 +59,7 @@
 		<wiremock.version>2.27.2</wiremock.version>
 		<springdoc-openapi-maven-plugin.version>1.5-SNAPSHOT</springdoc-openapi-maven-plugin.version>
 		<maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
+		<springdoc-openapi-maven-plugin.version>1.5-SNAPSHOT</springdoc-openapi-maven-plugin.version>
     </properties>
 
 	<repositories>
