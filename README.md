@@ -232,7 +232,7 @@ We are using the following security best practices:
 
 * Fix security vulnerabilities in our Java image.
 * Run as non-root user for security purposes.
-* Escape HTML characters in the input of the REST API by using org.apache.commons.commons-text [StringEscapeUtils] (<https://commons.apache.org/proper/commons-text/apidocs/org/apache/commons/text/StringEscapeUtils.html>)
+* Escape HTML characters in the input of the REST API by using org.apache.commons.commons-text [StringEscapeUtils](<https://commons.apache.org/proper/commons-text/apidocs/org/apache/commons/text/StringEscapeUtils.html>)
 * Escape of SQL is managed by JPA.
 * Recommended to review the [ESAPI](<https://github.com/ESAPI/esapi-java-legacy>) project by OWASP.
 * Use encrypted password instead of plain text.
@@ -348,7 +348,7 @@ Based on how this data will be used, a SQL or NoSQL database will be selected. C
 
 We will favor NoSQL for large volumes of data that are not transactional in nature. The BASE model will be applicable.
 
-NoSQL DBs like [MongoDB support transactions] (https://www.mongodb.com/docs/manual/core/transactions/), we'll choose MongoDB for the reactive version of this example.
+NoSQL DBs like [MongoDB support transactions](https://www.mongodb.com/docs/manual/core/transactions/), we'll choose MongoDB for the reactive version of this example.
 
 ### Use MySQL
 
