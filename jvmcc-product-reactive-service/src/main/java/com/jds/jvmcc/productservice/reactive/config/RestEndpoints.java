@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
  * @version 1.0
  * @since 2022-08-13
  */
-
 public class RestEndpoints {
 
     // Make the class static so that it can be used without instantiation

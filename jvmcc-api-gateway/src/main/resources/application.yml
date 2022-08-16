@@ -10,11 +10,24 @@ spring:
         - id: jvmcc-product-service
           uri: lb://jvmcc-product-service
           predicates:
-            - Path=/product**
+            - Path=/product/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: productCircuitBreaker
+                fallbackUri: forward://product-fallback
+                enabled: true
         - id: jvmcc-review-service
           uri: lb://jvmcc-review-service
           predicates:
-            - Path=/review**
+            - Path=/review/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: reviewCircuitBreaker
+                fallbackUri: forward://review-fallback
+                enabled: true
+
   zipkin:
     base-url: http://localhost:9411
 server:
