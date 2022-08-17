@@ -8,7 +8,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   zipkin:
-    base-url: http://jvmcc-zipkin-server
+    base-url: http://zipkin-server
 server:
   port: 9000  
 eureka:
@@ -26,7 +26,7 @@ spring:
   application:
     name: jvmcc-eureka-server-clustered
   zipkin:
-    base-url: http://jvmcc-zipkin-server
+    base-url: http://zipkin-server
 server:
   port: 9001  
 eureka:
@@ -44,7 +44,7 @@ spring:
   application:
     name: jvmcc-eureka-server-clustered   
   zipkin:
-    base-url: http://jvmcc-zipkin-server
+    base-url: http://zipkin-server
 server:
   port: 9002
 eureka:
@@ -62,7 +62,7 @@ spring:
   application:
     name: jvmcc-eureka-server-clustered  
   zipkin:
-    base-url: http://jvmcc-zipkin-server
+    base-url: http://zipkin-server
 server:
   port: 9003
 eureka:

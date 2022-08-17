@@ -33,13 +33,14 @@ services:
       dockerfile: Dockerfile
     environment:
         - JAVA_OPTS="-Dspring.profiles.active=development"
-        - SPRING_CONFIG_URI="http://jvmcc-config-server"
+        - SPRING_CONFIG_URI="http://jvmcc-config-server:8888"
     deploy:
         restart_policy:
                 condition: on-failure
     depends_on:
       - jvmcc-service-discovery
       - jvmcc-review-service
+      - zipkin-server
     profiles:
       - non-reactive
     networks:
@@ -63,6 +64,7 @@ services:
       - jvmcc-ldap-server
       - zookeeper
       - kafka
+      - zipkin-server
     profiles:
       - reactive
     networks:
@@ -111,6 +113,7 @@ services:
       - jvmcc-ldap-server
       - zookeeper
       - kafka
+      - zipkin-server
     links:
       - jvmcc-service-discovery
     profiles:
