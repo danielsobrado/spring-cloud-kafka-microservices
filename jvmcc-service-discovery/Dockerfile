@@ -19,6 +19,7 @@ COPY --from=build dependencies/ ./
 COPY --from=build snapshot-dependencies/ ./
 COPY --from=build spring-boot-loader/ ./
 COPY --from=build application/ ./
+
 ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
 
 # docker build -t dalamar/jvmcc-service-discovery .

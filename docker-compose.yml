@@ -2,10 +2,10 @@ version: "3.8"
 services:
   jvmcc-service-discovery:
     container_name: jvmcc-service-discovery
-    image: dalamar/jvmcc-service-discovery:latest
+    image: jvmcc-service-discovery:latest
     build:
-      context: .
-      dockerfile: jvmcc-service-discovery/Dockerfile
+      context: jvmcc-service-discovery
+      dockerfile: Dockerfile
     ports:
       - "9000:9000"
     networks:
@@ -13,12 +13,12 @@ services:
   # API Gateway container. This container is the only container exposed to the outside
   jvmcc-api-gateway:
     container_name: jvmcc-api-gateway
-    image: dalamar/jvmcc-api-gateway:latest
+    image: jvmcc-api-gateway:latest
     build:
-      context: .
-      dockerfile: jvmcc-api-gateway/Dockerfile
+      context: jvmcc-api-gateway
+      dockerfile: Dockerfile
     environment:
-      - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery/eureka/
+      - eureka.client.serviceUrl.defaultZone=http://jvmcc-service-discovery:9000/eureka/
     ports:
       - "8080:8080"
     depends_on:
@@ -27,31 +27,31 @@ services:
       - jvmcc-local
   jvmcc-product-service:
     container_name: jvmcc-product-service
-    image: dalamar/jvmcc-product-service:latest
+    image: jvmcc-product-service:latest
     build:
-      context: .
-      dockerfile: jvmcc-product-service/Dockerfile
+      context: jvmcc-product-service
+      dockerfile: Dockerfile
     environment:
-        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - JAVA_OPTS="-Dspring.profiles.active=development"
         - SPRING_CONFIG_URI="http://jvmcc-config-server"
     deploy:
         restart_policy:
                 condition: on-failure
     depends_on:
       - jvmcc-service-discovery
-      - jvmcc-ldap-server
+      - jvmcc-review-service
     profiles:
       - non-reactive
     networks:
       - jvmcc-local
   jvmcc-product-reactive-service:
     container_name: jvmcc-product-reactive-service
-    image: dalamar/jvmcc-product-reactive-service:latest
+    image: jvmcc-product-reactive-service:latest
     build:
-      context: .
-      dockerfile: jvmcc-product-reactive-service/Dockerfile
+      context: jvmcc-product-reactive-service
+      dockerfile: Dockerfile
     environment:
-        - JAVA_OPTS="-Dspring.profiles.active=docker"
+        - JAVA_OPTS="-Dspring.profiles.active=development"
         - SPRING_CONFIG_URI="http://jvmcc-config-server"
     ports:
       - "8081:8081"
@@ -69,12 +69,12 @@ services:
       - jvmcc-local
   jvmcc-review-service:
     container_name: jvmcc-review-service
-    image: dalamar/jvmcc-review-service:latest
+    image: jvmcc-review-service:latest
     build:
-      context: .
-      dockerfile: jvmcc-review-service/Dockerfile
+      context: jvmcc-review-service
+      dockerfile: Dockerfile
     environment:
-      - JAVA_OPTS="-Dspring.profiles.active=docker"
+      - JAVA_OPTS="-Dspring.profiles.active=development"
       - SPRING_CONFIG_URI="http://jvmcc-config-server"
     ports:
       - "8082:8082"
@@ -83,20 +83,21 @@ services:
                 condition: on-failure
     depends_on:
       - jvmcc-service-discovery
+      - jvmcc-config-server
       - jvmcc-mysql
-      - jvmcc-ldap-server
+      - zipkin-server
     profiles:
       - non-reactive
     networks:
       - jvmcc-local
   jvmcc-review-reactive-service:
     container_name: jvmcc-review-reactive-service
-    image: dalamar/jvmcc-review-reactive-service:latest
+    image: jvmcc-review-reactive-service:latest
     build:
-      context: .
-      dockerfile: jvmcc-review-reactive-service/Dockerfile
+      context: jvmcc-review-reactive-service
+      dockerfile: Dockerfile
     environment:
-      - JAVA_OPTS="-Dspring.profiles.active=docker"
+      - JAVA_OPTS="-Dspring.profiles.active=development"
       - SPRING_CONFIG_URI="http://jvmcc-config-server"
       - SPRING_DATA_MONGODB_HOST=mongo
     ports:
@@ -118,12 +119,12 @@ services:
       - jvmcc-local
   jvmcc-config-server:
     container_name: jvmcc-config-server
-    image: dalamar/jvmcc-config-server:latest
+    image: jvmcc-config-server:latest
     build:
-      context: .
-      dockerfile: jvmcc-config-server/Dockerfile
+      context: jvmcc-config-server
+      dockerfile: Dockerfile
     environment:
-      - JAVA_OPTS="-Dspring.profiles.active=docker"
+      - JAVA_OPTS="-Dspring.profiles.active=development"
       - SPRING_CONFIG_URI="http://jvmcc-config-server"
     ports:
       - "8888:8888"
@@ -132,59 +133,44 @@ services:
                 condition: on-failure
     depends_on:
       - jvmcc-service-discovery
-    links:
-      - jvmcc-service-discovery
     networks:
       - jvmcc-local
   zipkin-server:
     container_name: zipkin-server
     image: openzipkin/zipkin:2.21.0
     environment:
-      - SPRING_CONFIG_URI="http://zipkin-server"
+      - SPRING_CONFIG_URI="http://jvmcc-config-server"
     ports:
       - "9411:9411"
     deploy:
         restart_policy:
                 condition: on-failure
-    depends_on:
-      - jvmcc-service-discovery
     networks:
       - jvmcc-local
   jvmcc-mysql:
     container_name: jvmcc-mysql
-    image: dalamar/jvmcc-mysql
+    image: mysql/mysql-server:8.0
     build:
-      context: .
-      dockerfile: jvmcc-mysql/Dockerfile
-    environment:
-        - JAVA_OPTS="-Dspring.profiles.active=docker"
-        - SPRING_CONFIG_URI="http://jvmcc-config-server"
-        - MYSQL_USER=$${MYSQL_USER:jvmcc}
-        - MYSQL_PASSWORD=$${MYSQL_PASSWORD:jvmcc}
-        - MYSQL_DATABASE=$${MYSQL_DATABASE:jvmcc}
-        - MYSQL_ROOT_PASSWORD=$${MYSQL_ROOT_PASSWORD:root}
-        - MYSQL_ROOT_HOST='%'  
+      context: jvmcc-mysql
+      dockerfile: Dockerfile 
     ports:
       - 3306:3306
     volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_config:/etc/mysql/conf.d
-    command: mysqld --init-file="/initSQL.sql"
+      - ./jvmcc-mysql/initSQL.sql:/docker-entrypoint-initdb.d/initSQL.sql
     healthcheck:
-      test: "mysqladmin ping -u root -p$${MYSQL_ROOT_PASSWORD:root}"
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
     profiles:
       - non-reactive
     networks:
       - jvmcc-local
   jvmcc-mongodb:
     container_name: jvmcc-mongodb
-    image: dalamar/jvmcc-mongodb
+    image: jvmcc-mongodb
     build:
-      context: .
-      dockerfile: jvmcc-mongodb/Dockerfile
+      context: jvmcc-mongodb
+      dockerfile: Dockerfile
     ports:
       - 27017:27017
     volumes:
@@ -245,8 +231,8 @@ services:
     image: jvmcc-ldap-server
     container_name: jvmcc-ldap-server
     build:
-      context: .
-      dockerfile: jvmcc-ldap-server/Dockerfile
+      context: jvmcc-ldap-server
+      dockerfile: Dockerfile
     environment:
       - LDAP_ORGANISATION="danielsobrado.com"
       - LDAP_DOMAIN=jvmcc.com
@@ -260,8 +246,7 @@ services:
     profiles:
       - donotstart
 volumes:
-  mysql_data:
-  mysql_config:
+  # mysql_data:
   mongodata:
   ldap_data:
   ldap_config:
