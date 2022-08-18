@@ -218,6 +218,8 @@ We simply need to establish several services and register them with the Service 
 
 Since API Gateway is stateless and requires a load balancer in front, such as NginX, it cannot be used for external access.
 
+```docker-compose-production.yml``` contains the configuration for High Availability, it starts 2 instances of each critical service, odeally we should raise 3 each, but for demo pourposes we'll raise only 2 as we have a single machine to host them all.
+
 ## Resilience
 
 Due to the interdependence of the microservices, we must use a circuit breaker approach to ensure that, in the event of an outage or a cluttered service, we may restart without losing any data.
