@@ -8,19 +8,19 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   zipkin:
-    base-url: http://zipkin-server:9411
+    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
 server:
   port: 8761
 eureka:
   instance:
-    hostname: 127.0.0.1
+    hostname: ${SERVICE_DISCOVERY_HOSTNAME:jvmcc-default-eureka-server.com}
     nonSecurePortEnabled: false
     securePortEnabled: true
   client:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: ${EUREKA_SERVER:https://127.0.0.1:8761/eureka}
+      defaultZone: ${SERVICE_DISCOVERY_HOSTNAME:https://localhost:9000/eureka}
 logging:
   pattern: 
     console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

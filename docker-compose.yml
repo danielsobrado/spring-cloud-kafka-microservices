@@ -7,7 +7,7 @@ services:
       context: jvmcc-service-discovery
       dockerfile: Dockerfile
     environment:
-      - SPRING_PROFILES_ACTIVE="development"
+      - SPRING_PROFILE="development"
       - SERVICE_DISCOVERY_PORT=9000
       - SERVICE_DISCOVERY_HOSTNAME=jvmcc-default-eureka-server.com
       - SERVICE_DISCOVERY_NAME=jvmcc-service-discovery
@@ -24,7 +24,7 @@ services:
       context: jvmcc-api-gateway
       dockerfile: Dockerfile
     environment:
-      - SPRING_PROFILES_ACTIVE="development"
+      - SPRING_PROFILE="development"
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka/"
     ports:
       - "8080:8080"
