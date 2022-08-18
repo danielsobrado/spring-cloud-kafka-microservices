@@ -48,6 +48,8 @@ services:
       CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
     ports:
       - "8080:8080"
     depends_on:
@@ -69,6 +71,8 @@ services:
       CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
     ports:
       - "8081:8081"
     depends_on:
