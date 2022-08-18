@@ -15,6 +15,9 @@ spring:
     username: ${MYSQL_USERNAME:jvmcc}
     password: ${MYSQL_PASSWORD:jvmcc}
     driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: false
   config:
     import: ${CONFIG_SERVER_URL:optional:configserver:http://jvmcc:jvmcc@localhost:8888/}
   main:

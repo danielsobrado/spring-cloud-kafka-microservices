@@ -2,6 +2,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch JvmccProductServiceApplication",
+            "request": "launch",
+            "mainClass": "com.jds.jvmcc.productservice.JvmccProductServiceApplication",
+            "projectName": "jvmcc-product-service"
+        },
+        {
+            "type": "java",
+            "name": "Launch JvmccReviewServiceApplication",
+            "request": "launch",
+            "mainClass": "com.jds.jvmcc.reviewservice.JvmccReviewServiceApplication",
+            "projectName": "jvmcc-review-service"
+        },
+        {
+            "type": "java",
             "name": "Launch JvmccConfigurationServerApplication",
             "request": "launch",
             "mainClass": "com.jds.jvmcc.jvmccconfigurationserver.JvmccConfigurationServerApplication",
