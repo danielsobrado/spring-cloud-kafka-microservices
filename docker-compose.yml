@@ -163,9 +163,12 @@ services:
       dockerfile: Dockerfile
     environment:
       - CONFIG_SERVER_PORT=8888
+      - CONFIG_APPLICATION_NAME="jvmcc-config-server"
       - SPRING_PROFILE="development"
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka"
       - ZIPKIN_SERVER_URL="http://zipkin-server:9411"
+      - SECURITY_USERNAME="jvmcc"
+      - SECURITY_PASSWORD="jvmcc"
     ports:
       - "8888:8888"
     deploy:

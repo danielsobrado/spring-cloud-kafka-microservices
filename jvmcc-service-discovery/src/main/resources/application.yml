@@ -1,7 +1,8 @@
 ---
 # To operate a single instance in standalone mode, this default profile is used:
 spring:
-  profiles: development
+  profiles: 
+    active: ${SPRING_PROFILE:development}
   application:
     name: ${SERVICE_DISCOVERY_NAME:jvmcc-service-discovery}
   mvc:
@@ -22,7 +23,8 @@ eureka:
  
 ---
 spring:
-  profiles: jvmcc-eureka-1
+  profiles: 
+    active: jvmcc-eureka-1
   application:
     name: jvmcc-eureka-server-clustered
   zipkin:
@@ -40,7 +42,8 @@ eureka:
  
 ---
 spring:
-  profiles: jvmcc-eureka-2
+  profiles: 
+    active: jvmcc-eureka-2
   application:
     name: jvmcc-eureka-server-clustered   
   zipkin:
@@ -58,7 +61,8 @@ eureka:
  
 ---
 spring:
-  profiles: jvmcc-eureka-3
+  profiles: 
+    active: jvmcc-eureka-3
   application:
     name: jvmcc-eureka-server-clustered  
   zipkin:

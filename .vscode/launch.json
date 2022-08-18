@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-JvmccServiceDiscoveryApplication<jvmcc-service-discovery>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jds.jvmcc.jvmccservicediscovery.JvmccServiceDiscoveryApplication",
+            "projectName": "jvmcc-service-discovery",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

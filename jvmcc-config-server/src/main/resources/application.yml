@@ -2,13 +2,13 @@ server:
   port: ${CONFIG_SERVER_PORT:8888}
 spring:
   application:
-    name: jvmcc
+    name: ${CONFIG_APPLICATION_NAME:jvmcc-config-server}
   profiles:
-    active: development
+    active: ${SPRING_PROFILE:development}
   security:
     user:
-      name: jvmcc
-      password: jvmcc
+      name: ${SECURITY_USERNAME:jvmcc}
+      password: ${SECURITY_PASSWORD:jvmcc}
   cloud:
     config:
       server:
