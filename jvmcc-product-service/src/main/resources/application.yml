@@ -1,29 +1,29 @@
 server:
-  port: 8092
+  port: ${PRODUCT_SERVICE_PORT:8092}
   forward-headers-strategy: framework
 spring:
   application:
     name: jvmcc-product-service
   profiles:
-    active: development
+    active: ${SPRING_PROFILE:development}
   security:
     user:
-      name: jvmcc
-      password: jvmcc
+      name: ${SECURITY_USERNAME:jvmcc}
+      password: ${SECURITY_PASSWORD:jvmcc}
   datasource:
-    url: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
-    username: jvmcc
-    password: jvmcc
+    url: ${MYSQL_SERVER_URL:jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true}
+    username: ${MYSQL_USERNAME:jvmcc}
+    password: ${MYSQL_PASSWORD:jvmcc}
     driverClassName: com.mysql.cj.jdbc.Driver
   config:
-    import: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
+    import: ${CONFIG_SERVER_URL:optional:configserver:http://jvmcc:jvmcc@localhost:8888/}
   main:
     allow-bean-definition-overriding: true
   cache:
     caffeine:
       spec: expireAfterWrite=300s
   zipkin:
-    base-url: http://zipkin-server:9411
+    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
 feign:
   circuitbreaker:
     enabled: false
@@ -59,8 +59,7 @@ eureka:
   client:
     enabled: false
     serviceUrl:
-      defaultZone: http://jvmcc-eureka-2-server.com:9000/eureka
-      # defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:9000/eureka/}
   instance:
     preferIpAddress: false
     leaseRenewalIntervalInSeconds: 1
@@ -75,8 +74,6 @@ product:
 logging:
   file:
     name: ${java.io.tmpdir}/application.log
-  # pattern: 
-  #   console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
   level:
     root: info
     org:

@@ -1,19 +1,19 @@
 ---
 # To operate a single instance in standalone mode, this default profile is used:
 spring:
-  profiles: default
+  profiles: development
   application:
-    name: jvmcc-service-discovery
+    name: ${SERVICE_DISCOVERY_NAME:jvmcc-service-discovery}
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   zipkin:
-    base-url: http://zipkin-server
+    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
 server:
-  port: 9000  
+  port: ${SERVICE_DISCOVERY_PORT:9000}
 eureka:
   instance:
-    hostname: jvmcc-default-eureka-server.com
+    hostname: ${SERVICE_DISCOVERY_HOSTNAME:jvmcc-default-eureka-server.com}
   client:
     registerWithEureka: false
     fetchRegistry: false
@@ -26,7 +26,7 @@ spring:
   application:
     name: jvmcc-eureka-server-clustered
   zipkin:
-    base-url: http://zipkin-server
+    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
 server:
   port: 9001  
 eureka:
@@ -44,7 +44,7 @@ spring:
   application:
     name: jvmcc-eureka-server-clustered   
   zipkin:
-    base-url: http://zipkin-server
+    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
 server:
   port: 9002
 eureka:
@@ -62,7 +62,7 @@ spring:
   application:
     name: jvmcc-eureka-server-clustered  
   zipkin:
-    base-url: http://zipkin-server
+    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
 server:
   port: 9003
 eureka:

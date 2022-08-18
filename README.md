@@ -454,6 +454,7 @@ The application runtime is stored in a different image. The finished image is sa
 
 * Distributed Cache: Use Redis instead of Caffeine, or [2 levels cache](https://programs.wiki/wiki/redis-caffeine-two-level-cache-allows-smooth-access-speed.html).
 * Use [Jib](https://snyk.io/blog/building-java-container-images-using-jib/) to containerize the Java microservices.
+* Implement High Availability and Scalability by using Docker Swarm or Kubernetes
 
 ## Notes
 
