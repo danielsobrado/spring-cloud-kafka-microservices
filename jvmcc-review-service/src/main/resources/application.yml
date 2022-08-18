@@ -5,7 +5,7 @@ spring:
   profiles:
     active: ${SPRING_PROFILE:development}
   application:
-    name: jvmcc-review-service
+    name: ${REVIEW_SERVICE_NAME:jvmcc-review-service}
   security:
     user:
       name: ${SECURITY_USERNAME:jvmcc}

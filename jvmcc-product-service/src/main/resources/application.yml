@@ -3,7 +3,7 @@ server:
   forward-headers-strategy: framework
 spring:
   application:
-    name: jvmcc-product-service
+    name: ${PRODUCT_SERVICE_NAME:jvmcc-product-service}
   profiles:
     active: ${SPRING_PROFILE:development}
   security:
