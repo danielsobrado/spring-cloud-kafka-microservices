@@ -57,7 +57,7 @@ spring:
                 fallbackUri: forward://review-fallback
                 enabled: true
   config:
-    import: "optional:configserver:"
+    import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888}
   zipkin:
     base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411}
 eureka:
