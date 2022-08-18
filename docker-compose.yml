@@ -9,8 +9,9 @@ services:
     environment:
       - SPRING_PROFILE="development"
       - SERVICE_DISCOVERY_PORT=9000
-      - SERVICE_DISCOVERY_HOSTNAME=jvmcc-default-eureka-server.com
+      - SERVICE_DISCOVERY_HOSTNAME=jvmcc-service-discovery
       - SERVICE_DISCOVERY_NAME=jvmcc-service-discovery
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka"
       - ZIPKIN_SERVER_URL="http://zipkin-server:9411"
     ports:
       - "9000:9000"
@@ -25,8 +26,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - SPRING_PROFILE="development"
-      - API_GATEWAY_PORT=9090
-      - API_GATEWAY_NAME=jvmcc-api-gateway.com
+      - API_GATEWAY_PORT=8080
+      - API_GATEWAY_NAME=jvmcc-api-gateway
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka/"
       - ZIPKIN_SERVER_URL="http://zipkin-server:9411"
     ports:
@@ -46,7 +47,7 @@ services:
       - SPRING_PROFILE="development"
       - EUREKA_CLIENT_ENABLED=true
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka"
-      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/"
+      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888"
       - ZIPKIN_SERVER_URL="http://zipkin-server:9411"
       - MYSQL_SERVER_URL="jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true"
       - MYSQL_USERNAME="jvmcc"
@@ -77,7 +78,7 @@ services:
       - SPRING_PROFILE="development"
       - EUREKA_CLIENT_ENABLED=true
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka"
-      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/"
+      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888"
       - ZIPKIN_SERVER_URL="http://zipkin-server:9411"
       - SECURITY_USERNAME="jvmcc"
       - SECURITY_PASSWORD="jvmcc"
@@ -107,7 +108,7 @@ services:
       - SPRING_PROFILE="development"
       - EUREKA_CLIENT_ENABLED=true
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka"
-      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/"
+      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888"
       - ZIPKIN_SERVER_URL="http://zipkin-server:9411"
       - MYSQL_SERVER_URL="jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true"
       - MYSQL_USERNAME="jvmcc"
@@ -139,7 +140,7 @@ services:
       - SPRING_PROFILE="development"
       - EUREKA_CLIENT_ENABLED=true
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka"
-      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/"
+      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888"
       - ZIPKIN_SERVER_URL="http://zipkin-server:9411"
       - SECURITY_USERNAME="jvmcc"
       - SECURITY_PASSWORD="jvmcc"
@@ -190,8 +191,9 @@ services:
     container_name: zipkin-server
     image: openzipkin/zipkin:2.21.0
     environment:
+      - ZIPKIN_PORT=9411
       - SPRING_PROFILE="development"
-      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/"
+      - CONFIG_SERVER_URL="optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888"
     ports:
       - "9411:9411"
     deploy:

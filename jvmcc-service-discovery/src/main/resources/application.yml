@@ -14,9 +14,9 @@ server:
   port: ${SERVICE_DISCOVERY_PORT:9000}
 eureka:
   instance:
-    hostname: ${SERVICE_DISCOVERY_HOSTNAME:jvmcc-default-eureka-server.com}
+    hostname: ${SERVICE_DISCOVERY_HOSTNAME:jvmcc-service-discovery}
   client:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://jvmcc-eureka-server.com:9000/eureka/    
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:9000/eureka/}

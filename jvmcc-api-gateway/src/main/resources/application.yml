@@ -1,5 +1,5 @@
 server:
-  port: ${API_GATEWAY_PORT:9090}
+  port: ${API_GATEWAY_PORT:8080}
   ssl:
     enabled: true
     key-alias: jvmcc
