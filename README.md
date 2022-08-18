@@ -218,7 +218,9 @@ We simply need to establish several services and register them with the Service 
 
 Since API Gateway is stateless and requires a load balancer in front, such as NginX, it cannot be used for external access.
 
-```docker-compose-production.yml``` contains the configuration for High Availability, it starts 2 instances of each critical service, odeally we should raise 3 each, but for demo pourposes we'll raise only 2 as we have a single machine to host them all.
+The configuration for high availability is found in the file "docker-compose-production.yml," which launches two instances of each critical service instead of the recommended three. However, since we only have one machine to host them all, we'll only start two instances for demonstration purposes.
+
+When managing high availability, Docker Compose is not the best option; instead, Docker Swarm and Kubernetes are needed.
 
 ## Resilience
 
