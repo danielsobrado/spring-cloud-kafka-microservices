@@ -1,54 +1,93 @@
 version: "3.8"
 services:
-  jvmcc-service-discovery:
-    container_name: jvmcc-service-discovery
+  jvmcc-service-discovery-1:
+    container_name: jvmcc-service-discovery-1
     image: jvmcc-service-discovery:latest
     build:
       context: jvmcc-service-discovery
       dockerfile: Dockerfile
     environment:
-      SPRING_PROFILE: development
+      SPRING_PROFILE: production
       SERVICE_DISCOVERY_PORT: 9000
-      SERVICE_DISCOVERY_HOSTNAME: jvmcc-service-discovery
-      SERVICE_DISCOVERY_NAME: jvmcc-service-discovery
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      SERVICE_DISCOVERY_HOSTNAME: jvmcc-service-discovery-1
+      SERVICE_DISCOVERY_NAME: jvmcc-service-discovery-1
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
     ports:
       - "9000:9000"
     networks:
       - jvmcc-local
+  jvmcc-service-discovery-2:
+    container_name: jvmcc-service-discovery-2
+    image: jvmcc-service-discovery:latest
+    build:
+      context: jvmcc-service-discovery
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILE: production
+      SERVICE_DISCOVERY_PORT: 9001
+      SERVICE_DISCOVERY_HOSTNAME: jvmcc-service-discovery-2
+      SERVICE_DISCOVERY_NAME: jvmcc-service-discovery-2
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-2:9001/eureka
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+    ports:
+      - "9001:9001"
+    networks:
+      - jvmcc-local
   # API Gateway container. This container is the only container exposed to the outside
-  jvmcc-api-gateway:
-    container_name: jvmcc-api-gateway
+  jvmcc-api-gateway-1:
+    container_name: jvmcc-api-gateway-1
     image: jvmcc-api-gateway:latest
     build:
       context: jvmcc-api-gateway
       dockerfile: Dockerfile
     environment:
-      SPRING_PROFILE: development
+      SPRING_PROFILE: production
       API_GATEWAY_PORT: 8080
-      API_GATEWAY_NAME: jvmcc-api-gateway
+      API_GATEWAY_NAME: jvmcc-api-gateway-1
       CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka/
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
     ports:
       - "8080:8080"
     depends_on:
       - jvmcc-config-server
-      - jvmcc-service-discovery
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
     networks:
       - jvmcc-local
-  jvmcc-product-service:
-    container_name: jvmcc-product-service
+  jvmcc-api-gateway-2:
+    container_name: jvmcc-api-gateway-2
+    image: jvmcc-api-gateway:latest
+    build:
+      context: jvmcc-api-gateway
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILE: production
+      API_GATEWAY_PORT: 8081
+      API_GATEWAY_NAME: jvmcc-api-gateway-2
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+    ports:
+      - "8081:8081"
+    depends_on:
+      - jvmcc-config-server
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
+    networks:
+      - jvmcc-local
+  jvmcc-product-service-1:
+    container_name: jvmcc-product-service-1
     image: jvmcc-product-service:latest
     build:
       context: jvmcc-product-service
       dockerfile: Dockerfile
     environment:
-      PRODUCT_SERVICE_PORT: 8092
-      SPRING_PROFILE: development
-      EUREKA_CLIENT_ENABLED: true
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      PRODUCT_SERVICE_PORT: 8091
+      SPRING_PROFILE: noauth
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
@@ -56,15 +95,47 @@ services:
       MYSQL_PASSWORD: jvmcc
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
-    ports:
-      - "8092:8092"
     deploy:
         restart_policy:
                 condition: on-failure
     depends_on:
       - jvmcc-config-server
-      - jvmcc-service-discovery
-      - jvmcc-review-service
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
+      - jvmcc-review-service-1
+      - jvmcc-review-service-2
+      - zipkin-server
+    profiles:
+      - non-reactive
+    networks:
+      - jvmcc-local
+  jvmcc-product-service-2:
+    container_name: jvmcc-product-service-2
+    image: jvmcc-product-service:latest
+    build:
+      context: jvmcc-product-service
+      dockerfile: Dockerfile
+    environment:
+      PRODUCT_SERVICE_PORT: 8092
+      SPRING_PROFILE: noauth
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
+      MYSQL_USERNAME: jvmcc
+      MYSQL_PASSWORD: jvmcc
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-config-server
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
+      - jvmcc-review-service-1
+      - jvmcc-review-service-2
       - zipkin-server
     profiles:
       - non-reactive
@@ -78,9 +149,9 @@ services:
       dockerfile: Dockerfile
     environment:
       PRODUCT_SERVICE_PORT: 8092
-      SPRING_PROFILE: development
-      EUREKA_CLIENT_ENABLED: true
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      SPRING_PROFILE: noauth
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       SECURITY_USERNAME: jvmcc
@@ -91,7 +162,8 @@ services:
         restart_policy:
                 condition: on-failure
     depends_on:
-      - jvmcc-service-discovery
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
       - jvmcc-ldap-server
       - zookeeper
       - kafka
@@ -100,17 +172,17 @@ services:
       - reactive
     networks:
       - jvmcc-local
-  jvmcc-review-service:
-    container_name: jvmcc-review-service
+  jvmcc-review-service-1:
+    container_name: jvmcc-review-service-1
     image: jvmcc-review-service:latest
     build:
       context: jvmcc-review-service
       dockerfile: Dockerfile
     environment:
-      REVIEW_SERVICE_PORT: 8091
-      SPRING_PROFILE: development
-      EUREKA_CLIENT_ENABLED: true
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      REVIEW_SERVICE_PORT: 8093
+      SPRING_PROFILE: noauth
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
@@ -118,14 +190,44 @@ services:
       MYSQL_PASSWORD: jvmcc
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
-    ports: 
-      - "8091:8091"
     deploy:
         restart_policy:
                 condition: on-failure
     depends_on:
       - jvmcc-config-server
-      - jvmcc-service-discovery
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
+      - jvmcc-mysql
+      - zipkin-server
+    profiles:
+      - non-reactive
+    networks:
+      - jvmcc-local
+  jvmcc-review-service-2:
+    container_name: jvmcc-review-service-2
+    image: jvmcc-review-service:latest
+    build:
+      context: jvmcc-review-service
+      dockerfile: Dockerfile
+    environment:
+      REVIEW_SERVICE_PORT: 8094
+      SPRING_PROFILE: noauth
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
+      MYSQL_USERNAME: jvmcc
+      MYSQL_PASSWORD: jvmcc
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-config-server
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
       - jvmcc-mysql
       - zipkin-server
     profiles:
@@ -140,9 +242,9 @@ services:
       dockerfile: Dockerfile
     environment:
       REVIEW_SERVICE_PORT: 8091
-      SPRING_PROFILE: development
-      EUREKA_CLIENT_ENABLED: true
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      SPRING_PROFILE: noauth
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       SECURITY_USERNAME: jvmcc
@@ -155,14 +257,13 @@ services:
                 condition: on-failure
     depends_on:
       - jvmcc-config-server
-      - jvmcc-service-discovery
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
       - jvmcc-mongodb
       - jvmcc-ldap-server
       - zookeeper
       - kafka
       - zipkin-server
-    links:
-      - jvmcc-service-discovery
     profiles:
       - reactive
     networks:
@@ -176,9 +277,9 @@ services:
     environment:
       CONFIG_SERVER_PORT: 8888
       CONFIG_APPLICATION_NAME: jvmcc-config-server
-      SPRING_PROFILE: development
-      EUREKA_CLIENT_ENABLED: true
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      SPRING_PROFILE: production
+      EUREKA_CLIENT_ENABLED: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       ZIPKIN_SERVER_URL: http://zipkin-server:9411"
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
@@ -188,7 +289,8 @@ services:
         restart_policy:
                 condition: on-failure
     depends_on:
-      - jvmcc-service-discovery
+      - jvmcc-service-discovery-1
+      - jvmcc-service-discovery-2
     networks:
       - jvmcc-local
   zipkin-server:
@@ -196,7 +298,7 @@ services:
     image: openzipkin/zipkin:2.21.0
     environment:
       ZIPKIN_PORT: 9411
-      SPRING_PROFILE: development
+      SPRING_PROFILE: production
       CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
     ports:
       - "9411:9411"
