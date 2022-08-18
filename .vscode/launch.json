@@ -2,11 +2,28 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch JvmccConfigurationServerApplication",
+            "request": "launch",
+            "mainClass": "com.jds.jvmcc.jvmccconfigurationserver.JvmccConfigurationServerApplication",
+            "projectName": "jvmcc-config-server"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-JvmccServiceDiscoveryApplication<jvmcc-service-discovery>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "mainClass": "com.jds.jvmcc.jvmccservicediscovery.JvmccServiceDiscoveryApplication",
             "projectName": "jvmcc-service-discovery",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-JvmccApiGatewayApplication<jvmcc-api-gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jds.jvmcc.jvmccapigateway.JvmccApiGatewayApplication",
+            "projectName": "jvmcc-api-gateway",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }

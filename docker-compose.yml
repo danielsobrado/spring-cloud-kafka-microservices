@@ -25,7 +25,10 @@ services:
       dockerfile: Dockerfile
     environment:
       - SPRING_PROFILE="development"
+      - API_GATEWAY_PORT=9090
+      - API_GATEWAY_NAME=jvmcc-api-gateway.com
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE="http://jvmcc-service-discovery:9000/eureka/"
+      - ZIPKIN_SERVER_URL="http://zipkin-server:9411"
     ports:
       - "8080:8080"
     depends_on:
