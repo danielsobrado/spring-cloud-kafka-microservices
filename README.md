@@ -143,6 +143,8 @@ The degree of decoupling we can achieve depends on how modular the services are;
 
 Understanding when a service is not responding and another service needs to take over requires monitoring.
 
+The [default](https://github.com/spring-cloud/spring-cloud-config/issues/87) way to use Eureka and Config Server is to use Config First bootstrap. Essentially, you make eureka server a client of the config server but you don't make the config server a client of eureka.
+
 ### Service Discovery High Availability (Eureka Server)
 
 We'll configure Eureka Server as a Cluster for High Availability.

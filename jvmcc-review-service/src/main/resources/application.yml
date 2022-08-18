@@ -29,7 +29,7 @@ jwt:
   secret: jvmcc
 eureka:
   client:
-    enabled: true
+    enabled: ${EUREKA_CLIENT_ENABLED:false}
     serviceUrl:
       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:9000/eureka/}
   instance:
