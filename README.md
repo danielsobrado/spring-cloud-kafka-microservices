@@ -429,13 +429,13 @@ This will copy the entire repository so that it can be assembled on a Docker ins
 To build the full project:
 
 ```bash
-docker compose build
+docker-compose build --no-cache
 ```
 
 Start the project on non-reactive mode:
 
 ```bash
-docker-compose --compatibility --profile non-reactive up
+docker-compose --profile non-reactive up
 ```
 
 The project in reactive mode is still "*Work In Progress*".
