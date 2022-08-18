@@ -1,0 +1,314 @@
+version: "3.8"
+services:
+  jvmcc-service-discovery:
+    container_name: jvmcc-service-discovery
+    image: jvmcc-service-discovery:latest
+    build:
+      context: jvmcc-service-discovery
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILE: development
+      SERVICE_DISCOVERY_PORT: 9000
+      SERVICE_DISCOVERY_HOSTNAME: jvmcc-service-discovery
+      SERVICE_DISCOVERY_NAME: jvmcc-service-discovery
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+    ports:
+      - "9000:9000"
+    networks:
+      - jvmcc-local
+  # API Gateway container. This container is the only container exposed to the outside
+  jvmcc-api-gateway:
+    container_name: jvmcc-api-gateway
+    image: jvmcc-api-gateway:latest
+    build:
+      context: jvmcc-api-gateway
+      dockerfile: Dockerfile
+    environment:
+      SPRING_PROFILE: development
+      API_GATEWAY_PORT: 8080
+      API_GATEWAY_NAME: jvmcc-api-gateway
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka/
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+    ports:
+      - "8080:8080"
+    depends_on:
+      - jvmcc-config-server
+      - jvmcc-service-discovery
+    networks:
+      - jvmcc-local
+  jvmcc-product-service:
+    container_name: jvmcc-product-service
+    image: jvmcc-product-service:latest
+    build:
+      context: jvmcc-product-service
+      dockerfile: Dockerfile
+    environment:
+      PRODUCT_SERVICE_PORT: 8092
+      SPRING_PROFILE: development
+      EUREKA_CLIENT_ENABLED: true
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
+      MYSQL_USERNAME: jvmcc
+      MYSQL_PASSWORD: jvmcc
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
+    ports:
+      - "8092:8092"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-config-server
+      - jvmcc-service-discovery
+      - jvmcc-review-service
+      - zipkin-server
+    profiles:
+      - non-reactive
+    networks:
+      - jvmcc-local
+  jvmcc-product-reactive-service:
+    container_name: jvmcc-product-reactive-service
+    image: jvmcc-product-reactive-service:latest
+    build:
+      context: jvmcc-product-reactive-service
+      dockerfile: Dockerfile
+    environment:
+      PRODUCT_SERVICE_PORT: 8092
+      SPRING_PROFILE: development
+      EUREKA_CLIENT_ENABLED: true
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
+    ports:
+      - "8092:8092"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-service-discovery
+      - jvmcc-ldap-server
+      - zookeeper
+      - kafka
+      - zipkin-server
+    profiles:
+      - reactive
+    networks:
+      - jvmcc-local
+  jvmcc-review-service:
+    container_name: jvmcc-review-service
+    image: jvmcc-review-service:latest
+    build:
+      context: jvmcc-review-service
+      dockerfile: Dockerfile
+    environment:
+      REVIEW_SERVICE_PORT: 8091
+      SPRING_PROFILE: development
+      EUREKA_CLIENT_ENABLED: true
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
+      MYSQL_USERNAME: jvmcc
+      MYSQL_PASSWORD: jvmcc
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
+    ports: 
+      - "8091:8091"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-config-server
+      - jvmcc-service-discovery
+      - jvmcc-mysql
+      - zipkin-server
+    profiles:
+      - non-reactive
+    networks:
+      - jvmcc-local
+  jvmcc-review-reactive-service:
+    container_name: jvmcc-review-reactive-service
+    image: jvmcc-review-reactive-service:latest
+    build:
+      context: jvmcc-review-reactive-service
+      dockerfile: Dockerfile
+    environment:
+      REVIEW_SERVICE_PORT: 8091
+      SPRING_PROFILE: development
+      EUREKA_CLIENT_ENABLED: true
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
+      SPRING_DATA_MONGODB_HOST: mongo
+    ports:
+      - "8091:8091"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-config-server
+      - jvmcc-service-discovery
+      - jvmcc-mongodb
+      - jvmcc-ldap-server
+      - zookeeper
+      - kafka
+      - zipkin-server
+    links:
+      - jvmcc-service-discovery
+    profiles:
+      - reactive
+    networks:
+      - jvmcc-local
+  jvmcc-config-server:
+    container_name: jvmcc-config-server
+    image: jvmcc-config-server:latest
+    build:
+      context: jvmcc-config-server
+      dockerfile: Dockerfile
+    environment:
+      CONFIG_SERVER_PORT: 8888
+      CONFIG_APPLICATION_NAME: jvmcc-config-server
+      SPRING_PROFILE: development
+      EUREKA_CLIENT_ENABLED: true
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
+      ZIPKIN_SERVER_URL: http://zipkin-server:9411"
+      SECURITY_USERNAME: jvmcc
+      SECURITY_PASSWORD: jvmcc
+    ports:
+      - "8888:8888"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    depends_on:
+      - jvmcc-service-discovery
+    networks:
+      - jvmcc-local
+  zipkin-server:
+    container_name: zipkin-server
+    image: openzipkin/zipkin:2.21.0
+    environment:
+      ZIPKIN_PORT: 9411
+      SPRING_PROFILE: development
+      CONFIG_SERVER_URL: optional:configserver:http://jvmcc:jvmcc@jvmcc-config-server:8888/
+    ports:
+      - "9411:9411"
+    deploy:
+        restart_policy:
+                condition: on-failure
+    networks:
+      - jvmcc-local
+  jvmcc-mysql:
+    container_name: jvmcc-mysql
+    image: mysql/mysql-server:8.0
+    build:
+      context: jvmcc-mysql
+      dockerfile: Dockerfile 
+    ports:
+      - 3306:3306
+    volumes:
+      - ./jvmcc-mysql/initSQL.sql:/docker-entrypoint-initdb.d/initSQL.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    profiles:
+      - non-reactive
+    networks:
+      - jvmcc-local
+  jvmcc-mongodb:
+    container_name: jvmcc-mongodb
+    image: jvmcc-mongodb
+    build:
+      context: jvmcc-mongodb
+      dockerfile: Dockerfile
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodata:/data/db
+    profiles:
+      - reactive
+    networks:
+      - jvmcc-local
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    profiles:
+      - reactive
+    networks:
+      - jvmcc-local
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - 9092:9092
+    environment:
+      KAFKA_LISTENERS: OUTSIDE://kafka:9092,INSIDE://localhost:9093
+      KAFKA_ADVERTISED_LISTENERS: OUTSIDE://kafka:9092,INSIDE://localhost:9093
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: OUTSIDE:PLAINTEXT,INSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: OUTSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      ALLOW_PLAINTEXT_LISTENER: 'yes'
+    depends_on:
+      - zookeeper
+    profiles:
+      - reactive
+    networks:
+      - jvmcc-local
+  keycloak:
+    image: quay.io/keycloak/keycloak:18.0.2
+    container_name: keycloak
+    environment:
+      KEYCLOAK_ADMIN: jvmcc
+      KEYCLOAK_ADMIN_PASSWORD: jvmcc
+      KC_DB: mysql
+      KC_DB_URL_HOST: jvmcc-mysql
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+    ports:
+      - "8080:8084"
+    command: start-dev
+    depends_on:
+      - jvmcc-mysql
+    healthcheck:
+      test: "curl -f http://localhost:8080/admin || exit 1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    profiles:
+      - donotstart
+  jvmcc-ldap-server:
+    image: jvmcc-ldap-server
+    container_name: jvmcc-ldap-server
+    build:
+      context: jvmcc-ldap-server
+      dockerfile: Dockerfile
+    environment:
+      LDAP_ORGANISATION: danielsobrado.com
+      LDAP_DOMAIN: jvmcc.com
+    ports:
+      - "389:389"
+    volumes:
+      - ldap_data:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
+    networks:
+      - jvmcc-local
+    profiles:
+      - donotstart
+volumes:
+  # mysql_data:
+  mongodata:
+  ldap_data:
+  ldap_config:
+networks:
+  jvmcc-local:
+    external: false
+      

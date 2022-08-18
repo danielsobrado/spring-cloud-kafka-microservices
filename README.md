@@ -145,6 +145,8 @@ Understanding when a service is not responding and another service needs to take
 
 The [default](https://github.com/spring-cloud/spring-cloud-config/issues/87) way to use Eureka and Config Server is to use Config First bootstrap. Essentially, you make eureka server a client of the config server but you don't make the config server a client of eureka.
 
+For this example I assume that the DB can be made highly available by using an enterprise license, I'm not scoping making MySQL highly available here.
+
 ### Service Discovery High Availability (Eureka Server)
 
 We'll configure Eureka Server as a Cluster for High Availability.
@@ -437,6 +439,8 @@ Start the project on non-reactive mode:
 ```bash
 docker-compose --profile non-reactive up
 ```
+
+The URLs will be server from https://localhost:8080/
 
 The project in reactive mode is still "*Work In Progress*".
 
