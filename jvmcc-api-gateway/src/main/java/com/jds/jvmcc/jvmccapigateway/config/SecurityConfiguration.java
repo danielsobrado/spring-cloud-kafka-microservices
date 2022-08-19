@@ -1,10 +1,13 @@
 package com.jds.jvmcc.jvmccapigateway.config;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.web.server.SecurityWebFilterChain;
 
 /**
  * @author J. Daniel Sobrado
@@ -12,31 +15,37 @@ import org.springframework.security.config.http.SessionCreationPolicy;
  * @since 2022-08-18
  */
 @Configuration
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfiguration {
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-            // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
-	        .csrf().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and()
-			.authorizeRequests()
-	        .antMatchers("/login").permitAll()
-	        // Any other request, has to be authenticated
-	        .anyRequest().authenticated();
+    public static final String ROLE_ADMIN = "ADMIN";
+    public static final String ROLE_USER = "USER";
+
+    @Value("${spring.security.debug:false}")
+    boolean securityDebug;
+
+    @Bean
+    public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
+        // Disable CSRF
+        // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
+        http.csrf().disable()
+				// Only admin can perform HTTP delete and update reviews
+				.authorizeExchange()
+				.pathMatchers(HttpMethod.GET).permitAll()
+				.pathMatchers(HttpMethod.DELETE).hasRole(ROLE_ADMIN)
+				.pathMatchers(HttpMethod.PUT, "/review/**").hasAnyRole(ROLE_ADMIN)
+				.pathMatchers(HttpMethod.POST, "/review/**").hasAnyRole(ROLE_ADMIN, ROLE_USER)
+				.and().httpBasic()
+				.and().authorizeExchange().anyExchange().permitAll();
+        
+        return http.build();
 		
 	}
 
-	/**
-	 * Creates a in-memory user management.
-	 */
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication()
-			.withUser("admin").password("admin").roles("ROLE_ADMIN", "ROLE_USER")
-			.and()
-			.withUser("jvmcc").password("jvmcc").roles("ROLE_USER");
-	}
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.debug(securityDebug)
+          .ignoring()
+          .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
+    }
 	
 }

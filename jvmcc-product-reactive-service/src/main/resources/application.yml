@@ -6,6 +6,11 @@ spring:
     name: ${PRODUCT_SERVICE_NAME:jvmcc-product-reactive-service}
   profiles:
     active: ${SPRING_PROFILE:development}
+  cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
+      username: ${CLOUD_CONFIG_USERNAME:jvmcc}
+      password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
   security:
     user:
       name: ${SECURITY_USERNAME:jvmcc}
@@ -16,7 +21,7 @@ spring:
     password: ${MYSQL_PASSWORD:jvmcc}
     driverClassName: com.mysql.cj.jdbc.Driver
   config:
-    import: ${CONFIG_SERVER_URL:optional:configserver:http://jvmcc:jvmcc@localhost:8888/}
+    import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888/}
   zipkin:
     base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
 jwt:

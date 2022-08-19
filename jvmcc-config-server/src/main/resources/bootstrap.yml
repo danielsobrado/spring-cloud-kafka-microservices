@@ -1,0 +1,7 @@
+encrypt:
+  keyStore:
+    location: classpath:jvmcc-keystore.p12
+    password: jvmcc-secret
+    alias: jvmcc
+    secret: jvmcc-secret
+    type: PKCS12

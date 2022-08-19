@@ -6,12 +6,26 @@ server:
     key-store-password: jvmcc-secret
     key-store: classpath:jvmcc-keystore.p12
     key-store-type: PKCS12
+security:
+  basicAuth:
+    user:
+      username: ${API_GATEWAY_USERNAME:jvmcc}
+      password: ${API_GATEWAY_PASSWORD:jvmcc}
+    admin:
+      username: ${API_GATEWAY_ADMIN_USERNAME:admin}
+      password: ${API_GATEWAY_ADMIN_PASSWORD:admin}
 spring:
+  main:
+    web-application-type: reactive
   application:
     name: ${API_GATEWAY_NAME:jvmcc-api-gateway}
   profiles:
     active: ${SPRING_PROFILE:development}
   cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
+      username: ${CLOUD_CONFIG_USERNAME:jvmcc}
+      password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
     gateway:
       discovery:
         locator:
@@ -57,7 +71,7 @@ spring:
                 fallbackUri: forward://review-fallback
                 enabled: true
   config:
-    import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888}
+    import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888/}
   zipkin:
     base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411}
 eureka:

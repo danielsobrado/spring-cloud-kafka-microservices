@@ -129,7 +129,7 @@ By configuring our client to look for the Config Server on the applications.yml:
 ```yml
 spring:
   config:
-    import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
+    import: optional:configserver:http://localhost:8888/
 ```
 
 We can retrieve them:

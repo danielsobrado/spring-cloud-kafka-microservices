@@ -44,20 +44,21 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 
-	// @Override
-	// protected void configure(HttpSecurity http) throws Exception {
-	// 	// Disable CSRF
-	// 	// deepcode ignore DisablesCSRFProtection: <No Frontend Required>
-    //     http.csrf().disable()
-	// 			// Only admin can perform HTTP delete operation
-	// 			.authorizeRequests().antMatchers(HttpMethod.DELETE).hasRole(Role.ADMIN)
-	// 			// any authenticated user can perform all other operations
-	// 			.antMatchers("/products/**").hasAnyRole(Role.ADMIN, Role.USER).and().httpBasic()
-	// 			// Permit all other request without authentication
-	// 			.and().authorizeRequests().anyRequest().permitAll()
-	// 			// We don't need sessions to be created.
-	// 			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	// }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		// Disable CSRF
+		// deepcode ignore DisablesCSRFProtection: <No Frontend Required>
+        http.csrf().disable()
+				// Only admin can perform HTTP delete and update reviews
+				.authorizeRequests()
+				.antMatchers(HttpMethod.GET).permitAll()
+				.antMatchers(HttpMethod.DELETE).hasRole(Role.ROLE_ADMIN)
+				.antMatchers(HttpMethod.PUT, "/review/**").hasAnyRole(Role.ADMIN)
+				.antMatchers(HttpMethod.POST, "/review/**").hasAnyRole(Role.ADMIN, Role.ROLE_USER)
+				.and().httpBasic()
+				.and().authorizeRequests().anyRequest().permitAll()
+				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
 
 	@Override
 	public UserDetailsService userDetailsService() {
@@ -76,9 +77,9 @@ public class BasicAuthSecurityConfig extends WebSecurityConfigurerAdapter {
 				.password(encoder.encode(this.basicAuthPassword)).roles("USER");
 	}
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// deepcode ignore DisablesCSRFProtection: <No Frontend Required>
-		http.authorizeRequests().anyRequest().authenticated().and().httpBasic().and().csrf().disable();
-	}
+	// @Override
+	// protected void configure(HttpSecurity http) throws Exception {
+	// 	// deepcode ignore DisablesCSRFProtection: <No Frontend Required>
+	// 	http.authorizeRequests().anyRequest().authenticated().and().httpBasic().and().csrf().disable();
+	// }
 }

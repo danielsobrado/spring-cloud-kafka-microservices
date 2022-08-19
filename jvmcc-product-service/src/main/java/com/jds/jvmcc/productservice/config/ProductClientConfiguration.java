@@ -19,12 +19,6 @@ import feign.okhttp.OkHttpClient;
  */
 public class ProductClientConfiguration {
 
-    @Value("${spring.security.user.name}")
-    private String username;
-  
-    @Value("${spring.security.user.password}")
-    private String password;
-
     @Bean
     public Logger.Level feignLoggerLevel() {
         return Logger.Level.FULL;
@@ -41,16 +35,8 @@ public class ProductClientConfiguration {
     }
 
     @Bean
-    @ConditionalOnProperty(name = "spring.security.user.name")
-    public BasicAuthRequestInterceptor basicAuthRequestInterceptor() {
-      return new BasicAuthRequestInterceptor(this.username, this.password);
-    }
-
-    @Bean
     public RequestInterceptor requestInterceptor() {
         return requestTemplate -> {
-            requestTemplate.header("user", this.username);
-            requestTemplate.header("password", this.password);
             requestTemplate.header("Accept", ContentType.APPLICATION_JSON.getMimeType());
             requestTemplate.header(org.apache.http.HttpHeaders.USER_AGENT, "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0");
 

@@ -6,20 +6,13 @@ spring:
     name: ${PRODUCT_SERVICE_NAME:jvmcc-product-service}
   profiles:
     active: ${SPRING_PROFILE:development}
-  security:
-    user:
-      name: ${SECURITY_USERNAME:jvmcc}
-      password: ${SECURITY_PASSWORD:jvmcc}
-  datasource:
-    url: ${MYSQL_SERVER_URL:jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true}
-    username: ${MYSQL_USERNAME:jvmcc}
-    password: ${MYSQL_PASSWORD:jvmcc}
-    driverClassName: com.mysql.cj.jdbc.Driver
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
-    generate-ddl: false
   config:
-    import: ${CONFIG_SERVER_URL:optional:configserver:http://jvmcc:jvmcc@localhost:8888/}
+    import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888/}
+  cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
+      username: ${CLOUD_CONFIG_USERNAME:jvmcc}
+      password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
   main:
     allow-bean-definition-overriding: true
   cache:
@@ -56,8 +49,6 @@ resilience4j:
     configs:
       default:  
         registerHealthIndicator: true
-jwt:
-  secret: jvmcc
 eureka:
   client:
     enabled: ${EUREKA_CLIENT_ENABLED:false}
@@ -71,9 +62,10 @@ springdoc:
   swagger-ui:
     use-root-path: false
   show-actuator: true
-  secret: jvmcc
 product:
     url: https://www.adidas.co.uk/api/products/
+review:
+    host: ${REVIEW_HOST:http://localhost:8091}
 logging:
   level:
     root: info

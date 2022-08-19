@@ -16,7 +16,9 @@ import io.swagger.v3.oas.annotations.info.Info;
  * @version 1.0
  * @since 2022-08-13
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+    SecurityAutoConfiguration.class,
+    ManagementWebSecurityAutoConfiguration.class})
 // @EnableDiscoveryClient
 @EnableJpaRepositories(basePackages = "com.jds.jvmcc.reviewservice.reactive.repository")
 @OpenAPIDefinition(info = @Info(title = "Reviews API", version = "1.0", description = "Reviews Information"))

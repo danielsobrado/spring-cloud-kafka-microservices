@@ -9,7 +9,12 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   zipkin:
-    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
+    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411}
+  cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URI:http://localhost:8888}
+      username: ${CLOUD_CONFIG_USERNAME:jvmcc}
+      password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
 server:
   port: ${SERVICE_DISCOVERY_PORT:9000}
 eureka:

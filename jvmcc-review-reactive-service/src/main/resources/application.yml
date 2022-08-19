@@ -19,6 +19,10 @@ spring:
       username: ${MONGO_USERNAME:jvmcc}
       password: ${MONGO_PASSWORD:jvmcc}
   cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
+      username: ${CLOUD_CONFIG_USERNAME:jvmcc}
+      password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
     stream:
       default-binder: kafka
       kafka:
@@ -36,7 +40,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   config:
-    import: optional:configserver:http://jvmcc:jvmcc@localhost:8888/
+    import: optional:configserver:http://localhost:8888/
   zipkin:
     base-url: http://zipkin-server:9411
 jwt:

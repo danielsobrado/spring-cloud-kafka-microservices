@@ -11,7 +11,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Non-blocking reactive implementation for the product service.
  */
 // @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(exclude = {
+    SecurityAutoConfiguration.class,
+    ManagementWebSecurityAutoConfiguration.class})
 public class JvmccProductServiceReactiveApplication {
 
 	public static void main(String[] args) {

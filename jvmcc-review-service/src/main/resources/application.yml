@@ -6,10 +6,13 @@ spring:
     active: ${SPRING_PROFILE:development}
   application:
     name: ${REVIEW_SERVICE_NAME:jvmcc-review-service}
-  security:
-    user:
-      name: ${SECURITY_USERNAME:jvmcc}
-      password: ${SECURITY_PASSWORD:jvmcc}
+  config:
+    import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888/}
+  cloud:
+    config:
+      uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
+      username: ${CLOUD_CONFIG_USERNAME:jvmcc}
+      password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
   datasource:
     url: ${MYSQL_SERVER_URL:jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true}
     username: ${MYSQL_USERNAME:jvmcc}
@@ -21,12 +24,8 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
-  config:
-    import: ${CONFIG_SERVER_URL:optional:configserver:http://jvmcc:jvmcc@localhost:8888/}
   zipkin:
-    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
-jwt:
-  secret: jvmcc
+    base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411}
 eureka:
   client:
     enabled: ${EUREKA_CLIENT_ENABLED:false}
@@ -36,6 +35,9 @@ eureka:
     preferIpAddress: false
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
+security:
+  basic:
+    enabled: ${SECURITY_BASIC_ENABLED:false}
 springdoc:
   swagger-ui:
     use-root-path: false
