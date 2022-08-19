@@ -116,7 +116,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
-      REVIEW_HOST: http://jvmcc-review-service-1:8093, http://jvmcc-review-service-2:8094
+      REVIEW_HOST: http://jvmcc-review-service:8093, http://jvmcc-review-service:8094
     deploy:
         restart_policy:
                 condition: on-failure
@@ -147,6 +147,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      REVIEW_HOST: http://jvmcc-review-service:8093, http://jvmcc-review-service:8094
     deploy:
         restart_policy:
                 condition: on-failure
