@@ -21,6 +21,8 @@ spring:
   zipkin:
     base-url: ${ZIPKIN_SERVER_URL:http://localhost:9411/}
 feign:
+  httpclient:
+    enabled: false
   circuitbreaker:
     enabled: false
   client:
