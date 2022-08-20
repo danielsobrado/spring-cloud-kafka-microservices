@@ -27,6 +27,10 @@ spring:
       username: ${CLOUD_CONFIG_USERNAME:jvmcc}
       password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
     gateway:
+      httpserver:
+        wiretap: true
+      httpclient:
+        wiretap: true
       discovery:
         locator:
           enabled: true
