@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -23,6 +24,7 @@ import io.swagger.v3.oas.annotations.info.Info;
     ManagementWebSecurityAutoConfiguration.class})
 @EnableDiscoveryClient
 @EnableCaching
+@EnableFeignClients
 @EnableJpaRepositories(basePackages = "com.jds.jvmcc.reviewservice.repository")
 @OpenAPIDefinition(info = @Info(title = "Reviews API", version = "1.0", description = "Reviews Information"))
 public class JvmccReviewServiceApplication {

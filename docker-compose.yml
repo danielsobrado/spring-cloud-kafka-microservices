@@ -116,8 +116,10 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
-      REVIEW_HOST: http://jvmcc-review-service
+      REVIEW_HOST: http://jvmcc-review-service-1:8093
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     deploy:
         restart_policy:
                 condition: on-failure
@@ -150,6 +152,9 @@ services:
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       REVIEW_HOST: http://jvmcc-review-service:8093,http://jvmcc-review-service:8094
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+
     deploy:
       restart_policy:
         condition: on-failure
@@ -180,6 +185,8 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     ports:
       - "8092:8092"
     deploy:
@@ -215,6 +222,8 @@ services:
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     deploy:
         restart_policy:
                 condition: on-failure
@@ -247,6 +256,8 @@ services:
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     deploy:
       restart_policy:
         condition: on-failure
@@ -279,6 +290,8 @@ services:
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
       SPRING_DATA_MONGODB_HOST: mongo
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     ports:
       - "8091:8091"
     deploy:

@@ -31,8 +31,10 @@ eureka:
     enabled: ${EUREKA_CLIENT_ENABLED:false}
     serviceUrl:
       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:9000/eureka/}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA:false}
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:false}
   instance:
-    preferIpAddress: false
+    preferIpAddress: true
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
 security:
