@@ -20,7 +20,7 @@ import feign.Headers;
  * @since 2022-08-13
  */
 @FeignClient(name = "jvmcc-review-service", 
-    url = "http://localhost/", 
+    url = "${review.host}",
     configuration = LocalClientConfiguration.class, 
     fallback = ReviewFallback.class)
 public interface ReviewClient {

@@ -29,6 +29,10 @@ feign:
         connectTimeout: 5000
         readTimeout: 5000
         loggerLevel: basic
+ribbon:
+  eureka:
+    enabled: true
+  list-of-servers: ${EUREKA_SERVERS:optional:eureka:http://localhost:9000/}
 management:
   health:
     circuitbreakers:

@@ -117,6 +117,7 @@ services:
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       REVIEW_HOST: http://jvmcc-review-service
+      EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
     deploy:
         restart_policy:
                 condition: on-failure
@@ -147,7 +148,8 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
-      REVIEW_HOST: http://jvmcc-review-service
+      REVIEW_HOST: http://jvmcc-review-service:8093,http://jvmcc-review-service:8094
+      EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
     deploy:
       restart_policy:
         condition: on-failure

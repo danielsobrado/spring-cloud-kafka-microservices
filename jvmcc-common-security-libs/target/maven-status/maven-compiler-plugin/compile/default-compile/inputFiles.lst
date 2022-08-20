@@ -10,6 +10,7 @@ C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-security-
 C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-security-libs\src\main\java\com\jds\jvmcc\config\MethodSecurityConfig.java
 C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-security-libs\src\main\java\com\jds\jvmcc\config\JwtRequestFilter.java
 C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-security-libs\src\main\java\com\jds\jvmcc\config\WhiteListConfiguration.java
+C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-security-libs\src\main\java\com\jds\jvmcc\entity\BaseEntity.java
 C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-security-libs\src\main\java\com\jds\jvmcc\config\CorsConfig.java
 C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-security-libs\src\main\java\com\jds\jvmcc\entity\JWTResponse.java
 C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-security-libs\src\main\java\com\jds\jvmcc\util\JWTTokenUtil.java
