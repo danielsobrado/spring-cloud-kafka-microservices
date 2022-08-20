@@ -2,6 +2,7 @@ package com.jds.jvmcc.productservice.client;
 
 import java.util.List;
 
+import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +20,10 @@ import feign.Headers;
  * @version 1.0
  * @since 2022-08-13
  */
-@FeignClient(name = "jvmcc-review-service", 
-    url = "https://localhost:8080,https://localhost:8081",
+@FeignClient(value = "review-service", 
     configuration = LocalClientConfiguration.class, 
     fallback = ReviewFallback.class)
+@RibbonClient(name = "jvmcc-review-service")
 public interface ReviewClient {
 
     @Headers("Content-Type: application/json")
