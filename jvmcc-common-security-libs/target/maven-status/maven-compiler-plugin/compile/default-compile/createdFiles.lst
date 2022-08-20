@@ -14,6 +14,7 @@ com\jds\jvmcc\repository\RoleRepository.class
 com\jds\jvmcc\entity\UserEntity.class
 com\jds\jvmcc\config\LdapUserAuthoritiesPopulator.class
 com\jds\jvmcc\config\NoAuthSecurityConfig.class
+com\jds\jvmcc\entity\BaseEntity.class
 com\jds\jvmcc\config\JwtAuthenticationEntryPoint.class
 com\jds\jvmcc\config\JwtAuthSecurityConfig.class
 com\jds\jvmcc\entity\JWTRequest.class

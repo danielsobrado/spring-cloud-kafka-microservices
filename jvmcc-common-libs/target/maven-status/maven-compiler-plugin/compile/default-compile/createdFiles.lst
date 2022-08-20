@@ -1,3 +1,2 @@
-com\jds\jvmcc\entity\BaseEntity.class
 com\jds\jvmcc\exception\ResourceNotFoundException.class
 com\jds\jvmcc\util\SecurityUtil.class
