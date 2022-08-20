@@ -1,4 +1,4 @@
-package com.jds.jvmcc.reviewservice.entity;
+package com.jds.jvmcc.productservice.entity;
 
 import java.io.Serializable;
 import java.util.Date;

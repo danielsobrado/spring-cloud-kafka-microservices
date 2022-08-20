@@ -149,8 +149,8 @@ services:
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       REVIEW_HOST: http://jvmcc-review-service:8093, http://jvmcc-review-service:8094
     deploy:
-        restart_policy:
-                condition: on-failure
+      restart_policy:
+        condition: on-failure
     depends_on:
       - jvmcc-config-server
       - jvmcc-service-discovery-1
