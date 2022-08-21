@@ -57,6 +57,7 @@ spring:
           uri: lb://jvmcc-product-service
           predicates:
             - Path=/product/**
+            - Path=/error/**
           filters:
             - name: CircuitBreaker
               args:
@@ -67,6 +68,7 @@ spring:
           uri: lb://jvmcc-review-service
           predicates:
             - Path=/review/**
+            - Path=/error/**
           filters:
             - name: CircuitBreaker
               args:
