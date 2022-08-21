@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jds.jvmcc.productservice.client.ProductClient;
 import com.jds.jvmcc.productservice.entity.Product;
 import com.jds.jvmcc.productservice.error.exception.NonExistingProductException;
+import com.jds.jvmcc.productservice.error.exception.ProductRedirectionException;
 import com.jds.jvmcc.productservice.service.ProductConsumerService;
 
 import feign.FeignException;
@@ -36,10 +37,14 @@ public class ProductConsumerServiceImpl implements ProductConsumerService {
                 try {
                         return productClient.getProduct(productId);
 
-                        // Check if the product is not found
                 } catch (FeignException e) {
                         log.error("getProduct: Product with id {} not found", productId);
-                        throw new NonExistingProductException("Product not found");
+                        // Check if it is a product redirection from detailed message
+                        if (e.getMessage().contains("Product redirect")) {
+                                throw new ProductRedirectionException("Product redirect" + productId + e.getMessage());
+                        } 
+                        // Check if the product is not found
+                        throw new NonExistingProductException("Product not found: " + productId);
                 } catch (Exception e) {
                         log.error("getProduct: Error getting product with id: {}", productId, e);
                         throw new RuntimeException("Error getting product");

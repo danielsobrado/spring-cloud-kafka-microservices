@@ -402,6 +402,18 @@ docker run -p 27017:27017 --name jvmcc-mongodb -d dalamar/jvmcc-mongodb
 
 To view the data in the container you can download [Compass](https://www.mongodb.com/es/products/compass) and connect to the DB.
 
+## Error management
+
+The most relevant errors are captured and parsed.
+
+We used Customize REST error responses:
+
+![Error Management](documentation/ErrorManagement.JPG?raw=true "Error Management")
+
+Errors are managed with Controller advices:
+
+![Controller Advice](documentation/ControllerAdvice.JPG?raw=true "Controller Advice")
+
 ## Testing
 
 To prevent large loads of Spring Boot contexts and calls to external APIs during unit testing, we can simply mock the repositories and external REST endpoints.
