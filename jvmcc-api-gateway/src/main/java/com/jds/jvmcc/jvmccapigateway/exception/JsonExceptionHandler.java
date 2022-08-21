@@ -53,8 +53,12 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
 
 	@Override
 	protected int getHttpStatus(Map<String, Object> errorAttributes) {
-        log.info("getHttpStatus : " + errorAttributes.get("code"));
-		return (int) errorAttributes.get("code");
+        if (errorAttributes.containsKey("code")) {
+            log.info("getHttpStatus : " + errorAttributes.get("code"));
+            return (int) errorAttributes.get("code");
+        } else {
+            return super.getHttpStatus(errorAttributes);
+        }
 	}
 
 	private String buildMessage(ServerRequest request, Throwable ex) {

@@ -253,6 +253,8 @@ Authentication & Authorization:
 
 Additionally, I'll suggest to install BURP Suite and test at least for the [OWASP Top 10](https://portswigger.net/support/using-burp-to-test-for-the-owasp-top-ten).
 
+An Audit of all the request can be done at API Gateway level, [we created a Filter for this](https://github.com/danielsobrado/spring-cloud-kafka-microservices/blob/main/jvmcc-api-gateway/src/main/java/com/jds/jvmcc/jvmccapigateway/filter/LoggingFilter.java).
+
 ### Identity Federation with LDAP
 
 By utilizing the identity federation principle, LDAP/AD enables users on one domain to access another domain without the need for additional authentication.
