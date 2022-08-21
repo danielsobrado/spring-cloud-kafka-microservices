@@ -48,10 +48,7 @@ spring:
             series: SERVER_ERROR
             exceptions: java.io.IOException, java.util.concurrent.TimeoutException
             backoff:
-              firstBackoff: 50ms
-              maxBackOff: 500ms
               factor: 2
-              basedOnPreviousValue: false
       routes:
         - id: jvmcc-product-service
           uri: lb://jvmcc-product-service
