@@ -22,6 +22,14 @@ Using a Microservices-based design has some disadvantages:
 * Microservices are often highly expensive.
 * The very worst thing you can do is develop a distributed monolith if you don't know how microservices should be built.
 
+Non-Reactive Design:
+
+![Non Reactive Design](documentation/NonReactiveDesign.JPG?raw=true "Non Reactive Design")
+
+Reactive Design:
+
+![Reactive Design](documentation/ReactiveDesign.JPG?raw=true "Non Reactive Design")
+
 To use reactive and non-reactive approaches in the deployment we can user Spring Profiles and Docker Compose Profiles.
 
 For a reactive solution use:
