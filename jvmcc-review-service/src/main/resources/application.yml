@@ -4,7 +4,7 @@ server:
 review:
   service:
     error:
-      path: /error
+      path: /review/error
     api:
       version: 1.0
 spring:

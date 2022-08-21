@@ -150,7 +150,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
-      REVIEW_HOST: http://jvmcc-review-service:8093,http://jvmcc-review-service:8094
+      REVIEW_HOST: http://jvmcc-review-service
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"

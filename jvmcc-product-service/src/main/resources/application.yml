@@ -4,7 +4,7 @@ server:
 product:
   service:
     error:
-      path: /error
+      path: /product/error
     api:
       version: 1.0
     url: https://www.adidas.co.uk/api/products/
