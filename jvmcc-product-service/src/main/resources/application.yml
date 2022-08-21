@@ -1,6 +1,13 @@
 server:
   port: ${PRODUCT_SERVICE_PORT:8092}
   forward-headers-strategy: framework
+product:
+  service:
+    error:
+      path: /error
+    api:
+      version: 1.0
+    url: https://www.adidas.co.uk/api/products/
 spring:
   application:
     name: ${PRODUCT_SERVICE_NAME:jvmcc-product-service}
@@ -70,8 +77,6 @@ springdoc:
   swagger-ui:
     use-root-path: false
   show-actuator: true
-product:
-    url: https://www.adidas.co.uk/api/products/
 review:
     host: ${REVIEW_HOST:http://localhost:8091}
 logging:

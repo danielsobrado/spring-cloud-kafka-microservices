@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.jds.jvmcc.exception.ResourceNotFoundException;
 import com.jds.jvmcc.reviewservice.entity.Review;
+import com.jds.jvmcc.reviewservice.error.exception.NonExistingProductException;
 import com.jds.jvmcc.reviewservice.repository.ReviewRepository;
 import com.jds.jvmcc.reviewservice.service.ReviewService;
 
@@ -50,7 +51,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Cacheable(value = "reviews", key = "#productId")
     public List<Review> findAllByProductId(String productId) throws ResourceNotFoundException {
         log.debug("Finding all reviews for productId: {}", productId);
-        return reviewRepository.findAllByProductId(productId).orElseThrow(() -> new ResourceNotFoundException(TABLE_NAME, "productId", productId));
+        return reviewRepository.findAllByProductId(productId).orElseThrow(() -> new NonExistingProductException(productId));
     }
 
     public Review save(Review review) {

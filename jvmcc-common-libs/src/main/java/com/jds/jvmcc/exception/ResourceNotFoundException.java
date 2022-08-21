@@ -3,13 +3,15 @@ package com.jds.jvmcc.exception;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.jds.jvmcc.error.ErrorCode;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-06
  */
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class ResourceNotFoundException extends RuntimeException {
+public class ResourceNotFoundException extends RuntimeException implements ErrorCode {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -28,4 +30,9 @@ public class ResourceNotFoundException extends RuntimeException {
 	public ResourceNotFoundException(String message, Throwable cause) {
 		super(message, cause);
 	}
+
+	@Override
+    public String getErrorCode() {
+        return "NF-001";
+    }
 }

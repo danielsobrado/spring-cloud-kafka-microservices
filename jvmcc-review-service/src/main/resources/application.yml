@@ -1,6 +1,12 @@
 server:
   port: ${REVIEW_SERVICE_PORT:8091}
   forward-headers-strategy: framework
+review:
+  service:
+    error:
+      path: /error
+    api:
+      version: 1.0
 spring:
   profiles:
     active: ${SPRING_PROFILE:development}
