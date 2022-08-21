@@ -20,7 +20,7 @@ public class NotFoundException extends Exception {
 
     @Override
     public String toString() {
-        return "NotFoundException: "+getMessage();
+        return "Not Found Exception: "+getMessage();
     }
 
 }
