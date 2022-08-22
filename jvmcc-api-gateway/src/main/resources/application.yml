@@ -46,7 +46,7 @@ spring:
             retries: 3
             methods: GET
             series: SERVER_ERROR
-            exceptions: java.io.IOException, java.util.concurrent.TimeoutException
+            exceptions: java.io.IOException
             backoff:
               factor: 2
       routes:
