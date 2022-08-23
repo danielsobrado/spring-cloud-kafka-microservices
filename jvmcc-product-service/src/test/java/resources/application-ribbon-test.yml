@@ -1,3 +1,8 @@
 eureka:
   client:
     enabled: false
+spring:
+  application:
+    name: product-service
+  main:
+    allow-circular-references: true

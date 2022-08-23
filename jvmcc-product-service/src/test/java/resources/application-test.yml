@@ -14,7 +14,7 @@ logging:
           reactive:
             function:
               client: debug
-products-service:
+product-service:
   ribbon:
     listOfServers: http://localhost:9561
 eureka:

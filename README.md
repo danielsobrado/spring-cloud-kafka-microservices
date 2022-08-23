@@ -482,6 +482,12 @@ A Docker build can use a single base image for compilation, packaging, and unit 
 
 The application runtime is stored in a different image. The finished image is safer and smaller as a result.
 
+One common issue with stagged builds is that maven dependencies are downloaded each time, that can be a very time consuming task. We can solve this by using [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/).
+
+```bash
+DOCKER_BUILDKIT=1 docker build .
+```
+
 ## TODO
 
 * Distributed Cache: Use Redis instead of Caffeine, or [2 levels cache](https://programs.wiki/wiki/redis-caffeine-two-level-cache-allows-smooth-access-speed.html).

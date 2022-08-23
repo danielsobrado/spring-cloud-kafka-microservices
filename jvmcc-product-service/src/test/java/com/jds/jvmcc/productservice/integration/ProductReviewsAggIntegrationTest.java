@@ -1,8 +1,11 @@
 package com.jds.jvmcc.productservice.integration;
 
-import static java.util.Arrays.asList;
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static com.jds.jvmcc.productservice.integration.ProductConstants.PRODUCT_ID;
+import static com.jds.jvmcc.productservice.integration.ProductConstants.PRODUCT_MODEL;
+import static com.jds.jvmcc.productservice.integration.ProductConstants.PRODUCT_NAME;
+import static com.jds.jvmcc.productservice.integration.ProductMocks.setupMockProductsResponse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 
@@ -19,12 +22,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.jds.jvmcc.productservice.client.ProductClient;
 import com.jds.jvmcc.productservice.entity.Product;
-
-import static com.jds.jvmcc.productservice.integration.ProductMocks.setupMockProductsResponse;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import static com.jds.jvmcc.productservice.integration.ProductConstants.*;
 
 /**
  * @author J. Daniel Sobrado
