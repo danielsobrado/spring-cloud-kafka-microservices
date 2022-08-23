@@ -51,7 +51,7 @@ A single point of entry to the application is offered via API Gateway. It routes
 We'll follow the following steps:
 
 * Start Eureka server(s)
-* Start Review servise(s)
+* Start Review service(s)
 * Start Product service(s)
 * Start App Gateway
   
@@ -232,9 +232,58 @@ When managing high availability, Docker Compose is not the best option; instead,
 
 ## Resilience
 
+For availability, a microservice needs to be resilient to errors and able to restart on other machines.
+
+The main patterns for resilience are timeout, retry, circuit breaker and fallback.
+
+### Circuit Breaker Pattern
+
 Due to the interdependence of the microservices, we must use a circuit breaker approach to ensure that, in the event of an outage or a cluttered service, we may restart without losing any data.
 
 We'll use [Resilient4J](https://www.baeldung.com/spring-cloud-circuit-breaker) but other approaches can also be used, like Hystrix, Sentinel or Spring Retry.
+
+The Circuit Breaker pattern is implemented at API Gateway level: (It can also be impemented at Microservice level)
+
+```yml
+      routes:
+        - id: jvmcc-product-service
+          uri: lb://jvmcc-product-service
+          predicates:
+            - Path=/product/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: productCircuitBreaker
+                fallbackUri: forward://product-fallback
+                enabled: true
+        - id: jvmcc-review-service
+          uri: lb://jvmcc-review-service
+          predicates:
+            - Path=/review/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: reviewCircuitBreaker
+                fallbackUri: forward://review-fallback
+                enabled: true
+```
+
+### Retry Pattern
+
+The retry pattern may be easily configured using API Gateway such that it is utilized by default on all routes.
+
+```yml
+      default-filters:
+        - name: Retry
+          args:
+            retries: 3
+            methods: GET
+            series: SERVER_ERROR
+            exceptions: java.io.IOException
+            backoff:
+              factor: 2
+```
+**Note**: When utilizing resilience design patterns and a cache, we must exercise caution to ensure that the cache is invalidated upon failure.
 
 ## Security
 
@@ -485,7 +534,7 @@ The application runtime is stored in a different image. The finished image is sa
 One common issue with stagged builds is that maven dependencies are downloaded each time, that can be a very time consuming task. We can solve this by using [BuildKit](https://docs.docker.com/develop/develop-images/build_enhancements/).
 
 ```bash
-DOCKER_BUILDKIT=1 docker build .
+sudo DOCKER_BUILDKIT=1 docker build --no-cache .
 ```
 
 ## TODO

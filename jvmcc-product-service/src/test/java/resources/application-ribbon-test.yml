@@ -6,3 +6,11 @@ spring:
     name: product-service
   main:
     allow-circular-references: true
+  jmx:
+    enabled: false
+    default-domain: product-service
+
+endpoints: 
+  jmx:
+    domain: product-service
+    unique-names: true

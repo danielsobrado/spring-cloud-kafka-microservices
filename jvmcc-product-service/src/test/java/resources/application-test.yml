@@ -1,7 +1,13 @@
 spring:
   application:
     name: product-service
-
+  jmx:
+    enabled: false
+    default-domain: product-service
+endpoints: 
+  jmx:
+    domain: product-service
+    unique-names: true
 # Configured wiremock server to run using port 9999.
 product:
   service:

@@ -1,4 +1,14 @@
-dn: cn=jvmcc,dc=danielsobrado,dc=com
+dn: ou=Users,dc=jvmcc,dc=com
+changetype: add
+objectclass: organizationalUnit
+ou: Users
+
+dn: ou=Groups,dc=jvmcc,dc=com
+changetype: add
+objectclass: organizationalUnit
+ou: Groups
+
+dn: cn=jvmcc,dc=jvmcc,dc=com
 changetype: add
 objectclass: inetOrgPerson
 cn: jvmcc
@@ -8,7 +18,7 @@ displayname: JVMCC User
 mail: jvmcc@gmail.com
 userpassword: jvmcc
 
-dn: cn=admin,dc=danielsobrado,dc=com
+dn: cn=admin,dc=jvmcc,dc=com
 changetype: add
 objectclass: inetOrgPerson
 cn: admin
@@ -17,3 +27,18 @@ sn: Admin
 displayname: Admin User
 mail: admin@gmail.com
 userpassword: admin
+
+dn: cn=Admin,ou=Groups,dc=jvmcc,dc=com
+changetype: add
+cn: Admin
+objectclass: groupOfUniqueNames
+uniqueMember: cn=admin,dc=jvmcc,dc=com
+uniqueMember: cn=jvmcc,dc=jvmcc,dc=com
+
+dn: cn=User,ou=Groups,dc=jvmcc,dc=com
+changetype: add
+cn: User
+objectclass: groupOfUniqueNames
+uniqueMember: cn=jvmcc,dc=jvmcc,dc=com
+
+
