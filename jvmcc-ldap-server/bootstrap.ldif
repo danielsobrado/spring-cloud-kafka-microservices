@@ -12,6 +12,9 @@ dn: cn=jvmcc,dc=jvmcc,dc=com
 changetype: add
 objectclass: inetOrgPerson
 cn: jvmcc
+gidnumber: 500
+uid: jvmcc
+uidnumber: 1001
 givenname: jvmcc
 sn: Jvmcc
 displayname: JVMCC User
@@ -22,6 +25,9 @@ dn: cn=admin,dc=jvmcc,dc=com
 changetype: add
 objectclass: inetOrgPerson
 cn: admin
+gidnumber: 501
+uid: admin
+uidnumber: 1002
 givenname: admin
 sn: Admin
 displayname: Admin User
@@ -30,14 +36,14 @@ userpassword: admin
 
 dn: cn=Admin,ou=Groups,dc=jvmcc,dc=com
 changetype: add
-cn: Admin
+cn: admin
 objectclass: groupOfUniqueNames
 uniqueMember: cn=admin,dc=jvmcc,dc=com
 uniqueMember: cn=jvmcc,dc=jvmcc,dc=com
 
 dn: cn=User,ou=Groups,dc=jvmcc,dc=com
 changetype: add
-cn: User
+cn: user
 objectclass: groupOfUniqueNames
 uniqueMember: cn=jvmcc,dc=jvmcc,dc=com
 

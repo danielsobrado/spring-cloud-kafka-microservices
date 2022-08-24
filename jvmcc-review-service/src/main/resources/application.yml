@@ -13,7 +13,7 @@ spring:
   application:
     name: ${REVIEW_SERVICE_NAME:jvmcc-review-service}
   config:
-    import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888/}
+    import: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888/}
   cloud:
     config:
       uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}

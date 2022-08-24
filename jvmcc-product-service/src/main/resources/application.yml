@@ -14,7 +14,7 @@ spring:
   profiles:
     active: ${SPRING_PROFILE:development}
   config:
-    import: ${CONFIG_SERVER_URL:optional:configserver:http://localhost:8888/}
+    import: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888/}
   cloud:
     config:
       uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}

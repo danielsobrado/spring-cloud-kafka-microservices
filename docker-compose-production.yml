@@ -11,11 +11,7 @@ services:
       SERVICE_DISCOVERY_PORT: 9000
       SERVICE_DISCOVERY_HOSTNAME: jvmcc-service-discovery-1
       SERVICE_DISCOVERY_NAME: jvmcc-service-discovery-1
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
-      CLOUD_CONFIG_USERNAME: jvmcc
-      CLOUD_CONFIG_PASSWORD: jvmcc
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-2:9000/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-2:9001/eureka
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
     ports:
       - "9000:9000"
@@ -35,11 +31,7 @@ services:
       SERVICE_DISCOVERY_PORT: 9001
       SERVICE_DISCOVERY_HOSTNAME: jvmcc-service-discovery-2
       SERVICE_DISCOVERY_NAME: jvmcc-service-discovery-2
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
-      CLOUD_CONFIG_USERNAME: jvmcc
-      CLOUD_CONFIG_PASSWORD: jvmcc
-      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9001/eureka
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
     ports:
       - "9001:9001"
@@ -59,8 +51,7 @@ services:
       SPRING_PROFILE: production
       API_GATEWAY_PORT: 8080
       API_GATEWAY_NAME: jvmcc-api-gateway-1
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
@@ -89,8 +80,7 @@ services:
       SPRING_PROFILE: production
       API_GATEWAY_PORT: 8081
       API_GATEWAY_NAME: jvmcc-api-gateway-2
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
@@ -119,12 +109,14 @@ services:
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
-      REVIEW_HOST: http://jvmcc-review-service-1:8093, http://jvmcc-review-service-2:8094
+      REVIEW_HOST: http://jvmcc-review-service-1:8093
+      EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     deploy:
         restart_policy:
                 condition: on-failure
@@ -150,14 +142,18 @@ services:
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      REVIEW_HOST: http://jvmcc-review-service
+      EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+
     deploy:
-        restart_policy:
-                condition: on-failure
+      restart_policy:
+        condition: on-failure
     depends_on:
       - jvmcc-config-server
       - jvmcc-service-discovery-1
@@ -180,11 +176,12 @@ services:
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     ports:
       - "8092:8092"
     deploy:
@@ -212,14 +209,15 @@ services:
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     deploy:
         restart_policy:
                 condition: on-failure
@@ -244,14 +242,15 @@ services:
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     deploy:
       restart_policy:
         condition: on-failure
@@ -276,14 +275,15 @@ services:
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://zipkin-server:9411
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
       SPRING_DATA_MONGODB_HOST: mongo
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
     ports:
       - "8091:8091"
     deploy:
@@ -319,9 +319,14 @@ services:
       SECURITY_PASSWORD: jvmcc
     ports:
       - "8888:8888"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://jvmcc-config-server:8888"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     deploy:
-        restart_policy:
-                condition: on-failure
+      restart_policy:
+        condition: on-failure
     networks:
       - jvmcc-local
   zipkin-server:
@@ -330,15 +335,19 @@ services:
     environment:
       ZIPKIN_PORT: 9411
       SPRING_PROFILE: production
-      CONFIG_SERVER_URL: optional:configserver:http://jvmcc-config-server:8888/
-      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888
+      CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
     ports:
       - "9411:9411"
     deploy:
-        restart_policy:
-                condition: on-failure
+      restart_policy:
+        condition: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://zipkin-server:9411"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
       - jvmcc-local
   jvmcc-mysql:
@@ -404,23 +413,14 @@ services:
     environment:
       KEYCLOAK_ADMIN: jvmcc
       KEYCLOAK_ADMIN_PASSWORD: jvmcc
-      KC_DB: mysql
-      KC_DB_URL_HOST: jvmcc-mysql
-      KC_DB_URL_DATABASE: keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: password
     ports:
-      - "8080:8084"
+      - "8084:8080"
     command: start-dev
-    depends_on:
-      - jvmcc-mysql
     healthcheck:
       test: "curl -f http://localhost:8080/admin || exit 1"
       interval: 10s
       timeout: 5s
       retries: 5
-    profiles:
-      - donotstart
   jvmcc-ldap-server:
     image: jvmcc-ldap-server
     container_name: jvmcc-ldap-server
@@ -440,7 +440,6 @@ services:
     profiles:
       - donotstart
 volumes:
-  # I commented the MySQL volume, because I don't want to have data, the initSQL.sql file won't be executed
   # mysql_data:
   mongodata:
   ldap_data:

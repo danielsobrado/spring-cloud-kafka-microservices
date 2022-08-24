@@ -361,6 +361,14 @@ Other advanced security meassures:
 * Database activity monitoring (DAM) for privileged use and application access.
 * File integrity monitoring (FIM) to avoid file and configuration tampering.
 
+### Secrets
+
+In the configurations we have passwords in clear text, this is a bad practice, to avoid this in the java project we can use [Jasypt](https://www.baeldung.com/spring-boot-jasypt) to encrypt properties.
+
+But this doesn't solve the issue with Dockerfiles and Docker Compose, to solve this we need to use [Docker Secrets](https://docs.docker.com/engine/swarm/secrets/), we need Docker Swarm and it is out-of-scope in this example.
+
+In a Cloud environment we might use [AWS KMS](https://aws.amazon.com/kms/) or [Azure AKV](https://azure.microsoft.com/en-us/services/key-vault/).
+
 ## Cache
 
 The products could be cached in the database if the goal is to decrease the number of calls to external APIs.
@@ -536,6 +544,10 @@ One common issue with stagged builds is that maven dependencies are downloaded e
 ```bash
 sudo DOCKER_BUILDKIT=1 docker build --no-cache .
 ```
+
+Buildkit needs to be enabled in the ```daemon.json``` file: (e.g. From Docker Desktop)
+
+![Build Kit](documentation/BuildKit.JPG?raw=true "Build Kit")
 
 ## TODO
 
