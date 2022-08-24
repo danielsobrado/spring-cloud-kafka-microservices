@@ -12,7 +12,7 @@ WORKDIR /app/spring-cloud-kafka-microservices
 # Enabling BuildKit cache for faster builds
 RUN --mount=type=cache,target=.m2 ./mvnw install -pl .,jvmcc-review-service -DskipTests
 
-# Trick to invalidate the cache when the dependencies change
+# Trick to invalidate the cache when the github repo gets updated
 ARG USER=danielsobrado
 ARG REPO=spring-cloud-kafka-microservices
 ARG BRANCH=main
