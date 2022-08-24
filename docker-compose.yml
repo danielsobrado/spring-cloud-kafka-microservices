@@ -428,22 +428,33 @@ services:
       context: jvmcc-ldap-server
       dockerfile: Dockerfile
     environment:
-      LDAP_ORGANISATION: danielsobrado.com
+      LDAP_ORGANISATION: jvmcc
       LDAP_DOMAIN: jvmcc.com
+      LDAP_ADMIN_PASSWORD: admin
+      LDAP_BASE_DN: dc=jvmcc,dc=com
     ports:
       - "389:389"
-    volumes:
-      - ldap_data:/var/lib/ldap
-      - ldap_config:/etc/ldap/slapd.d
+      - "636:636"
     networks:
       - jvmcc-local
     profiles:
-      - donotstart
+      - ldap
+  phpldapadmin:
+    image: osixia/phpldapadmin:0.9.0
+    container_name: phpldapadmin
+    environment:
+      - PHPLDAPADMIN_LDAP_HOSTS=jvmcc-ldap-server
+    ports:
+      - "6443:443"
+    depends_on:
+      - jvmcc-ldap-server
+    networks:
+      - jvmcc-local
+    profiles:
+      - ldap
 volumes:
   # mysql_data:
   mongodata:
-  ldap_data:
-  ldap_config:
 networks:
   jvmcc-local:
     external: false

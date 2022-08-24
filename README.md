@@ -328,7 +328,23 @@ The [bootstrap.ldif](https://github.com/danielsobrado/spring-cloud-kafka-microse
 
 You can connect to the server by using Apache Directory Studio:
 
-![LDAPStudio.JPG](documentation/LDAPStudio.JPG?raw=true "LDAP Studio")
+![LDAP Studio](documentation/LDAPStudio.JPG?raw=true "LDAP Studio")
+
+Or start the **phpLDAPadmin** service and use the administration:
+
+```bash
+docker compose up phpldapadmin
+```
+
+Log in:
+
+![Php LDAP Admin](documentation/PhpLdapAdmin.JPG?raw=true "Php LDAP Admin")
+
+Test **ldif** scripts:
+
+![Php LDAP Admin Import](documentation/PhpLdapAdmin_Import.JPG?raw=true "Php LDAP Admin Import")
+
+Note: Take into account that ldifs imported during the bootstrap will be using ```ldapmodify``` instead of ```ldapadd```, the syntax is slightly different.
 
 ### Network Communication
 
@@ -366,6 +382,16 @@ Other advanced security meassures:
 In the configurations we have passwords in clear text, this is a bad practice, to avoid this in the java project we can use [Jasypt](https://www.baeldung.com/spring-boot-jasypt) to encrypt properties.
 
 But this doesn't solve the issue with Dockerfiles and Docker Compose, to solve this we need to use [Docker Secrets](https://docs.docker.com/engine/swarm/secrets/), we need Docker Swarm and it is out-of-scope in this example.
+
+For LDAP files in OpenLDAP we can encrypt the passwords with the following:
+
+```bash
+echo -n "password" | xxd -r -p | openssl enc -base64
+```
+
+And should inserted int he ldif file as ```userPassword: {SHA}encrypted-password```
+
+or MD5 with echo ```"password" |md5sum``` and ```userPassword: {MD5}4b8b4c5a309e17abe07c8b1ad6684dd9```
 
 In a Cloud environment we might use [AWS KMS](https://aws.amazon.com/kms/) or [Azure AKV](https://azure.microsoft.com/en-us/services/key-vault/).
 

@@ -1,50 +1,131 @@
-dn: ou=Users,dc=jvmcc,dc=com
-changetype: add
-objectclass: organizationalUnit
-ou: Users
+# Define top-level entry:
+#dn: dc=jvmcc,dc=com
+#objectClass: dcObject
+#objectClass: organization
+#o: JVMCC, Inc.
+#dc: jvmcc
 
-dn: ou=Groups,dc=jvmcc,dc=com
-changetype: add
-objectclass: organizationalUnit
-ou: Groups
+# Define an entry to contain users:
+dn: ou=users,dc=jvmcc,dc=com
+objectClass: organizationalUnit
+ou: users
 
-dn: cn=jvmcc,dc=jvmcc,dc=com
-changetype: add
-objectclass: inetOrgPerson
-cn: jvmcc
-gidnumber: 500
-uid: jvmcc
-uidnumber: 1001
-givenname: jvmcc
-sn: Jvmcc
-displayname: JVMCC User
-mail: jvmcc@gmail.com
-userpassword: jvmcc
+# Define an entry to contain groups:
+dn: ou=groups,dc=jvmcc,dc=com
+objectClass: organizationalUnit
+ou: groups
 
-dn: cn=admin,dc=jvmcc,dc=com
-changetype: add
-objectclass: inetOrgPerson
-cn: admin
-gidnumber: 501
+# Define some users:
+dn: cn=admin, ou=users,dc=jvmcc,dc=com
 uid: admin
-uidnumber: 1002
-givenname: admin
-sn: Admin
-displayname: Admin User
-mail: admin@gmail.com
-userpassword: admin
-
-dn: cn=Admin,ou=Groups,dc=jvmcc,dc=com
-changetype: add
+userPassword: admin
+objectClass: person
+objectClass: top
+objectClass: inetOrgPerson
+sn: The admin account 
 cn: admin
-objectclass: groupOfUniqueNames
-uniqueMember: cn=admin,dc=jvmcc,dc=com
-uniqueMember: cn=jvmcc,dc=jvmcc,dc=com
 
-dn: cn=User,ou=Groups,dc=jvmcc,dc=com
-changetype: add
+dn: cn=build, ou=users,dc=jvmcc,dc=com
+uid: build
+userPassword: {CRYPT}sagCGaL58db1Q
+#userPassword: jvmcc
+objectClass: person
+objectClass: top
+objectClass: inetOrgPerson
+sn: The account to use to demonstrate managing builds only
+cn: build
+
+dn: cn=dsobrado, ou=users,dc=jvmcc,dc=com
+uid: build
+userPassword: {CRYPT}sagCGaL58db1Q
+#userPassword: jvmcc
+objectClass: person
+objectClass: top
+objectClass: inetOrgPerson
+sn: The client account 
+cn: dsobrado
+
+dn: cn=deploy, ou=users,dc=jvmcc,dc=com
+uid: deploy
+userPassword: {CRYPT}sagCGaL58db1Q
+#userPassword: jvmcc
+objectClass: person
+objectClass: top
+objectClass: inetOrgPerson
+sn: The account to use to demonstrate managing deployment only
+cn: deploy
+
+dn: cn=jvmcc, ou=users,dc=jvmcc,dc=com
+uid: jvmcc
+userPassword: {CRYPT}sagCGaL58db1Q
+#userPassword: jvmcc
+objectClass: person
+objectClass: top
+objectClass: inetOrgPerson
+sn: The account to use to demonstrate managing deployment only
+cn: jvmcc
+
+dn: cn=test, ou=users,dc=jvmcc,dc=com
+uid: test
+userPassword: test
+objectClass: person
+objectClass: top
+objectClass: inetOrgPerson
+sn: Has no role access
+cn: test
+
+# Define an entry to contain roles:
+dn: ou=roles, dc=jvmcc,dc=com
+objectClass: organizationalUnit
+ou: roles
+
+# Define some roles and their membership:
+dn: cn=architect, ou=roles,dc=jvmcc,dc=com
+objectClass: groupOfUniqueNames
+uniqueMember: cn=admin,ou=users,dc=jvmcc,dc=com
+cn: architect
+
+dn: cn=admin, ou=roles,dc=jvmcc,dc=com
+objectClass: groupOfUniqueNames
+uniqueMember: cn=admin,ou=users,dc=jvmcc,dc=com
+cn: admin
+
+dn: cn=client, ou=roles,dc=jvmcc,dc=com
+objectClass: groupOfUniqueNames
+uniqueMember: cn=dsobrado,ou=users,dc=jvmcc,dc=com
+cn: client
+
+# Create group users
+dn: cn=users, ou=groups,dc=jvmcc,dc=com
+objectClass: groupOfUniqueNames
+uniqueMember: cn=build,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=deploy,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=jvmcc,ou=users,dc=jvmcc,dc=com
+cn: users
+
+# Create group users
+dn: cn=admins, ou=groups,dc=jvmcc,dc=com
+objectClass: groupOfUniqueNames
+uniqueMember: cn=admin,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=jvmcc,ou=users,dc=jvmcc,dc=com
+cn: admins
+
+dn: cn=user, ou=roles,dc=jvmcc,dc=com
+objectClass: groupOfUniqueNames
+uniqueMember: cn=admin,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=deploy,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=build,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=jvmcc,ou=users,dc=jvmcc,dc=com
 cn: user
-objectclass: groupOfUniqueNames
-uniqueMember: cn=jvmcc,dc=jvmcc,dc=com
 
+dn: cn=build, ou=roles,dc=jvmcc,dc=com
+objectClass: groupOfUniqueNames
+uniqueMember: cn=admin,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=build,ou=users,dc=jvmcc,dc=com
+cn: build
 
+dn: cn=deploy, ou=roles,dc=jvmcc,dc=com
+objectClass: groupOfUniqueNames
+uniqueMember: cn=admin,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=deploy,ou=users,dc=jvmcc,dc=com
+cn: deploy
