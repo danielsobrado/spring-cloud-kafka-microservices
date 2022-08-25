@@ -52,7 +52,7 @@
             "entryUUID"
         ],
         "connectionUrl": [
-            "ldap://openldap"
+            "ldap://jvmcc-ldap-server"
         ],
         "allowKerberosAuthentication": [
             "false"
@@ -64,7 +64,7 @@
             "simple"
         ],
         "customUserSearchFilter": [
-            "(gidnumber=500)"
+            "(uid=*)"
         ],
         "debug": [
             "false"

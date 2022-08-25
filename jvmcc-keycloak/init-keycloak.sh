@@ -127,13 +127,13 @@ curl -s -X POST "http://$KEYCLOAK_HOST_PORT/realms/jvmcc-services/protocol/openi
   -d "client_id=simple-service" | jq -r .access_token
 echo
 
-echo "Getting dsobrado access token"
+echo "Getting admin access token"
 echo "=========================="
 
 curl -s -X POST "http://$KEYCLOAK_HOST_PORT/realms/jvmcc-services/protocol/openid-connect/token" \
   -H "Content-Type: application/x-www-form-urlencoded" \
-  -d "username=dsobrado" \
-  -d "password=jvmcc" \
+  -d "username=admin" \
+  -d "password=admin" \
   -d "grant_type=password" \
   -d "client_secret=$SIMPLE_SERVICE_CLIENT_SECRET" \
   -d "client_id=simple-service" | jq -r .access_token

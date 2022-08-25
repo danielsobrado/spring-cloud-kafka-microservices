@@ -421,6 +421,10 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - jvmcc-local
+    profiles:
+      - ldap
   jvmcc-ldap-server:
     image: jvmcc-ldap-server
     container_name: jvmcc-ldap-server
@@ -431,10 +435,10 @@ services:
       LDAP_ORGANISATION: jvmcc
       LDAP_DOMAIN: jvmcc.com
       LDAP_ADMIN_PASSWORD: admin
-      LDAP_BASE_DN: dc=jvmcc,dc=com
+      LDAP_LOG_LEVEL: 64
     ports:
-      - "389:389"
-      - "636:636"
+      - 389:389
+      - 636:636
     networks:
       - jvmcc-local
     profiles:

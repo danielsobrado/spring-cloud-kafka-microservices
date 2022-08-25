@@ -346,6 +346,28 @@ Test **ldif** scripts:
 
 Note: Take into account that ldifs imported during the bootstrap will be using ```ldapmodify``` instead of ```ldapadd```, the syntax is slightly different.
 
+### OAuth2 (Keycloak) synchronized with LDAP (OpenLDAP)
+
+Users can share specified data with an application using OAuth 2.0 while maintaining the confidentiality of their usernames, passwords, and other personal data.
+
+Enables the use of an end user's account data by third-party services like Facebook and Google without disclosing the user's login information to the third party.
+
+Keycloak comes pre-loaded with a number of capabilities, including user registration, social media logins, two-factor authentication, LDAP connectivity, and more.
+
+Configure KeyCloak to synchronize with OpenLDAP:
+
+![Key Cloak LDAP](documentation/KeyCloakLDAP.JPG?raw=true "Key Cloak LDAP")
+
+The users from LDAP will be imported:
+
+![Key Cloak Users](documentation/KeyCloakUsers.JPG?raw=true "Key Cloak Users")
+
+We also need to map the roles:
+
+![Key Cloak Groups](documentation/KeyCloakGroups.JPG?raw=true "Key Cloak Groups")
+
+Once the synchronization is complete, we can set up the API Gateway to leverage the KeyCloak users and roles as well as the functionality to use JWT tokens, token refresh with claims, and other features. to stop sending login information over the network in each request.
+
 ### Network Communication
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
