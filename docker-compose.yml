@@ -407,15 +407,18 @@ services:
       - reactive
     networks:
       - jvmcc-local
-  keycloak:
-    image: quay.io/keycloak/keycloak:18.0.2
-    container_name: keycloak
+  jvmcc-keycloak:
+    image: jvmcc-keycloak
+    container_name: jvmcc-keycloak
+    build:
+      context: jvmcc-keycloak
+      dockerfile: Dockerfile
     environment:
+      KEYCLOAK_LOGLEVEL: DEBUG
       KEYCLOAK_ADMIN: jvmcc
       KEYCLOAK_ADMIN_PASSWORD: jvmcc
     ports:
       - "8084:8080"
-    command: start-dev
     healthcheck:
       test: "curl -f http://localhost:8080/admin || exit 1"
       interval: 10s

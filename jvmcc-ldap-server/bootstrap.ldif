@@ -36,13 +36,13 @@ sn: The account to use to demonstrate managing builds only
 cn: build
 
 dn: cn=dsobrado, ou=users,dc=jvmcc,dc=com
-uid: build
+uid: dsobrado
 userPassword: {CRYPT}sagCGaL58db1Q
 #userPassword: jvmcc
 objectClass: person
 objectClass: top
 objectClass: inetOrgPerson
-sn: The client account 
+sn: A client account 
 cn: dsobrado
 
 dn: cn=deploy, ou=users,dc=jvmcc,dc=com
@@ -93,6 +93,7 @@ cn: admin
 dn: cn=client, ou=roles,dc=jvmcc,dc=com
 objectClass: groupOfUniqueNames
 uniqueMember: cn=dsobrado,ou=users,dc=jvmcc,dc=com
+uniqueMember: cn=jvmcc,ou=users,dc=jvmcc,dc=com
 cn: client
 
 # Create group users

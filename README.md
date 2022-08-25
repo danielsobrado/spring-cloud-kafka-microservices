@@ -368,6 +368,39 @@ We also need to map the roles:
 
 Once the synchronization is complete, we can set up the API Gateway to leverage the KeyCloak users and roles as well as the functionality to use JWT tokens, token refresh with claims, and other features. to stop sending login information over the network in each request.
 
+To generate a token from KeyCloak you will do:
+
+```bash
+curl -s -X POST "http://localhost:8084/realms/master/protocol/openid-connect/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "username=jvmcc" \
+  -d 'password=jvmcc' \
+  -d 'grant_type=password' \
+  -d 'client_id=admin-cli' | jq -r '.access_token'
+```
+
+In response, we'll get an access_token and a refresh_token.
+
+Every time you make a request for a resource that is Keycloak-protected, you should include the access token in the Authorization header:
+
+```json
+headers: {
+    'Authorization': 'Bearer' + access_token
+}
+```
+
+When the access token expires, we should refresh it by sending a POST request to the same URL as before, but with the refresh token rather than the username and password:
+
+```json
+{
+    'client_id': 'client_id',
+    'refresh_token': previous_refresh_token,
+    'grant_type': 'refresh_token'
+}
+```
+
+In response, Keycloak will issue fresh access tokens and refresh tokens.
+
 ### Network Communication
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
