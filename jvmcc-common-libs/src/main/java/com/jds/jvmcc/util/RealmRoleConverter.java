@@ -14,6 +14,10 @@ import java.util.stream.Collectors;
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-26
+ * 
+ * In Spring Security there is a distinction between a role and an authority. 
+ * A role is an authority that is prefixed with "ROLE_". 
+ * as an example the authority "ROLE_ADMIN" is the same as the role "ADMIN".
  */
 public class RealmRoleConverter implements Converter<Jwt, Collection<GrantedAuthority>> {
     @Override
