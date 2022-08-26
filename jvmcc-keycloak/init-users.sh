@@ -3,7 +3,7 @@
 AUTH_ENDPOINT=http://localhost:8080/
 JVMCC_REALM=jvmcc-service	
 INTERNAL_USERS_REALM=jvmcc-gs-internal
-JVMCC_CLIENT_ID=jvmcc-1
+JVMCC_CLIENT_ID=jvmcc-service
 ADMIN_CLIENT_ID=jvmcc-gs
 
 export PATH=$PATH:/opt/keycloak/bin/

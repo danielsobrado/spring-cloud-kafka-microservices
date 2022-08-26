@@ -21,6 +21,20 @@ spring:
     name: ${API_GATEWAY_NAME:jvmcc-api-gateway}
   profiles:
     active: ${SPRING_PROFILE:development}
+  security:
+    oauth2:
+      client:
+        provider:
+          jvmcc-keycloak-provider:
+            issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8084/realms/jvmcc-service}
+        registration:
+          keycloak-spring-gateway-client:
+            provider: jvmcc-keycloak-provider
+            scope: openid
+            client-id: jvmcc-service
+            client-secret: uzJ0M6Dm8MFzf4gAOoPADEvoof0aNT75
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
   cloud:
     config:
       uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
@@ -41,6 +55,7 @@ spring:
         locator:
           enabled: true
       default-filters:
+        - TokenRelay
         - name: Retry
           args:
             retries: 3
@@ -93,4 +108,6 @@ logging:
     org:
       springframework:
         cloud:
-          gateway: TRACE
+          gateway: DEBUG
+          security:
+            web: DEBUG

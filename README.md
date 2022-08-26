@@ -305,7 +305,7 @@ We are using the following security best practices:
 Authentication & Authorization:
 
 * Basic user/password authentication
-* JWT tokens / Oauth
+* JWT tokens with Oauth/OpenID
 * LDAP Server
 
 Additionally, I'll suggest to install BURP Suite and test at least for the [OWASP Top 10](https://portswigger.net/support/using-burp-to-test-for-the-owasp-top-ten).
@@ -346,7 +346,7 @@ Test **ldif** scripts:
 
 Note: Take into account that ldifs imported during the bootstrap will be using ```ldapmodify``` instead of ```ldapadd```, the syntax is slightly different.
 
-### OAuth2 (Keycloak) synchronized with LDAP (OpenLDAP)
+### OpenID/OAuth2 (Keycloak) synchronized with LDAP (OpenLDAP)
 
 Users can share specified data with an application using OAuth 2.0 while maintaining the confidentiality of their usernames, passwords, and other personal data.
 
@@ -367,6 +367,8 @@ We also need to map the roles:
 ![Key Cloak Groups](documentation/KeyCloakGroups.JPG?raw=true "Key Cloak Groups")
 
 Once the synchronization is complete, we can set up the API Gateway to leverage the KeyCloak users and roles as well as the functionality to use JWT tokens, token refresh with claims, and other features. to stop sending login information over the network in each request.
+
+**Note**: There are multiple options to synchronize from Keycloak to LDAP or the other way around.
 
 To generate a token from KeyCloak you will do:
 
