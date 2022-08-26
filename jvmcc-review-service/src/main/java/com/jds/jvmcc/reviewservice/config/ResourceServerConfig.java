@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 
+import com.jds.jvmcc.util.RealmRoleConverter;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
@@ -23,8 +25,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-				.antMatcher(antPattern("/review/**")).anyRequest().permitAll()
-				.authorizeRequests()
+				.antMatcher("/review/**").authorizeRequests().anyRequest().permitAll()
 				.anyRequest().authenticated() // OR .access("authenticated AND hasRole('USER')")
 				.and()
 				.oauth2ResourceServer()
