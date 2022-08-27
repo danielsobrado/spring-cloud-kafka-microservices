@@ -24,9 +24,15 @@ Using a Microservices-based design has some disadvantages:
 
 Non-Reactive Design:
 
+In the past, blocking frameworks have been used to wait for tasks to finish. Java 8's CompletableFutures could provide a workaround for this.
+
 ![Non Reactive Design](documentation/NonReactiveDesign.JPG?raw=true "Non Reactive Design")
 
 Reactive Design:
+
+The idea behind reactive programming is that it should be able to make better use of the host's resources. Due to its parallel execution, it should also be able to handle more transactions at once. Microservices are a great fit for reactive Java frameworks due to this higher and more efficient resource usage.
+
+Reactive Streams are supported by the Spring Webflux framework, which itself is inherently non-blocking.
 
 ![Reactive Design](documentation/ReactiveDesign.JPG?raw=true "Non Reactive Design")
 
@@ -44,7 +50,7 @@ For a non-reactive solution use:
 docker compose --profile non-reactive up
 ```
 
-Note: We can expect a increase in performance from moving from Non-Reactive to Reactive of around 60% as per some [available tests](https://github.com/frandorado/spring-projects/tree/master/spring-reactive-nonreactive) done with [JMeter](https://jmeter.apache.org/).
+Note: We can expect a increase in performance from moving from Non-Reactive to Reactive of around 60% as per some [available tests](https://github.com/frandorado/spring-projects/tree/master/spring-reactive-nonreactive) done with [JMeter](https://jmeter.apache.org/) both using MongoDB.
 
 ### API Gateway
 
