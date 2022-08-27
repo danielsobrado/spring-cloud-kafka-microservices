@@ -14,6 +14,7 @@ import javax.persistence.PreUpdate;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -63,6 +64,27 @@ public class BaseEntity implements Serializable {
         nullable = true
     )
     private String lastUpdateUser;
+
+    @PrePersist
+	public void prePersist() {
+		this.createDate = new Date();
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            this.lastUpdateUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        } else {
+            this.lastUpdateUser = "Not Authenticated";
+        }
+	}
+
+	@PreUpdate
+	public void preUpdate() {
+		this.updateDate = new Date();
+        if (SecurityContextHolder.getContext().getAuthentication() != null) {
+            this.lastUpdateUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        } else {
+            this.lastUpdateUser = "Not Authenticated";
+        }
+	}
+
 
     @JsonCreator
     public BaseEntity(long id) {

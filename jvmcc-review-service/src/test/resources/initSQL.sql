@@ -5,8 +5,13 @@ CREATE TABLE IF NOT EXISTS jvmcc.review (
     comment VARCHAR(255) NOT NULL,
     create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    last_update_user VARCHAR(255) NOT NULL DEFAULT 'Not Authenticated'
+    last_update_user VARCHAR(255) DEFAULT 'Not Authenticated'
 )  ENGINE=INNODB;
+
+
+CREATE TABLE IF NOT EXISTS jvmcc.`review_seq` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB;
 
 INSERT INTO review (product_id, review_score, comment) VALUES ('M20324', 1, "test comment 1-1");
 INSERT INTO review (product_id, review_score, comment) VALUES ('M20324', 2, "test comment 1-2");

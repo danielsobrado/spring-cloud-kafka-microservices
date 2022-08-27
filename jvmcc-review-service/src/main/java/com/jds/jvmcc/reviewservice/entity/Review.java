@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
@@ -28,7 +27,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Review")
 @Entity(name = "review")
 @Table(name = "review")
-@SequenceGenerator(initialValue = 1, name = "idgen", sequenceName = "review_seq", @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY ))
+@SequenceGenerator(initialValue = 1, name = "idgen", sequenceName = "review_seq")
 @EqualsAndHashCode(callSuper=false)
 @Builder
 @Data
