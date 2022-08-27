@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Review")
 @Entity(name = "review")
 @Table(name = "review")
-@SequenceGenerator(initialValue = 1, name = "idgen", sequenceName = "review_seq")
+@SequenceGenerator(initialValue = 1, name = "idgen", sequenceName = "review_seq", @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY ))
 @EqualsAndHashCode(callSuper=false)
 @Builder
 @Data

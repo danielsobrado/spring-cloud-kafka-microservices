@@ -140,9 +140,11 @@ spring:
           clone-on-start: true
 ```
 
-By configuring our client to look for the Config Server on the applications.yml:
+By configuring our client to look for the Config Server on the app
+lications.yml:
 
 ```yml
+
 spring:
   config:
     import: optional:configserver:http://localhost:8888/
@@ -473,6 +475,22 @@ When the access token expires, we should refresh it by sending a POST request to
 ```
 
 In response, Keycloak will issue fresh access tokens and refresh tokens.
+
+You can generate a new token from the command line:
+
+```bash
+curl --location --request POST 'http://localhost:8084/realms/jvmcc-service/protocol/openid-connect/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=jvmcc-1' \
+--data-urlencode 'client_secret=uzJ0M6Dm8MFzf4gAOoPADEvoof0aNT75' \
+--data-urlencode 'username=jvmcc' \
+--data-urlencode 'password=jvmcc' \
+--data-urlencode 'grant_type=client_credentials'
+```
+
+Or using Postman:
+
+![Postman Token](documentation/PostManToken.JPG?raw=true "Postman Token")
 
 ### Network Communication
 
