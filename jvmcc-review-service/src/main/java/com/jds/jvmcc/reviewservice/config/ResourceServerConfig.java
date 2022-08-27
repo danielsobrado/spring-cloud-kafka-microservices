@@ -21,6 +21,7 @@ import com.jds.jvmcc.config.WhiteListConfiguration;
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
 	private static final String REVIEW_URL = "/review/**";
+	private static final String REVIEW_DELETE_URL = "/review/delete/**";
 	private static final String USER_ROLE = "USER";
 	private static final String ADMIN_ROLE = "ADMIN";
 
@@ -38,21 +39,9 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 		// role.
 		http.authorizeRequests().antMatchers(HttpMethod.POST, REVIEW_URL).hasRole(USER_ROLE);
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, REVIEW_URL).hasRole(ADMIN_ROLE);
-		http.authorizeRequests().antMatchers(HttpMethod.DELETE, REVIEW_URL).hasRole(ADMIN_ROLE);
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, REVIEW_DELETE_URL).hasRole(ADMIN_ROLE);
 		// All other requests must be authenticated.
 		http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
-		// Use JWT authentication with KeyCloak and the RealmRoleConverter.
-		// http.oauth2ResourceServer().jwt(jwt ->
-		// jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
-		// Disable session creation.
-		// http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
-
-	// private Converter<Jwt, ? extends AbstractAuthenticationToken>
-	// jwtAuthenticationConverter() {
-	// JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
-	// jwtConverter.setJwtGrantedAuthoritiesConverter(new RealmRoleConverter());
-	// return jwtConverter;
-	// }
 
 }

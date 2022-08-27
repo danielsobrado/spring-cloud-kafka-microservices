@@ -8,6 +8,7 @@ import javax.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +51,7 @@ public class ReviewController implements ReviewAPI {
     @Override
     @PostMapping("/{productId}")
     @ResponseStatus(HttpStatus.CREATED)
+    @Secured("ROLE_USER")
     public Review createReview(@PathVariable String productId, @Valid @RequestBody Review review) {
         log.debug("Creating review for productId: {}", productId);
         // Escape the productId and comment in the review object
@@ -60,6 +62,7 @@ public class ReviewController implements ReviewAPI {
 
     @Override
     @PutMapping("/{productId}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<Review> updateReview(@PathVariable String productId, @Valid @RequestBody Review review) {
         log.debug("Updating review for productId: {}", productId);
         // Escape the productId and comment in the review object
@@ -75,6 +78,7 @@ public class ReviewController implements ReviewAPI {
 
     @Override
     @DeleteMapping("/delete/{productId}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<String> deleteProductReviews(@PathVariable @Pattern(regexp = "[A-Z0-9]{6}") String productId) {
         log.debug("Deleting review for productId: {}", productId);
         productId = SecurityUtil.cleanIt(productId);
@@ -84,6 +88,7 @@ public class ReviewController implements ReviewAPI {
 
     @Override
     @DeleteMapping("/delete/{productId}/{id}")
+    @Secured("ROLE_ADMIN")
     public ResponseEntity<String> deleteReview(@PathVariable @Pattern(regexp = "[A-Z0-9]{6}") String productId, @PathVariable Long id) {
         log.debug("Deleting review with id: {}", id);
         reviewService.delete(id);

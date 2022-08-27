@@ -496,6 +496,10 @@ You will be able to access secured endpoints like create review using this autho
 
 ![Postman Create Review](documentation/PostmanCreateReview.JPG?raw=true "Postman Create Review")
 
+Or delete endpoints that need the ADMIN role:
+
+![Postman Delete Reviews](documentation/PostmanDeleteReviews.JPG?raw=true "Postman Delete Reviews")
+
 ### Network Communication
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
