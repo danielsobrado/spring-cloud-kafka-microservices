@@ -490,15 +490,15 @@ curl --location --request POST 'http://localhost:8084/realms/jvmcc-service/proto
 
 Or using Postman:
 
-![Postman Token](documentation/PostManToken.JPG?raw=true "Postman Token")
+![Postman Token](documentation/PostManToken.jpg?raw=true "Postman Token")
 
 You will be able to access secured endpoints like create review using this authorization:
 
-![Postman Create Review](documentation/PostmanCreateReview.JPG?raw=true "Postman Create Review")
+![Postman Create Review](documentation/PostmanCreateReview.jpg?raw=true "Postman Create Review")
 
 Or delete endpoints that need the ADMIN role:
 
-![Postman Delete Reviews](documentation/PostmanDeleteReviews.JPG?raw=true "Postman Delete Reviews")
+![Postman Delete Reviews](documentation/PostmanDeleteReviews.jpg?raw=true "Postman Delete Reviews")
 
 ### Network Communication
 
