@@ -494,11 +494,11 @@ Or using Postman:
 
 You will be able to access secured endpoints like create review using this authorization:
 
-![Postman Create Review](documentation/PostmanCreateReview.jpg?raw=true "Postman Create Review")
+![Postman Create Review](documentation/PostCreateReview.jpg?raw=true "Postman Create Review")
 
 Or delete endpoints that need the ADMIN role:
 
-![Postman Delete Reviews](documentation/PostmanDeleteReviews.jpg?raw=true "Postman Delete Reviews")
+![Postman Delete Reviews](documentation/DeleteReviews.jpg?raw=true "Postman Delete Reviews")
 
 ### Network Communication
 
