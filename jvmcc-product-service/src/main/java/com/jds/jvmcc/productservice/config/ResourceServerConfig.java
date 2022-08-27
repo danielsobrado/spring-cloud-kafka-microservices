@@ -24,11 +24,9 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-				.antMatcher("/product/**").authorizeRequests().anyRequest().permitAll()
-				.anyRequest().authenticated() // OR .access("authenticated AND hasRole('USER')")
-				.and()
-				.oauth2ResourceServer()
+		http.authorizeRequests().antMatchers("/product/**").permitAll();		
+		http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
+		http.oauth2ResourceServer()
 				.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
 	}
 

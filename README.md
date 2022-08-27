@@ -44,6 +44,8 @@ For a non-reactive solution use:
 docker compose --profile non-reactive up
 ```
 
+Note: We can expect a increase in performance from moving from Non-Reactive to Reactive of around 60% as per some [available tests](https://github.com/frandorado/spring-projects/tree/master/spring-reactive-nonreactive) done with [JMeter](https://jmeter.apache.org/).
+
 ### API Gateway
 
 A single point of entry to the application is offered via API Gateway. It routes the incoming request to the proper microservices. The user can't tell that they are being redirected. Consequently, the user is able to access the program using the same url.
@@ -234,7 +236,7 @@ When managing high availability, Docker Compose is not the best option; instead,
 
 For availability, a microservice needs to be resilient to errors and able to restart on other machines.
 
-The main patterns for resilience are timeout, retry, circuit breaker and fallback.
+The main patterns for resilience are timeout, rate limiter, time limiter, bulkahead, retry, circuit breaker and fallback.
 
 ### Circuit Breaker Pattern
 
@@ -283,7 +285,68 @@ The retry pattern may be easily configured using API Gateway such that it is uti
             backoff:
               factor: 2
 ```
+
 **Note**: When utilizing resilience design patterns and a cache, we must exercise caution to ensure that the cache is invalidated upon failure.
+
+### Bulkahead Pattern
+
+ow many requests can the API handle at any given time? In this example, 30 calls:
+
+```yml
+    bulkhead:
+      instances:
+        bulkaheadservice:
+          max-concurrent-calls: 30
+          max-wait-duration: 0    
+      metrics:
+        enabled: true
+```
+
+It can be applied in the code by using the following annotation:
+
+```java
+@Bulkhead(name = "bulkaheadservice",fallbackMethod = "fallback")```
+```
+
+### Time Limiter Pattern
+
+This functions as a timeout; in this case, 5 seconds are defined.
+
+```yml
+    timelimiter:
+      instances:
+        timelimiterservice:
+          timeout-duration: 5s
+          cancel-running-future: true 
+```
+
+It can be applied in the code by using the following annotation:
+
+```java
+@TimeLimiter(name = "timelimiterservice", fallbackMethod = "fallback")
+```
+
+### Rate Limiter Pattern
+
+Rate limitation is a crucial strategy to set up high availability and reliability for your service while preparing your API for growth. 100 calls are permitted in this case during 5 seconds:
+
+```yml
+    ratelimiter:
+      instances:
+        ratelimiterservice:
+          limit-for-period: 100
+          limit-refresh-period: 5s
+          timeout-duration: 0
+          allow-health-indicator-to-fail: true
+          register-health-indicator: true        
+      rate-limiter-aspect-order: 1
+```
+
+It can be applied in the code by using the following annotation:
+
+```java
+@RateLimiter(name = "ratelimiterservice", fallbackMethod = "fallback")
+```
 
 ## Security
 

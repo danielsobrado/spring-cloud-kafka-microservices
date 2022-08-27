@@ -1,5 +1,7 @@
 package com.jds.jvmcc.config;
 
+import org.springframework.http.HttpMethod;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
@@ -9,11 +11,11 @@ public class WhiteListConfiguration {
     private WhiteListConfiguration() {
 	}
 
-    protected static final String[] ACTUATOR_WHITELIST = {
+    public static final String[] ACTUATOR_WHITELIST = {
         "/actuator/**"
     };
 
-    protected static final String[] SWAGGER_WHITELIST = {
+    public static final String[] SWAGGER_WHITELIST = {
         "/v3/api-docs/**",
         "/swagger-ui/**",
         "/swagger-ui.html",

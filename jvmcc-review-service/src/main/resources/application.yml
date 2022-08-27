@@ -56,7 +56,14 @@ springdoc:
     use-root-path: false
   show-actuator: true
 keycloak:
-  enabled: false
+  auth-server-url: http://localhost:8084/auth/
+  resource: jvmcc-services
+  credentials:
+    secret : 5d301d6d-99f2-4995-bb12-2405dd98d669
+  use-resource-role-mappings : true
+  principal-attribute: preferred_username
+  bearer-only: true
+  realm: cloud
 logging:
   # pattern: 
     # console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

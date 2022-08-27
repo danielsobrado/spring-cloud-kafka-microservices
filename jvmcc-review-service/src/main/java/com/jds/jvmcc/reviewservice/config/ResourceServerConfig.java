@@ -1,16 +1,14 @@
 package com.jds.jvmcc.reviewservice.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
-import com.jds.jvmcc.util.RealmRoleConverter;
+import com.jds.jvmcc.config.WhiteListConfiguration;
 
 /**
  * @author J. Daniel Sobrado
@@ -22,19 +20,39 @@ import com.jds.jvmcc.util.RealmRoleConverter;
 @EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
+	private static final String REVIEW_URL = "/review/**";
+	private static final String USER_ROLE = "USER";
+	private static final String ADMIN_ROLE = "ADMIN";
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-				.antMatcher("/review/**").authorizeRequests().anyRequest().permitAll()
-				.anyRequest().authenticated() // OR .access("authenticated AND hasRole('USER')")
-				.and()
-				.oauth2ResourceServer()
-				.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
+		// Disable CSRF protection.
+		// deepcode ignore DisablesCSRFProtection: <No Frontend Required>
+		http.csrf().disable();
+		// Allow access to the following endpoints without authentication.
+		http.authorizeRequests().antMatchers(REVIEW_URL).permitAll();
+		// Allow whitlisted requests without authentication.
+		http.authorizeRequests().antMatchers(WhiteListConfiguration.ACTUATOR_WHITELIST).permitAll();
+		http.authorizeRequests().antMatchers(WhiteListConfiguration.SWAGGER_WHITELIST).permitAll();
+		// Any POST, PUT, DELETE, PATCH requests must be authenticated with the required
+		// role.
+		http.authorizeRequests().antMatchers(HttpMethod.POST, REVIEW_URL).hasRole(USER_ROLE);
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, REVIEW_URL).hasRole(ADMIN_ROLE);
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, REVIEW_URL).hasRole(ADMIN_ROLE);
+		// All other requests must be authenticated.
+		http.authorizeRequests().anyRequest().authenticated().and().httpBasic();
+		// Use JWT authentication with KeyCloak and the RealmRoleConverter.
+		// http.oauth2ResourceServer().jwt(jwt ->
+		// jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()));
+		// Disable session creation.
+		// http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
-	private Converter<Jwt, ? extends AbstractAuthenticationToken> jwtAuthenticationConverter() {
-		JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
-		jwtConverter.setJwtGrantedAuthoritiesConverter(new RealmRoleConverter());
-		return jwtConverter;
-	}
+	// private Converter<Jwt, ? extends AbstractAuthenticationToken>
+	// jwtAuthenticationConverter() {
+	// JwtAuthenticationConverter jwtConverter = new JwtAuthenticationConverter();
+	// jwtConverter.setJwtGrantedAuthoritiesConverter(new RealmRoleConverter());
+	// return jwtConverter;
+	// }
+
 }
