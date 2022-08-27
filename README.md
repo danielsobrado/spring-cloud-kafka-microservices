@@ -22,13 +22,13 @@ Using a Microservices-based design has some disadvantages:
 * Microservices are often highly expensive.
 * The very worst thing you can do is develop a distributed monolith if you don't know how microservices should be built.
 
-Non-Reactive Design:
+**Non-Reactive Design**:
 
 In the past, blocking frameworks have been used to wait for tasks to finish. Java 8's CompletableFutures could provide a workaround for this.
 
 ![Non Reactive Design](documentation/NonReactiveDesign.JPG?raw=true "Non Reactive Design")
 
-Reactive Design:
+**Reactive Design**:
 
 The idea behind reactive programming is that it should be able to make better use of the host's resources. Due to its parallel execution, it should also be able to handle more transactions at once. Microservices are a great fit for reactive Java frameworks due to this higher and more efficient resource usage.
 
@@ -439,7 +439,7 @@ Once the synchronization is complete, we can set up the API Gateway to leverage 
 
 **Note**: There are multiple options to synchronize from Keycloak to LDAP or the other way around.
 
-To generate a token from KeyCloak you will do:
+To generate a token from KeyCloak master's realm we'll execute:
 
 ```bash
 curl -s -X POST "http://localhost:8084/realms/master/protocol/openid-connect/token" \
@@ -455,19 +455,19 @@ In response, we'll get an access_token and a refresh_token.
 Every time you make a request for a resource that is Keycloak-protected, you should include the access token in the Authorization header:
 
 ```json
-headers: {
-    'Authorization': 'Bearer' + access_token
-}
+  headers: {
+      'Authorization': 'Bearer' + access_token
+  }
 ```
 
 When the access token expires, we should refresh it by sending a POST request to the same URL as before, but with the refresh token rather than the username and password:
 
 ```json
-{
-    'client_id': 'client_id',
-    'refresh_token': previous_refresh_token,
-    'grant_type': 'refresh_token'
-}
+  {
+      'client_id': 'client_id',
+      'refresh_token': previous_refresh_token,
+      'grant_type': 'refresh_token'
+  }
 ```
 
 In response, Keycloak will issue fresh access tokens and refresh tokens.
