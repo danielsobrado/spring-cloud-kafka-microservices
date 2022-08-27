@@ -492,6 +492,10 @@ Or using Postman:
 
 ![Postman Token](documentation/PostManToken.JPG?raw=true "Postman Token")
 
+You will be able to access secured endpoints like create review using this authorization:
+
+![Postman Create Review](documentation/PostmanCreateReview.JPG?raw=true "Postman Create Review")
+
 ### Network Communication
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
