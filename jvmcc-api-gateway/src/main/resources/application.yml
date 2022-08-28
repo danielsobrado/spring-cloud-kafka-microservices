@@ -31,10 +31,9 @@ spring:
           keycloak-spring-gateway-client:
             provider: jvmcc-keycloak-provider
             scope: openid
-            client-id: jvmcc-service
-            client-secret: uzJ0M6Dm8MFzf4gAOoPADEvoof0aNT75
-            authorization-grant-type: authorization_code
-            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
+            client-id: jvmcc-1
+            client-secret:  xpRFSuPkc0xnJPjx96Y88xYeHSRUySD0
+            authorization-grant-type: client_credentials
   cloud:
     config:
       uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
@@ -55,7 +54,6 @@ spring:
         locator:
           enabled: true
       default-filters:
-        - TokenRelay
         - name: Retry
           args:
             retries: 3
@@ -80,6 +78,7 @@ spring:
           predicates:
             - Path=/review/**
           filters:
+            - TokenRelay
             - name: CircuitBreaker
               args:
                 name: reviewCircuitBreaker
