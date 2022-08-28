@@ -422,6 +422,7 @@ services:
       KEYCLOAK_LOGLEVEL: DEBUG
       KEYCLOAK_ADMIN: jvmcc
       KEYCLOAK_ADMIN_PASSWORD: jvmcc
+      KEYCLOAK_IMPORT: /opt/keycloak/data/import/jvmcc-realm.json
     ports:
       - "8084:8080"
     # The realm import is giving an error, we'll have to fix it later.

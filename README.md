@@ -504,6 +504,8 @@ Or delete endpoints that need the ADMIN role:
 
 ![Postman Delete Reviews](documentation/DeleteReviews.jpg?raw=true "Postman Delete Reviews")
 
+**Note**: When mapping groups from LDAP to Keycloak, these are not fetched on the JWT by default, they need to be included by using the [Groups Mapper](https://stackoverflow.com/questions/56362197/keycloak-oidc-retrieve-user-groups-attributes).
+
 ### Network Communication
 
 * Use TLS 1.2+, and restrict in Tomcat the Ciphers to secure Ciphers only.
