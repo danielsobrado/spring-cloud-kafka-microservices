@@ -2,7 +2,6 @@ com\jds\jvmcc\util\JWTTokenUtil.class
 com\jds\jvmcc\config\SetupDataLoader.class
 com\jds\jvmcc\config\JwtRequestFilter.class
 com\jds\jvmcc\config\NoAuthSecurityConfig$1.class
-com\jds\jvmcc\config\WhiteListConfiguration.class
 com\jds\jvmcc\config\LdapAuthSecurityConfig.class
 com\jds\jvmcc\service\impl\UserDetailsServiceImpl.class
 com\jds\jvmcc\config\CorsConfig.class

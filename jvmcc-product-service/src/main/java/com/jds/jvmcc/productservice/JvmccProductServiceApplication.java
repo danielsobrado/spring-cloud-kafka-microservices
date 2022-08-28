@@ -27,7 +27,6 @@ import io.swagger.v3.oas.annotations.info.Info;
     DataSourceAutoConfiguration.class, 
     DataSourceTransactionManagerAutoConfiguration.class, 
     HibernateJpaAutoConfiguration.class,
-    SecurityAutoConfiguration.class,
     ManagementWebSecurityAutoConfiguration.class})
 @OpenAPIDefinition(info = @Info(title = "Products API", version = "1.0", description = "Product Consumption and Reviews Information"))
 public class JvmccProductServiceApplication {

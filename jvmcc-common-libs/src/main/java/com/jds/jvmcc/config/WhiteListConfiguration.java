@@ -1,7 +1,5 @@
 package com.jds.jvmcc.config;
 
-import org.springframework.http.HttpMethod;
-
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
