@@ -6,6 +6,7 @@ ADD jvmcc-realm.json /opt/keycloak/data/import/
 # ADD init-users.sh /
 # ADD startup.sh /
 
-CMD ["start-dev --import-realm"]
+# CMD ["start-dev --import-realm --http-port 8084"]
+CMD ["start-dev --http-port 8084 --import-realm"]
 
 

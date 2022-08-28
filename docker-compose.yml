@@ -60,7 +60,7 @@ services:
       API_GATEWAY_PASSWORD: jvmcc
       API_GATEWAY_ADMIN_USERNAME: admin
       API_GATEWAY_ADMIN_PASSWORD: admin
-      KEYCLOAK_ISSUER_URI: http://jvmcc-keycloak:8080/realms/jvmcc-service
+      KEYCLOAK_ISSUER_URI: http://jvmcc-keycloak:8084/realms/jvmcc-service
 
     ports:
       - "8080:8080"
@@ -90,7 +90,7 @@ services:
       API_GATEWAY_PASSWORD: jvmcc
       API_GATEWAY_ADMIN_USERNAME: admin
       API_GATEWAY_ADMIN_PASSWORD: admin
-      KEYCLOAK_ISSUER_URI: http://jvmcc-keycloak:8080/realms/jvmcc-service
+      KEYCLOAK_ISSUER_URI: http://jvmcc-keycloak:8084/realms/jvmcc-service
     ports:
       - "8081:8081"
     depends_on:
@@ -119,7 +119,7 @@ services:
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
-      JWK_SET_URI: http://jvmcc-keycloak:8080/auth/realms/jvmcc-service/protocol/openid-connect/certs
+      JWK_SET_URI: http://jvmcc-keycloak:8084/auth/realms/jvmcc-service/protocol/openid-connect/certs
     deploy:
         restart_policy:
                 condition: on-failure
@@ -153,7 +153,7 @@ services:
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
-      JWK_SET_URI: http://jvmcc-keycloak:8080/auth/realms/jvmcc-service/protocol/openid-connect/certs
+      JWK_SET_URI: http://jvmcc-keycloak:8084/auth/realms/jvmcc-service/protocol/openid-connect/certs
     deploy:
       restart_policy:
         condition: on-failure
@@ -221,7 +221,7 @@ services:
       MYSQL_PASSWORD: jvmcc
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
-      JWK_SET_URI: http://jvmcc-keycloak:8080/auth/realms/jvmcc-service/protocol/openid-connect/certs
+      JWK_SET_URI: http://jvmcc-keycloak:8084/auth/realms/jvmcc-service/protocol/openid-connect/certs
     deploy:
         restart_policy:
                 condition: on-failure
@@ -255,7 +255,7 @@ services:
       MYSQL_PASSWORD: jvmcc
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
-      JWK_SET_URI: http://jvmcc-keycloak:8080/auth/realms/jvmcc-service/protocol/openid-connect/certs
+      JWK_SET_URI: http://jvmcc-keycloak:8084/auth/realms/jvmcc-service/protocol/openid-connect/certs
     deploy:
       restart_policy:
         condition: on-failure
@@ -424,7 +424,7 @@ services:
       KEYCLOAK_ADMIN_PASSWORD: jvmcc
       KEYCLOAK_IMPORT: /opt/keycloak/data/import/jvmcc-realm.json
     ports:
-      - "8084:8080"
+      - "8084:8084"
     # The realm import is giving an error, we'll have to fix it later.
     # command:
     #   - start-dev
