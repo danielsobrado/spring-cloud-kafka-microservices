@@ -59,11 +59,11 @@ keycloak:
   auth-server-url: http://localhost:8084/auth/
   resource: jvmcc-services
   credentials:
-    secret : 5d301d6d-99f2-4995-bb12-2405dd98d669
+    secret : xpRFSuPkc0xnJPjx96Y88xYeHSRUySD0
   use-resource-role-mappings : true
   principal-attribute: preferred_username
   bearer-only: true
-  realm: cloud
+  realm: jvmcc-services
 logging:
   # pattern: 
     # console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"

@@ -436,8 +436,6 @@ services:
       retries: 5
     networks:
       - jvmcc-local
-    profiles:
-      - ldap
   jvmcc-ldap-server:
     image: jvmcc-ldap-server
     container_name: jvmcc-ldap-server
@@ -454,8 +452,6 @@ services:
       - 636:636
     networks:
       - jvmcc-local
-    profiles:
-      - ldap
   phpldapadmin:
     image: osixia/phpldapadmin:0.9.0
     container_name: phpldapadmin

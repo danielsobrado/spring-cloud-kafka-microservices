@@ -527,7 +527,10 @@
         ]
       },
       "notBefore": 0,
-      "groups": []
+      "groups": [
+        "USER",
+        "ADMIN"
+      ]
     },
     {
       "id": "c56e2b03-34db-4edf-92df-816fb4d797a1",
