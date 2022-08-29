@@ -2,16 +2,12 @@ package com.jds.jvmcc.productservice.client;
 
 import java.util.List;
 
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.jds.jvmcc.productservice.config.LocalClientConfiguration;
 import com.jds.jvmcc.productservice.entity.Review;
 import com.jds.jvmcc.productservice.exception.HandleFeignException;
 import com.jds.jvmcc.productservice.exception.ReviewConsumerExceptionHandler;
-import com.jds.jvmcc.productservice.fallback.ReviewFallback;
 
 import feign.Headers;
 

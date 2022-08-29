@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import com.jds.jvmcc.productservice.entity.Product;
  * @version 1.0
  * @since 2022-08-14
  */
+@Disabled
 @SpringBootTest
 @ActiveProfiles("test")
 @EnableConfigurationProperties

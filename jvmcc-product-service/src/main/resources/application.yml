@@ -79,6 +79,9 @@ springdoc:
   show-actuator: true
 review:
     host: ${REVIEW_HOST:http://localhost:8091}
+jvmcc-review:
+  ribbon:
+    list-of-servers: ${REVIEW_HOST:http://localhost:8091/}
 logging:
   level:
     root: info

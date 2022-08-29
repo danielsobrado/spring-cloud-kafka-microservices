@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import static com.jds.jvmcc.productservice.integration.ProductConstants.*;
  * @version 1.0
  * @since 2022-08-14
  */
+@Disabled
 @ActiveProfiles("eureka-test")
 @EnableConfigurationProperties
 @ExtendWith(SpringExtension.class)

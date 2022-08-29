@@ -2,12 +2,16 @@ package com.jds.jvmcc.productservice.integration;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.moreThan;
+import static com.jds.jvmcc.productservice.integration.ProductConstants.PRODUCT_ID;
+import static com.jds.jvmcc.productservice.integration.ProductConstants.PRODUCT_MODEL;
+import static com.jds.jvmcc.productservice.integration.ProductConstants.PRODUCT_NAME;
 import static com.jds.jvmcc.productservice.integration.ProductMocks.setupMockProductsResponse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +27,12 @@ import com.jds.jvmcc.productservice.JvmccProductServiceApplication;
 import com.jds.jvmcc.productservice.client.ProductClient;
 import com.jds.jvmcc.productservice.entity.Product;
 
-import static com.jds.jvmcc.productservice.integration.ProductConstants.*;
-
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-14
  */
+@Disabled
 @SpringBootTest(classes = JvmccProductServiceApplication.class)
 @ActiveProfiles("ribbon-test")
 @EnableConfigurationProperties
