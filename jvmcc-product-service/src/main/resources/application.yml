@@ -41,7 +41,7 @@ feign:
 ribbon:
   eureka:
     enabled: true
-  list-of-servers: ${EUREKA_SERVERS:optional:eureka:http://localhost:9000/}
+  listOfServers: ${EUREKA_SERVERS:optional:eureka:http://localhost:9000/}
 management:
   health:
     circuitbreakers:
@@ -81,7 +81,7 @@ review:
     host: ${REVIEW_HOST:http://localhost:8091}
 jvmcc-review:
   ribbon:
-    list-of-servers: ${REVIEW_HOST:http://localhost:8091/}
+    listOfServers: ${REVIEW_HOST:http://localhost:8091/}
 logging:
   level:
     root: info

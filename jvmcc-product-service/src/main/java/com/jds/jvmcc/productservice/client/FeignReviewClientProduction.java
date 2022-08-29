@@ -14,7 +14,6 @@ import com.jds.jvmcc.productservice.fallback.ReviewFallback;
  */
 @Profile("production")
 @FeignClient(value = "jvmcc-review", 
-    url = "http://jvmcc-review-service",
     configuration = LocalClientConfiguration.class, 
     fallback = ReviewFallback.class)
 @RibbonClient(name = "jvmcc-review")
