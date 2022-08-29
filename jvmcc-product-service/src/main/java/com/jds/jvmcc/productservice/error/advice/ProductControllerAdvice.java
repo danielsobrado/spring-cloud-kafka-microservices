@@ -14,11 +14,14 @@ import com.jds.jvmcc.productservice.error.exception.NonExistingProductException;
 import com.jds.jvmcc.productservice.error.exception.ProductRedirectionException;
 import com.jds.jvmcc.productservice.error.exception.ReviewServiceConnectionException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-21
  */
+@Slf4j
 @RestControllerAdvice
 public class ProductControllerAdvice {
 
@@ -36,6 +39,10 @@ public class ProductControllerAdvice {
                 PRODUCT_EXCEPTION,
                 "Product not found",
                 "No Products found");
+        log.error(PRODUCT_EXCEPTION + " : {}", ex.getMessage());
+        // Log Stack Trace
+        log.error("Stack Trace: {}", ex);
+        
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -54,6 +61,10 @@ public class ProductControllerAdvice {
                 PRODUCT_EXCEPTION,
                 "Product not found",
                 "Redirection to " + location);
+        log.error(PRODUCT_EXCEPTION + " : {}", ex.getMessage());
+        // Log Stack Trace
+        log.error("Stack Trace: {}", ex);
+
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -66,6 +77,10 @@ public class ProductControllerAdvice {
                 PRODUCT_EXCEPTION,
                 "Review service not available",
                 "Review service is not available");
+        log.error(PRODUCT_EXCEPTION + " : {}", ex.getMessage());
+        // Log Stack Trace
+        log.error("Stack Trace: {}", ex);
+
         return new ResponseEntity<>(error, HttpStatus.REQUEST_TIMEOUT);
     }
 
@@ -78,6 +93,10 @@ public class ProductControllerAdvice {
                 PRODUCT_EXCEPTION,
                 "Review service not available",
                 "Review service is not available");
+        log.error(PRODUCT_EXCEPTION + " : {}", ex.getMessage());
+        // Log Stack Trace
+        log.error("Stack Trace: {}", ex);
+
         return new ResponseEntity<>(error, HttpStatus.REQUEST_TIMEOUT);
     }
 
@@ -90,6 +109,10 @@ public class ProductControllerAdvice {
                 PRODUCT_EXCEPTION,
                 ex.getLocalizedMessage(),
                 ex.getMessage());
+        log.error(PRODUCT_EXCEPTION + " : {}", ex.getMessage());
+        // Log Stack Trace
+        log.error("Stack Trace: {}", ex);
+
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

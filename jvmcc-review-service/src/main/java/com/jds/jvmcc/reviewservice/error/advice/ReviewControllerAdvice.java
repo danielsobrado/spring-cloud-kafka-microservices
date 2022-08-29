@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.jds.jvmcc.reviewservice.error.ReviewAppError;
 import com.jds.jvmcc.reviewservice.error.exception.NonExistingProductException;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @author J. Daniel Sobrado
  * @version 1.0
  * @since 2022-08-21
  */
+@Slf4j
 @RestControllerAdvice
 public class ReviewControllerAdvice {
 
@@ -31,6 +34,10 @@ public class ReviewControllerAdvice {
                 REVIEW_EXCEPTION,
                 "Product not found in reviews db",
                 "No reviews found for this product");
+        log.error(REVIEW_EXCEPTION + " : {}", ex.getMessage());
+        // Log Stack Trace
+        log.error("Stack Trace: {}", ex);
+        
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
@@ -43,6 +50,10 @@ public class ReviewControllerAdvice {
                 REVIEW_EXCEPTION,
                 ex.getLocalizedMessage(),
                 ex.getMessage());
+        log.error(REVIEW_EXCEPTION + " : {}", ex.getMessage());
+        // Log Stack Trace
+        log.error("Stack Trace: {}", ex);
+
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
