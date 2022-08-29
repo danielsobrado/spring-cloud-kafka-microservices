@@ -15,7 +15,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
     ports:
       - "9000:9000"
     networks:
@@ -35,7 +35,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka/
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       API_GATEWAY_USERNAME: jvmcc
       API_GATEWAY_PASSWORD: jvmcc
       API_GATEWAY_ADMIN_USERNAME: admin
@@ -61,7 +61,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
     ports:
       - "8092:8092"
     deploy:
@@ -90,7 +90,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
     ports:
       - "8092:8092"
     deploy:
@@ -120,7 +120,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
@@ -152,7 +152,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
       SPRING_DATA_MONGODB_HOST: mongo
@@ -187,7 +187,7 @@ services:
       SPRING_PROFILE: development
       EUREKA_CLIENT_ENABLED: true
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery:9000/eureka
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
     ports:

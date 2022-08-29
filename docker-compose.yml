@@ -12,15 +12,13 @@ services:
       SERVICE_DISCOVERY_HOSTNAME: jvmcc-service-discovery-1
       SERVICE_DISCOVERY_NAME: jvmcc-service-discovery-1
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-2:9001/eureka
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
     ports:
       - "9000:9000"
     networks:
       - jvmcc-local
     depends_on:
       jvmcc-config-server:
-        condition: service_healthy
-      zipkin-server:
         condition: service_healthy
   jvmcc-service-discovery-2:
     container_name: jvmcc-service-discovery-2
@@ -34,15 +32,13 @@ services:
       SERVICE_DISCOVERY_HOSTNAME: jvmcc-service-discovery-2
       SERVICE_DISCOVERY_NAME: jvmcc-service-discovery-2
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
     ports:
       - "9001:9001"
     networks:
       - jvmcc-local
     depends_on:
       jvmcc-config-server:
-        condition: service_healthy
-      zipkin-server:
         condition: service_healthy
   # API Gateway container. This container is the only container exposed to the outside
   jvmcc-api-gateway-1:
@@ -59,7 +55,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       API_GATEWAY_USERNAME: jvmcc
       API_GATEWAY_PASSWORD: jvmcc
       API_GATEWAY_ADMIN_USERNAME: admin
@@ -74,7 +70,7 @@ services:
       - "8080:8080"
     depends_on:
       - jvmcc-config-server
-      - zipkin-server
+      - jvmcc-zipkin
       - jvmcc-service-discovery-1
       - jvmcc-service-discovery-2
       - jvmcc-keycloak
@@ -94,7 +90,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       API_GATEWAY_USERNAME: jvmcc
       API_GATEWAY_PASSWORD: jvmcc
       API_GATEWAY_ADMIN_USERNAME: admin
@@ -109,7 +105,7 @@ services:
       - "8081:8081"
     depends_on:
       - jvmcc-config-server
-      - zipkin-server
+      - jvmcc-zipkin
       - jvmcc-service-discovery-1
       - jvmcc-service-discovery-2
       - jvmcc-keycloak
@@ -129,7 +125,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       REVIEW_HOST: http://jvmcc-review-service-1:8093
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
@@ -143,7 +139,7 @@ services:
       - jvmcc-service-discovery-2
       - jvmcc-review-service-1
       - jvmcc-review-service-2
-      - zipkin-server
+      - jvmcc-zipkin
     profiles:
       - non-reactive
     networks:
@@ -162,7 +158,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       REVIEW_HOST: http://jvmcc-review-service
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
@@ -176,7 +172,7 @@ services:
       - jvmcc-service-discovery-2
       - jvmcc-review-service-1
       - jvmcc-review-service-2
-      - zipkin-server
+      - jvmcc-zipkin
     profiles:
       - non-reactive
     networks:
@@ -195,7 +191,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
     ports:
@@ -209,7 +205,7 @@ services:
       - jvmcc-ldap-server
       - zookeeper
       - kafka
-      - zipkin-server
+      - jvmcc-zipkin
     profiles:
       - reactive
     networks:
@@ -228,7 +224,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
@@ -243,7 +239,7 @@ services:
       - jvmcc-service-discovery-1
       - jvmcc-service-discovery-2
       - jvmcc-mysql
-      - zipkin-server
+      - jvmcc-zipkin
     profiles:
       - non-reactive
     networks:
@@ -262,7 +258,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
@@ -277,7 +273,7 @@ services:
       - jvmcc-service-discovery-1
       - jvmcc-service-discovery-2
       - jvmcc-mysql
-      - zipkin-server
+      - jvmcc-zipkin
     profiles:
       - non-reactive
     networks:
@@ -296,7 +292,7 @@ services:
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
       SPRING_DATA_MONGODB_HOST: mongo
@@ -315,7 +311,7 @@ services:
       - jvmcc-ldap-server
       - zookeeper
       - kafka
-      - zipkin-server
+      - jvmcc-zipkin
     profiles:
       - reactive
     networks:
@@ -332,13 +328,13 @@ services:
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: "true"
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
-      ZIPKIN_SERVER_URL: http://zipkin-server:9411
+      ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
       SECURITY_USERNAME: jvmcc
       SECURITY_PASSWORD: jvmcc
     ports:
       - "8888:8888"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://jvmcc-config-server:8888"]
+      test: ["CMD", "curl", "-u jvmcc:jvmcc", "http://jvmcc-config-server:8888/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -347,9 +343,12 @@ services:
         condition: on-failure
     networks:
       - jvmcc-local
-  zipkin-server:
-    container_name: zipkin-server
-    image: openzipkin/zipkin:2.21.0
+  jvmcc-zipkin:
+    container_name: jvmcc-zipkin
+    image: jvmcc-zipkin:latest
+    build:
+      context: jvmcc-zipkin
+      dockerfile: Dockerfile
     environment:
       ZIPKIN_PORT: 9411
       SPRING_PROFILE: production
@@ -362,8 +361,8 @@ services:
       restart_policy:
         condition: on-failure
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://zipkin-server:9411"]
-      interval: 30s
+      test: ["/docker-bin/docker-healthcheck"]
+      interval: 10s
       timeout: 10s
       retries: 5
     networks:
@@ -379,7 +378,7 @@ services:
     volumes:
       - ./jvmcc-mysql/initSQL.sql:/docker-entrypoint-initdb.d/initSQL.sql
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: ["CMD", "mysql -ujvmcc -pjvmcc  -e 'SELECT count(*) FROM review' jvmcc"]
       timeout: 20s
       retries: 10
     profiles:

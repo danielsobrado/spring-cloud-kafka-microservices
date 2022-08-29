@@ -42,7 +42,7 @@ spring:
   config:
     import: optional:configserver:http://localhost:8888/
   zipkin:
-    base-url: http://zipkin-server:9411
+    base-url: http://jvmcc-zipkin:9411
 jwt:
   secret: jvmcc
 eureka:

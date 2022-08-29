@@ -13,7 +13,7 @@ spring:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
   zipkin:
-    base-url: http://zipkin-server:9411
+    base-url: http://jvmcc-zipkin:9411
 server:
   port: 9000  
 eureka:
@@ -36,7 +36,7 @@ spring:
       username: ${CLOUD_CONFIG_USERNAME:jvmcc}
       password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
   zipkin:
-    base-url: http://zipkin-server:9411
+    base-url: http://jvmcc-zipkin:9411
 server:
   port: 9001  
 eureka:
@@ -59,7 +59,7 @@ spring:
       username: ${CLOUD_CONFIG_USERNAME:jvmcc}
       password: ${CLOUD_CONFIG_PASSWORD:jvmcc}
   zipkin:
-    base-url: http://zipkin-server:9411 
+    base-url: http://jvmcc-zipkin:9411 
 server:
   port: 9002
 eureka:
@@ -77,7 +77,7 @@ spring:
   application:
     name: jvmcc-eureka-server-clustered  
   zipkin:
-    base-url: http://zipkin-server:9411
+    base-url: http://jvmcc-zipkin:9411
 server:
   port: 9003
 eureka:
