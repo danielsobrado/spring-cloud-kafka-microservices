@@ -126,13 +126,15 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
-      REVIEW_HOST: http://jvmcc-review-service:8093, http://jvmcc-review-service:8094
+      REVIEW_HOST: http://jvmcc-review-service-1:8093, http://jvmcc-review-service-2:8094
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
     deploy:
         restart_policy:
                 condition: on-failure
+    ports:
+      - "8091:8091"
     depends_on:
       - jvmcc-config-server
       - jvmcc-service-discovery-1
@@ -159,7 +161,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
-      REVIEW_HOST: http://jvmcc-review-service:8093, http://jvmcc-review-service:8094
+      REVIEW_HOST: http://jvmcc-review-service-1:8093, http://jvmcc-review-service-2:8094
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
@@ -231,6 +233,8 @@ services:
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
       JWK_SET_URI: http://jvmcc-keycloak:8084/auth/realms/jvmcc-service/protocol/openid-connect/certs
+    ports:
+      - "8093:8093"
     deploy:
         restart_policy:
                 condition: on-failure
@@ -265,6 +269,8 @@ services:
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
       JWK_SET_URI: http://jvmcc-keycloak:8084/auth/realms/jvmcc-service/protocol/openid-connect/certs
+    ports:
+      - "8094:8094"
     deploy:
       restart_policy:
         condition: on-failure
