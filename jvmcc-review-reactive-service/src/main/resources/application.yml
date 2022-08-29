@@ -52,7 +52,7 @@ eureka:
       defaultZone: http://jvmcc-default-eureka-server.com:9000/eureka
       # defaultZone: http://jvmcc-eureka-1-server.com:9001/eureka, http://jvmcc-eureka-2-server.com:9002/eureka, http://jvmcc-eureka-3-server.com.com:9003/eureka
   instance:
-    preferIpAddress: false
+    preferIpAddress: true
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
 springdoc:
