@@ -20,8 +20,6 @@ services:
     depends_on:
       jvmcc-config-server:
         condition: service_healthy
-      jvmcc-zipkin:
-        condition: service_healthy
   jvmcc-service-discovery-2:
     container_name: jvmcc-service-discovery-2
     image: jvmcc-service-discovery:latest
@@ -41,8 +39,6 @@ services:
       - jvmcc-local
     depends_on:
       jvmcc-config-server:
-        condition: service_healthy
-      jvmcc-zipkin:
         condition: service_healthy
   # API Gateway container. This container is the only container exposed to the outside
   jvmcc-api-gateway-1:
@@ -130,7 +126,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
-      REVIEW_HOST: http://jvmcc-review-service-1:8093
+      REVIEW_HOST: http://jvmcc-review-service-1:8093, http://jvmcc-review-service-2:8094
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
@@ -163,7 +159,7 @@ services:
       CLOUD_CONFIG_USERNAME: jvmcc
       CLOUD_CONFIG_PASSWORD: jvmcc
       ZIPKIN_SERVER_URL: http://jvmcc-zipkin:9411
-      REVIEW_HOST: http://jvmcc-review-service
+      REVIEW_HOST: http://jvmcc-review-service-1:8093, http://jvmcc-review-service-2:8094
       EUREKA_SERVERS: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
       EUREKA_CLIENT_FETCH_REGISTRY: "true"
@@ -365,7 +361,7 @@ services:
       restart_policy:
         condition: on-failure
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9411"]
+      test: ["/docker-bin/docker-healthcheck"]
       interval: 10s
       timeout: 10s
       retries: 5
