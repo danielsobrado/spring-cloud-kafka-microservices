@@ -20,10 +20,6 @@ import feign.Headers;
  * @version 1.0
  * @since 2022-08-13
  */
-@FeignClient(value = "jvmcc-review-service", 
-    configuration = LocalClientConfiguration.class, 
-    fallback = ReviewFallback.class)
-@RibbonClient(name = "jvmcc-review-service")
 public interface ReviewClient {
 
     @Headers("Content-Type: application/json")

@@ -1,7 +1,5 @@
 package com.jds.jvmcc.productservice.error.exception;
 
-import com.jds.jvmcc.error.ErrorCode;
-
 /**
  * @author J. Daniel Sobrado
  * @version 1.0

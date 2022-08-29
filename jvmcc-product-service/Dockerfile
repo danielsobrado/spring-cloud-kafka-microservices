@@ -9,14 +9,14 @@ RUN chmod -R 777 spring-cloud-kafka-microservices
 WORKDIR /app/spring-cloud-kafka-microservices
 
 # Enabling BuildKit cache for faster builds
-RUN --mount=type=cache,target=.m2 ./mvnw install -pl .,jvmcc-common-libs,jvmcc-product-service -DskipTests
+RUN --mount=type=cache,target=.m2 ./mvnw install -pl .,jvmcc-product-service -DskipTests
 
 # Trick to invalidate the cache when the github repo gets updated
 ARG USER=danielsobrado
 ARG REPO=spring-cloud-kafka-microservices
 ARG BRANCH=main
 ADD https://api.github.com/repos/$USER/$REPO/git/refs/heads/$BRANCH version.json
-RUN ./mvnw install -pl .,jvmcc-common-libs,jvmcc-product-service -DskipTests
+RUN ./mvnw install -pl .,jvmcc-product-service -DskipTests
 
 FROM eclipse-temurin:17-jdk-alpine as build
 COPY --from=development /app/spring-cloud-kafka-microservices/jvmcc-product-service/target/jvmcc-product-service-*.jar /jvmcc-product-service.jar

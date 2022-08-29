@@ -20,16 +20,30 @@ public class ReviewControllerAdvice {
     @Value("${review.service.api.version}")
     private String currentApiVersion;
 
+    private static final String REVIEW_EXCEPTION = "Review Service Exception";
+
     @ExceptionHandler(NonExistingProductException.class)
     public ResponseEntity<ReviewAppError> handleNonExistingProductException(NonExistingProductException ex) {
         final ReviewAppError error = new ReviewAppError(
                 currentApiVersion,
                 ex.getErrorCode(),
                 "The product does not have reviews",
-                "review-exceptions",
+                REVIEW_EXCEPTION,
                 "Product not found in reviews db",
                 "No reviews found for this product");
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ReviewAppError> handleException(Exception ex) {
+        final ReviewAppError error = new ReviewAppError(
+                currentApiVersion,
+                "PD-003",
+                "An unexpected error has occurred",
+                REVIEW_EXCEPTION,
+                ex.getLocalizedMessage(),
+                ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
