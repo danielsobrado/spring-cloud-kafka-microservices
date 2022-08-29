@@ -76,7 +76,6 @@ spring:
         - id: jvmcc-review-service-read
           uri: lb://jvmcc-review-service
           predicates:
-            - Path=/review/**
             - Method=GET
           filters:
             - name: CircuitBreaker
