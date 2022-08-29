@@ -17,6 +17,5 @@ import com.jds.jvmcc.productservice.fallback.ReviewFallback;
     url = "http://127.0.0.1:8093",
     configuration = LocalClientConfiguration.class, 
     fallback = ReviewFallback.class)
-@RibbonClient(name = "jvmcc-review-service")
 public interface FeignReviewClientProduction extends ReviewClient {
 }
