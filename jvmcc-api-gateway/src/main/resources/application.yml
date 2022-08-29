@@ -73,10 +73,26 @@ spring:
                 name: productCircuitBreaker
                 fallbackUri: forward://product-fallback
                 enabled: true
-        - id: jvmcc-review-service
+        - id: jvmcc-review-service-read
           uri: lb://jvmcc-review-service
           predicates:
             - Path=/review/**
+            - Method=GET
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: reviewCircuitBreaker
+                fallbackUri: forward://review-fallback
+                enabled: true
+        - id: jvmcc-review-service-write
+          uri: lb://jvmcc-review-service
+          predicates:
+            - Path=/review/save/**
+            - Path=/review/update/**
+            - Path=/review/delete/**
+            - Method=PUT
+            - Method=POST
+            - Method=DELETE
           filters:
             - TokenRelay
             - name: CircuitBreaker
@@ -84,6 +100,7 @@ spring:
                 name: reviewCircuitBreaker
                 fallbackUri: forward://review-fallback
                 enabled: true
+
   config:
     import: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888/}
   zipkin:

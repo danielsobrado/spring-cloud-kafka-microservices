@@ -49,9 +49,9 @@ public class ReviewController implements ReviewAPI {
     }
 
     @Override
-    @PostMapping("/{productId}")
+    @PostMapping("/save/{productId}")
     @ResponseStatus(HttpStatus.CREATED)
-    @Secured("ROLE_USER")
+    @Secured("USER")
     public Review createReview(@PathVariable String productId, @Valid @RequestBody Review review) {
         log.debug("Creating review for productId: {}", productId);
         // Escape the productId and comment in the review object
@@ -61,8 +61,8 @@ public class ReviewController implements ReviewAPI {
     }
 
     @Override
-    @PutMapping("/{productId}")
-    @Secured("ROLE_ADMIN")
+    @PutMapping("/update/{productId}")
+    @Secured("ADMIN")
     public ResponseEntity<Review> updateReview(@PathVariable String productId, @Valid @RequestBody Review review) {
         log.debug("Updating review for productId: {}", productId);
         // Escape the productId and comment in the review object
@@ -101,11 +101,5 @@ public class ReviewController implements ReviewAPI {
         log.debug("Finding all reviews");
         return reviewService.findAll();
     }
-
-    // @GetMapping("/hello")
-    // public String hello() {
-    //     log.debug("Hello");
-    //     return "Hello!";
-    // }
 
 }
