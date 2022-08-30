@@ -121,7 +121,7 @@ services:
       PRODUCT_SERVICE_PORT: 8091
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: true
-      EUREKA_INSTANCE_HOSTNAME: localhost
+      EUREKA_INSTANCE_HOSTNAME: jvmcc-product-service-1
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
@@ -157,7 +157,7 @@ services:
       PRODUCT_SERVICE_PORT: 8092
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: true
-      EUREKA_INSTANCE_HOSTNAME: localhost
+      EUREKA_INSTANCE_HOSTNAME: jvmcc-product-service-2
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
@@ -224,7 +224,7 @@ services:
       REVIEW_SERVICE_PORT: 8093
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: true
-      EUREKA_INSTANCE_HOSTNAME: localhost
+      EUREKA_INSTANCE_HOSTNAME: jvmcc-review-service-1
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
@@ -233,8 +233,8 @@ services:
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
-      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
-      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: true
+      EUREKA_CLIENT_FETCH_REGISTRY: true
       JWK_SET_URI: http://jvmcc-keycloak:8084/auth/realms/jvmcc-service/protocol/openid-connect/certs
     ports:
       - "8093:8093"
@@ -261,7 +261,7 @@ services:
       REVIEW_SERVICE_PORT: 8094
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: true
-      EUREKA_INSTANCE_HOSTNAME: localhost
+      EUREKA_INSTANCE_HOSTNAME: jvmcc-review-service-2
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
@@ -270,8 +270,8 @@ services:
       MYSQL_SERVER_URL: jdbc:mysql://jvmcc-mysql:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true
       MYSQL_USERNAME: jvmcc
       MYSQL_PASSWORD: jvmcc
-      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
-      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: true
+      EUREKA_CLIENT_FETCH_REGISTRY: true
       JWK_SET_URI: http://jvmcc-keycloak:8084/auth/realms/jvmcc-service/protocol/openid-connect/certs
     ports:
       - "8094:8094"
