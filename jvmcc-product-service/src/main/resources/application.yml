@@ -70,6 +70,7 @@ eureka:
     register-with-eureka: ${EUREKA_CLIENT_REGISTER_WITH_EUREKA:false}
     fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:false}
   instance:
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
     prefer-ip-address: true
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2

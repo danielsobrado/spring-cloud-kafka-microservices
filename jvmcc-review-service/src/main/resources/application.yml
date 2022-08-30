@@ -46,6 +46,7 @@ eureka:
     fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:false}
   instance:
     prefer-ip-address: true
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
 security:
