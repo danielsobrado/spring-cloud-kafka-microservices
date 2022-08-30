@@ -13,10 +13,10 @@ import com.jds.jvmcc.productservice.fallback.ReviewFallback;
  * @since 2022-08-29
  */
 @Profile("development")
-@FeignClient(value = "jvmcc-review", 
+@FeignClient(value = "jvmcc-review-service", 
     url = "http://localhost:8091",
     configuration = LocalClientConfiguration.class, 
     fallback = ReviewFallback.class)
-@RibbonClient(name = "jvmcc-review")
+@RibbonClient(name = "jvmcc-review-service")
 public interface FeignReviewClientDevelopment extends ReviewClient {
 }

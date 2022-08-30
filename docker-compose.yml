@@ -121,7 +121,7 @@ services:
       PRODUCT_SERVICE_PORT: 8091
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: true
-      EUREKA_INSTANCE_HOSTNAME: jvmcc-product-service
+      EUREKA_INSTANCE_HOSTNAME: localhost
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
@@ -157,7 +157,7 @@ services:
       PRODUCT_SERVICE_PORT: 8092
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: true
-      EUREKA_INSTANCE_HOSTNAME: jvmcc-product-service
+      EUREKA_INSTANCE_HOSTNAME: localhost
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
@@ -224,7 +224,7 @@ services:
       REVIEW_SERVICE_PORT: 8093
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: true
-      EUREKA_INSTANCE_HOSTNAME: jvmcc-review-service
+      EUREKA_INSTANCE_HOSTNAME: localhost
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
@@ -261,7 +261,7 @@ services:
       REVIEW_SERVICE_PORT: 8094
       SPRING_PROFILE: production
       EUREKA_CLIENT_ENABLED: true
-      EUREKA_INSTANCE_HOSTNAME: jvmcc-review-service
+      EUREKA_INSTANCE_HOSTNAME: localhost
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://jvmcc-service-discovery-1:9000/eureka/,http://jvmcc-service-discovery-2:9001/eureka/
       CLOUD_CONFIG_URI: optional:configserver:http://jvmcc-config-server:8888/
       CLOUD_CONFIG_USERNAME: jvmcc
