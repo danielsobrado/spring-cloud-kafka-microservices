@@ -14,7 +14,6 @@ import com.jds.jvmcc.productservice.fallback.ReviewFallback;
  */
 @Profile("production")
 @FeignClient(value = "jvmcc-review-service", 
-    url = "http://127.0.0.1:8093",
     configuration = LocalClientConfiguration.class, 
     fallback = ReviewFallback.class)
 public interface FeignReviewClientProduction extends ReviewClient {

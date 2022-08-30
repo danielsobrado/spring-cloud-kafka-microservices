@@ -108,6 +108,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:9000/eureka/}
+  instance:
+    prefer-ip-address: true
 management:
   endpoint:
     gateway:
