@@ -24,7 +24,7 @@ Using a Microservices-based design has some disadvantages:
 
 **Non-Reactive Design**:
 
-In the past, blocking frameworks have been used to wait for tasks to finish. Java 8's CompletableFutures could provide a workaround for this.
+In the past, blocking frameworks have been used to wait for tasks to finish. Java 8's CompletableFutures could provide a workaround for this.
 
 ![Non Reactive Design](documentation/NonReactiveDesign.JPG?raw=true "Non Reactive Design")
 
