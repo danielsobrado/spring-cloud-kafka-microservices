@@ -232,7 +232,7 @@ Note: When testing in a local machine you might need to configure the ```\etc\ho
 
 API Gateway is a front-end interface that allows us to load balance, route, validate, secure and audit our backend end-points:
 
-![API Gateway Diagram](documentation/APIGateway-Diagram.JPG?raw=true "API Gateway Diagram")
+![API Gateway Diagram](documentation/APIGateway-Diagram.jpg?raw=true "API Gateway Diagram")
 
 We simply need to establish several services and register them with the Service Discovery server to form a cluster in order to achieve High Availability in the Application Gateway.
 
