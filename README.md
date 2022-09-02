@@ -230,15 +230,19 @@ Note: When testing in a local machine you might need to configure the ```\etc\ho
 
 ### API Gateway High Availability
 
+API Gateway is a front-end interface that allows us to load balance, secure and audit our backend end-points:
+
+![API Gateway Diagram](documentation/APIGateway-Diagram.JPG?raw=true "API Gateway Diagram")
+
 We simply need to establish several services and register them with the Service Discovery server to form a cluster in order to achieve High Availability in the Application Gateway.
 
 ![API Gateway High Availability](documentation/APIGateway-HA.JPG?raw=true "API Gateway High Availability")
 
 Since API Gateway is stateless and requires a load balancer in front, such as NginX, it cannot be used for external access.
 
-The configuration for high availability is found in the file "docker-compose-production.yml," which launches two instances of each critical service instead of the recommended three. However, since we only have one machine to host them all, we'll only start two instances for demonstration purposes.
+The configuration of multiple instances for high availability is found in the file "docker-compose-production.yml," which launches two instances of each critical service instead of the recommended three. However, since we only have one machine to host them all, we'll only start two instances for demonstration purposes.
 
-When managing high availability, Docker Compose is not the best option; instead, Docker Swarm and Kubernetes are needed.
+When managing scalability, Docker Compose is not the best option; instead, Docker Swarm and Kubernetes are needed.
 
 ## Resilience
 
