@@ -298,7 +298,7 @@ The retry pattern may be easily configured using API Gateway such that it is uti
 
 ### Bulkahead Pattern
 
-ow many requests can the API handle at any given time? In this example, 30 calls:
+How many requests can the API handle at any given time? In this example, 30 calls:
 
 ```yml
     bulkhead:
