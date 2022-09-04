@@ -27,9 +27,14 @@ public class SecurityConfiguration {
       // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
       http.csrf().disable()
               .authorizeExchange()
-              .pathMatchers("/actuator/**", "/","/logout.html").permitAll()
               .pathMatchers(HttpMethod.POST, "/token-service/**").permitAll()
-              .pathMatchers(HttpMethod.GET).permitAll()
+              .pathMatchers(WhiteListConfiguration.ACTUATOR_WHITELIST).permitAll()
+              .pathMatchers(WhiteListConfiguration.SWAGGER_WHITELIST).permitAll()
+              .pathMatchers(HttpMethod.GET, "/product/**").permitAll()
+              .pathMatchers(HttpMethod.GET, "/review/**").permitAll()
+              .pathMatchers(HttpMethod.POST, "/review/save/**").hasRole(ROLE_USER)
+              .pathMatchers(HttpMethod.PUT, "/review/update/**").hasRole(ROLE_ADMIN)
+              .pathMatchers(HttpMethod.DELETE, "/review/delete/**").hasRole(ROLE_ADMIN)
               .and()
               .authorizeExchange()
               .anyExchange().authenticated()
@@ -38,38 +43,5 @@ public class SecurityConfiguration {
               .jwt();
       return http.build();
   }
-
-  // @Bean
-  // public SecurityWebFilterChain filterChain(ServerHttpSecurity http, ServerLogoutSuccessHandler handler) {
-  //   // Disable CSRF
-  //   // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
-  //   http.csrf().disable()
-  //       // Only admin can perform HTTP delete and update reviews
-  //       .authorizeExchange()
-  //       .pathMatchers("/actuator/**", "/","/logout.html").permitAll()
-  //       .pathMatchers(HttpMethod.POST, "/token-service/**").permitAll()
-  //       .pathMatchers(HttpMethod.GET).permitAll()
-  //       .pathMatchers(HttpMethod.DELETE).hasRole(ROLE_ADMIN)
-  //       // .pathMatchers(HttpMethod.PUT, "/review/**").hasAnyRole(ROLE_ADMIN)
-  //       // .pathMatchers(HttpMethod.POST, "/review/**").hasAnyRole(ROLE_ADMIN, ROLE_USER)
-  //       // .and().httpBasic()
-  //       // .and().authorizeExchange().anyExchange()
-  //       // .authenticated()
-  //       // .and()
-  //       // .oauth2Login() // to redirect to oauth2 login page.
-  //       .and()
-  //       .logout()
-  //       .logoutSuccessHandler(handler);
-
-  //   return http.build();
-
-  // }
-
-  // @Bean
-  // public WebSecurityCustomizer webSecurityCustomizer() {
-  //   return (web) -> web.debug(securityDebug)
-  //       .ignoring()
-  //       .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
-  // }
 
 }
