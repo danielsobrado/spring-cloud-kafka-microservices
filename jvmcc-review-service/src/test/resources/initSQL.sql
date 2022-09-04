@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS jvmcc.review (
 
 
 CREATE TABLE IF NOT EXISTS jvmcc.`review_seq` (
-  `next_val` bigint DEFAULT NULL
+  `next_val` bigint DEFAULT NULL 
 ) ENGINE=InnoDB;
 
 INSERT INTO review (product_id, review_score, comment) VALUES ('M20324', 1, "test comment 1-1");
