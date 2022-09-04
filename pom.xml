@@ -55,7 +55,7 @@
 		<spring-boot-starter-webflux.version>2.7.0-M2</spring-boot-starter-webflux.version>
 		<spring-cloud-starter-feign.version>1.2.0.M1</spring-cloud-starter-feign.version>
 		<zipkin-server.version>2.12.9</zipkin-server.version>
-		<keycloak-spring-boot.version>19.0.1</keycloak-spring-boot.version>
+		<keycloak.version>19.0.1</keycloak.version>
 		<jjwt.version>0.9.1</jjwt.version>
 		<spring-cloud-starter-circuitbreaker-resilience4j.version>2.1.3</spring-cloud-starter-circuitbreaker-resilience4j.version>
 		<spring-cloud-starter-netflix-ribbon.version>2.2.10.RELEASE</spring-cloud-starter-netflix-ribbon.version>

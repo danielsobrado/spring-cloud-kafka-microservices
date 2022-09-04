@@ -35,13 +35,13 @@
 		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-spring-boot-starter</artifactId>
-			<version>${keycloak-spring-boot.version}</version>
+			<version>${keycloak.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.keycloak</groupId>
 			<artifactId>keycloak-spring-security-adapter</artifactId>
-			<version>${keycloak-spring-boot.version}</version>
+			<version>${keycloak.version}</version>
 		</dependency>
 
 		<dependency>

@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.oauth2.client.oidc.web.server.logout.OidcClientInitiatedServerLogoutSuccessHandler;
-import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.authentication.logout.ServerLogoutSuccessHandler;
 
 /**
  * @author J. Daniel Sobrado
@@ -26,46 +22,54 @@ public class SecurityConfiguration {
   boolean securityDebug;
 
   @Bean
-  public SecurityWebFilterChain filterChain(ServerHttpSecurity http, ServerLogoutSuccessHandler handler) {
-    // Disable CSRF
-    // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
-    http.csrf().disable()
-        // Only admin can perform HTTP delete and update reviews
-        .authorizeExchange()
-        .pathMatchers("/actuator/**", "/","/logout.html").permitAll()
-        .pathMatchers(HttpMethod.GET).permitAll()
-        .pathMatchers(HttpMethod.DELETE).hasRole(ROLE_ADMIN)
-        .pathMatchers(HttpMethod.PUT, "/review/**").hasAnyRole(ROLE_ADMIN)
-        .pathMatchers(HttpMethod.POST, "/review/**").hasAnyRole(ROLE_ADMIN, ROLE_USER)
-        .and().httpBasic()
-        .and().authorizeExchange().anyExchange()
-        .authenticated()
-        .and()
-        .oauth2Login() // to redirect to oauth2 login page.
-        .and()
-        .logout()
-        .logoutSuccessHandler(handler);
-
-    return http.build();
-
+  public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+      // Disable CSRF
+      // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
+      http.csrf().disable()
+              .authorizeExchange()
+              .pathMatchers("/actuator/**", "/","/logout.html").permitAll()
+              .pathMatchers(HttpMethod.POST, "/token-service/**").permitAll()
+              .pathMatchers(HttpMethod.GET).permitAll()
+              .and()
+              .authorizeExchange()
+              .anyExchange().authenticated()
+              .and()
+              .oauth2ResourceServer()
+              .jwt();
+      return http.build();
   }
 
-  @Bean
-	public ServerLogoutSuccessHandler keycloakLogoutSuccessHandler(ReactiveClientRegistrationRepository repository) {
+  // @Bean
+  // public SecurityWebFilterChain filterChain(ServerHttpSecurity http, ServerLogoutSuccessHandler handler) {
+  //   // Disable CSRF
+  //   // deepcode ignore DisablesCSRFProtection: <No Frontend Required>
+  //   http.csrf().disable()
+  //       // Only admin can perform HTTP delete and update reviews
+  //       .authorizeExchange()
+  //       .pathMatchers("/actuator/**", "/","/logout.html").permitAll()
+  //       .pathMatchers(HttpMethod.POST, "/token-service/**").permitAll()
+  //       .pathMatchers(HttpMethod.GET).permitAll()
+  //       .pathMatchers(HttpMethod.DELETE).hasRole(ROLE_ADMIN)
+  //       // .pathMatchers(HttpMethod.PUT, "/review/**").hasAnyRole(ROLE_ADMIN)
+  //       // .pathMatchers(HttpMethod.POST, "/review/**").hasAnyRole(ROLE_ADMIN, ROLE_USER)
+  //       // .and().httpBasic()
+  //       // .and().authorizeExchange().anyExchange()
+  //       // .authenticated()
+  //       // .and()
+  //       // .oauth2Login() // to redirect to oauth2 login page.
+  //       .and()
+  //       .logout()
+  //       .logoutSuccessHandler(handler);
 
-        OidcClientInitiatedServerLogoutSuccessHandler oidcLogoutSuccessHandler =
-                new OidcClientInitiatedServerLogoutSuccessHandler(repository);
+  //   return http.build();
 
-        oidcLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}/logout.html");
+  // }
 
-        return oidcLogoutSuccessHandler;
-    }
-
-  @Bean
-  public WebSecurityCustomizer webSecurityCustomizer() {
-    return (web) -> web.debug(securityDebug)
-        .ignoring()
-        .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
-  }
+  // @Bean
+  // public WebSecurityCustomizer webSecurityCustomizer() {
+  //   return (web) -> web.debug(securityDebug)
+  //       .ignoring()
+  //       .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
+  // }
 
 }
