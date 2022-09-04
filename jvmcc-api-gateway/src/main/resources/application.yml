@@ -40,7 +40,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://localhost:8084/token-service/realms/jvmcc-service/protocol/openid-connect/certs}
+          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://localhost:8084/realms/jvmcc-service/protocol/openid-connect/certs}
       client:
         provider:
           jvmcc-keycloak-provider:

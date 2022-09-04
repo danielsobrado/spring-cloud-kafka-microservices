@@ -61,7 +61,7 @@ services:
       API_GATEWAY_ADMIN_USERNAME: admin
       API_GATEWAY_ADMIN_PASSWORD: admin
       KEYCLOAK_ISSUER_URI: http://jvmcc-keycloak:8084/realms/jvmcc-service
-      KEYCLOAK_JWK_SET_URI: http://jvmcc-keycloak:8084/token-service/realms/jvmcc-service/protocol/openid-connect/certs
+      KEYCLOAK_JWK_SET_URI: http://jvmcc-keycloak:8084/realms/jvmcc-service/protocol/openid-connect/certs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 1m30s
