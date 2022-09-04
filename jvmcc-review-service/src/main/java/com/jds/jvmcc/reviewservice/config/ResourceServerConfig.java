@@ -43,7 +43,7 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 		// deepcode ignore DisablesCSRFProtection: <No Frontend Required>
 		http.csrf().disable();
 		// Allow access to the following endpoints without authentication.
-		http.authorizeRequests().antMatchers(REVIEW_URL).permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, REVIEW_URL).permitAll();
 		// Allow whitlisted requests without authentication.
 		http.authorizeRequests().antMatchers(WhiteListConfiguration.ACTUATOR_WHITELIST).permitAll();
 		http.authorizeRequests().antMatchers(WhiteListConfiguration.SWAGGER_WHITELIST).permitAll();
