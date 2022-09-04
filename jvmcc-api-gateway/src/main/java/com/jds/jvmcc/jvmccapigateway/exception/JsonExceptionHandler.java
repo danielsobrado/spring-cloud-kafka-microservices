@@ -43,6 +43,9 @@ public class JsonExceptionHandler extends DefaultErrorWebExceptionHandler {
         errorAttributes.put("code", HttpStatus.INTERNAL_SERVER_ERROR.value());
         errorAttributes.put("method", request.methodName());
         errorAttributes.put("path", request.path());
+
+		log.error(error.getMessage(), error);
+
 		return response(code, this.buildMessage(request, error));
 	}
 

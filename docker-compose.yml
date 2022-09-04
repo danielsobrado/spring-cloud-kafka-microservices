@@ -63,6 +63,9 @@ services:
       KEYCLOAK_ISSUER_URI: http://jvmcc-keycloak:8084/realms/jvmcc-service
       KEYCLOAK_JWK_SET_URI: http://jvmcc-keycloak:8084/realms/jvmcc-service/protocol/openid-connect/certs
       TOKEN_SERVICE_URI: http://jvmcc-keycloak:8084/jvmcc-service/users
+      REVIEW_SERVICE_URI: jvmcc-review-service
+      PRODUCT_SERVICE_URI: jvmcc-product-service
+
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 1m30s
@@ -100,6 +103,8 @@ services:
       KEYCLOAK_ISSUER_URI: http://jvmcc-keycloak:8084/realms/jvmcc-service
       KEYCLOAK_JWK_SET_URI: http://jvmcc-keycloak:8084/token-service/realms/jvmcc-service/protocol/openid-connect/certs
       TOKEN_SERVICE_URI: http://jvmcc-keycloak:8084/jvmcc-service/users
+      REVIEW_SERVICE_URI: jvmcc-review-service
+      PRODUCT_SERVICE_URI: jvmcc-product-service
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/health"]
       interval: 1m30s

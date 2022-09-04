@@ -90,7 +90,7 @@ spring:
           filters:
             - SetPath=/realms/jvmcc-service/protocol/openid-connect/token
         - id: jvmcc-product-service
-          uri: lb://jvmcc-product-service
+          uri: lb://${PRODUCT_SERVICE_URI:http://localhost:8092}
           predicates:
             - Path=/product/**
           filters:
@@ -100,7 +100,7 @@ spring:
                 fallbackUri: forward://product-fallback
                 enabled: true
         - id: jvmcc-review-service-read
-          uri: lb://jvmcc-review-service
+          uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
           predicates:
             - Method=GET
           filters:
@@ -110,13 +110,33 @@ spring:
                 fallbackUri: forward://review-fallback
                 enabled: true
         - id: jvmcc-review-service-write
-          uri: lb://jvmcc-review-service
+          uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
           predicates:
             - Path=/review/save/**
-            - Path=/review/update/**
-            - Path=/review/delete/**
-            - Method=PUT
             - Method=POST
+          filters:
+            - TokenRelay
+            - name: CircuitBreaker
+              args:
+                name: reviewCircuitBreaker
+                fallbackUri: forward://review-fallback
+                enabled: true
+        - id: jvmcc-review-service-update
+          uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
+          predicates:
+            - Path=/review/update/**
+            - Method=PUT
+          filters:
+            - TokenRelay
+            - name: CircuitBreaker
+              args:
+                name: reviewCircuitBreaker
+                fallbackUri: forward://review-fallback
+                enabled: true
+        - id: jvmcc-review-service-delete
+          uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
+          predicates:
+            - Path=/review/delete/**
             - Method=DELETE
           filters:
             - TokenRelay
@@ -125,7 +145,6 @@ spring:
                 name: reviewCircuitBreaker
                 fallbackUri: forward://review-fallback
                 enabled: true
-
   config:
     import: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888/}
   zipkin:
@@ -151,7 +170,7 @@ logging:
     org:
       springframework:
         cloud:
-          gateway: DEBUG
+          gateway: TRACE
           security:
             web: DEBUG
         security: DEBUG

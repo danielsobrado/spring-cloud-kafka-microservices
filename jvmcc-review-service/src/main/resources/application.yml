@@ -49,9 +49,6 @@ eureka:
     hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
-security:
-  basic:
-    enabled: ${SECURITY_BASIC_ENABLED:false}
 springdoc:
   swagger-ui:
     use-root-path: false
