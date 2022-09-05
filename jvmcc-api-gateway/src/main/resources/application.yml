@@ -80,7 +80,10 @@ spring:
             series: SERVER_ERROR
             exceptions: java.io.IOException
             backoff:
+              firstBackOff: 5s
+              maxBackOff: 20s
               factor: 2
+              basedOnPreviousValue: false
       routes:
         - id: token-service
           uri: ${TOKEN_SERVICE_URI:http://localhost:8084/jvmcc-service/users}
@@ -122,7 +125,7 @@ spring:
         - id: jvmcc-review-service-write
           uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
           predicates:
-            - Path=/review/save/
+            - Path=/review/save/**
             - Method=POST
           filters:
             - TokenRelay
