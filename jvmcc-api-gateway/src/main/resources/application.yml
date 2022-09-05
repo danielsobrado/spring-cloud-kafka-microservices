@@ -89,6 +89,16 @@ spring:
             - Method=POST
           filters:
             - SetPath=/realms/jvmcc-service/protocol/openid-connect/token
+            - name: Retry
+              args:
+                name: tokenServices
+                retries: 3
+                statuses: BAD_GATEWAY
+                backoff:
+                  firstBackOff: 5s
+                  maxBackOff: 20s
+                  factor: 2
+                  basedOnPreviousValue: false
         - id: jvmcc-product-service
           uri: lb://${PRODUCT_SERVICE_URI:http://localhost:8092}
           predicates:
