@@ -749,7 +749,7 @@ Buildkit needs to be enabled in the ```daemon.json``` file: (e.g. From Docker De
 
 ## TODO
 
-* Remove Ribbon: Spring Cloud Netflix Ribbon has been deprecated. Spring Cloud LoadBalancer is the suggested alternative. - Done on branch cloud-lb
+* Remove Ribbon: Spring Cloud Netflix Ribbon has been deprecated. Spring Cloud LoadBalancer is the suggested alternative. - Done on branch cloud-lb (Next: Test cases and [how to configure the Load Balancer without Eureka for testing](https://github.com/spring-cloud/spring-cloud-commons/blob/ce3b19b428e489fa54fa2b684a31e7b740829719/spring-cloud-commons/src/test/java/org/springframework/cloud/client/discovery/simple/SimpleDiscoveryClientPropertiesMappingTests.java#L40-L44))
 * Distributed Cache: Use Redis instead of Caffeine, or [2 levels cache](https://programs.wiki/wiki/redis-caffeine-two-level-cache-allows-smooth-access-speed.html).
 * Use [Jib](https://snyk.io/blog/building-java-container-images-using-jib/) to containerize the Java microservices.
 * Implement High Availability and Scalability by using Docker Swarm or Kubernetes
