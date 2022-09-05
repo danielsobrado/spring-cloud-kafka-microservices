@@ -5,7 +5,7 @@ FROM eclipse-temurin:17-jdk-alpine as development
 # A better option could be to have a local Nexus Repository with all the dependencies.
 WORKDIR /app
 RUN apk add git
-RUN git clone -b cloud-lb --single-branch https://github.com/danielsobrado/spring-cloud-kafka-microservices.git
+RUN git clone -b v1.1 --single-branch https://github.com/danielsobrado/spring-cloud-kafka-microservices.git
 RUN chmod -R 777 spring-cloud-kafka-microservices
 WORKDIR /app/spring-cloud-kafka-microservices
 
