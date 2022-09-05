@@ -516,7 +516,7 @@ But the admin user does:
 
 ![Authorization Granted](documentation/AuthorizationGranted.jpg?raw=true "Authorization Granted")
 
-Reviews can also be created from the [documentation/CreateReviewGateway.jpg](API Gateway by forwarding the Oauth2) Token with the rigth role.
+Reviews can also be created from the [API Gateway by forwarding the Oauth2](documentation/CreateReviewGateway.jpg) Token with the rigth role.
 
 **Note**: When mapping groups from LDAP to Keycloak, these are not fetched on the JWT by default, they need to be included by using the [Groups Mapper](https://stackoverflow.com/questions/56362197/keycloak-oidc-retrieve-user-groups-attributes).
 
