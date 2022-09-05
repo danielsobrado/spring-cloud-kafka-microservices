@@ -14,6 +14,21 @@ security:
     admin:
       username: ${API_GATEWAY_ADMIN_USERNAME:admin}
       password: ${API_GATEWAY_ADMIN_PASSWORD:admin}
+keycloak:
+  realm: ${KEYCLOAK_REALM:jvmcc-service}
+  auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL:http://localhost:8084/token-service}
+  resource: ${KEYCLOAK_CLIENT_ID:jvmcc-1}
+  credentials:
+    secret: ${KEYCLOAK_CREDENTIALS_SECRET:xpRFSuPkc0xnJPjx96Y88xYeHSRUySD0}
+  ssl-required: ${KEYCLOAK_SSL_REQUIRED:external}
+  use-resource-role-mappings: ${KEYCLOAK_USE_RESOURCE_ROLE_MAPPINGS:true}
+  bearer-only: ${KEYCLOAK_BEARER_ONLY:true}
+com.c4-soft:.springaddons.security:
+  issuers:
+    - location=${KEYCLOAK_ISSUER_URI:http://localhost:8084/realms/jvmcc-service}
+  authorities:
+    claims:
+      realm_access.roles,resource_access.spring-addons-public.roles,resource_access.spring-addons-confidential.roles
 spring:
   main:
     web-application-type: reactive
@@ -23,17 +38,21 @@ spring:
     active: ${SPRING_PROFILE:development}
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://localhost:8084/realms/jvmcc-service/protocol/openid-connect/certs}
       client:
         provider:
           jvmcc-keycloak-provider:
+            token-uri: ${KEYCLOAK_TOKEN_URI:http://localhost:8084/realms/jvmcc-service/protocol/openid-connect/token}
             issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8084/realms/jvmcc-service}
         registration:
           keycloak-spring-gateway-client:
             provider: jvmcc-keycloak-provider
             scope: openid
-            client-id: jvmcc-1
-            client-secret:  xpRFSuPkc0xnJPjx96Y88xYeHSRUySD0
-            authorization-grant-type: client_credentials
+            client-id: ${KEYCLOAK_CLIENT_ID:jvmcc-1}
+            client-secret: ${KEYCLOAK_CREDENTIALS_SECRET:xpRFSuPkc0xnJPjx96Y88xYeHSRUySD0}
+            authorization-grant-type: password
   cloud:
     config:
       uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
@@ -61,10 +80,30 @@ spring:
             series: SERVER_ERROR
             exceptions: java.io.IOException
             backoff:
+              firstBackOff: 5s
+              maxBackOff: 20s
               factor: 2
+              basedOnPreviousValue: false
       routes:
+        - id: token-service
+          uri: ${TOKEN_SERVICE_URI:http://localhost:8084/jvmcc-service/users}
+          predicates:
+            - Path=/token-service
+            - Method=POST
+          filters:
+            - SetPath=/realms/jvmcc-service/protocol/openid-connect/token
+            - name: Retry
+              args:
+                name: tokenServices
+                retries: 3
+                statuses: BAD_GATEWAY
+                backoff:
+                  firstBackOff: 5s
+                  maxBackOff: 20s
+                  factor: 2
+                  basedOnPreviousValue: false
         - id: jvmcc-product-service
-          uri: lb://jvmcc-product-service
+          uri: lb://${PRODUCT_SERVICE_URI:http://localhost:8092}
           predicates:
             - Path=/product/**
           filters:
@@ -74,7 +113,7 @@ spring:
                 fallbackUri: forward://product-fallback
                 enabled: true
         - id: jvmcc-review-service-read
-          uri: lb://jvmcc-review-service
+          uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
           predicates:
             - Method=GET
           filters:
@@ -84,13 +123,33 @@ spring:
                 fallbackUri: forward://review-fallback
                 enabled: true
         - id: jvmcc-review-service-write
-          uri: lb://jvmcc-review-service
+          uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
           predicates:
             - Path=/review/save/**
-            - Path=/review/update/**
-            - Path=/review/delete/**
-            - Method=PUT
             - Method=POST
+          filters:
+            - TokenRelay
+            - name: CircuitBreaker
+              args:
+                name: reviewCircuitBreaker
+                fallbackUri: forward://review-fallback
+                enabled: true
+        - id: jvmcc-review-service-update
+          uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
+          predicates:
+            - Path=/review/update/**
+            - Method=PUT
+          filters:
+            - TokenRelay
+            - name: CircuitBreaker
+              args:
+                name: reviewCircuitBreaker
+                fallbackUri: forward://review-fallback
+                enabled: true
+        - id: jvmcc-review-service-delete
+          uri: lb://${REVIEW_SERVICE_URI:http://localhost:8091}
+          predicates:
+            - Path=/review/delete/**
             - Method=DELETE
           filters:
             - TokenRelay
@@ -99,7 +158,6 @@ spring:
                 name: reviewCircuitBreaker
                 fallbackUri: forward://review-fallback
                 enabled: true
-
   config:
     import: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888/}
   zipkin:
@@ -125,6 +183,7 @@ logging:
     org:
       springframework:
         cloud:
-          gateway: DEBUG
+          gateway: TRACE
           security:
             web: DEBUG
+        security: DEBUG

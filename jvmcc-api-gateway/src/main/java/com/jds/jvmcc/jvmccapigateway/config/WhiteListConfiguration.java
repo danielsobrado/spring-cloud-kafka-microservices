@@ -1,4 +1,4 @@
-package com.jds.jvmcc.config;
+package com.jds.jvmcc.jvmccapigateway.config;
 
 /**
  * @author J. Daniel Sobrado

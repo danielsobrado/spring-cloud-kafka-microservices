@@ -1,21 +1,18 @@
 package com.jds.jvmcc.productservice.client;
 
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.cloud.loadbalancer.annotation.LoadBalancerClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.context.annotation.Profile;
 
-import com.jds.jvmcc.productservice.config.LocalClientConfiguration;
-import com.jds.jvmcc.productservice.fallback.ReviewFallback;
+import com.jds.jvmcc.productservice.config.LoadBalancerConfiguration;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-29
  */
 @Profile("production")
-@FeignClient(value = "jvmcc-review-service", 
-    url = "http://jvmcc-review-service-1:8093",
-    configuration = LocalClientConfiguration.class, 
-    fallback = ReviewFallback.class)
+@FeignClient(value = "jvmcc-review-service")
+@LoadBalancerClient(name = "jvmcc-review-service", configuration=LoadBalancerConfiguration.class)
 public interface FeignReviewClientProduction extends ReviewClient {
 }

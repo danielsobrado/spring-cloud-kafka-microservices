@@ -16,10 +16,10 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: ${JWK_SET_URI:http://localhost:8084/realms/jvmcc-service/protocol/openid-connect/certs}
+          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://localhost:8084/realms/jvmcc-service/protocol/openid-connect/certs}
   config:
     import: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888/}
-  cloud:
+  cloud:  
     config:
       uri: ${CLOUD_CONFIG_URI:optional:configserver:http://localhost:8888}
       username: ${CLOUD_CONFIG_USERNAME:jvmcc}
@@ -49,9 +49,6 @@ eureka:
     hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
     leaseRenewalIntervalInSeconds: 1
     leaseExpirationDurationInSeconds: 2
-security:
-  basic:
-    enabled: ${SECURITY_BASIC_ENABLED:false}
 springdoc:
   swagger-ui:
     use-root-path: false
@@ -73,6 +70,7 @@ logging:
     org:
       springframework: 
         cache: trace
+        security: debug
     com:
       jds:
         jmvcc: info

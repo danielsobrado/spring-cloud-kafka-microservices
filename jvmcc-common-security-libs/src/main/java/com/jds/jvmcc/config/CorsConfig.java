@@ -10,7 +10,7 @@ import org.springframework.web.filter.CorsFilter;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-09
  */
 public class CorsConfig {

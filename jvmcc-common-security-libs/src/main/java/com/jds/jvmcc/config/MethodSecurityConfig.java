@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-05
  */
 @Profile(Profiles.MULTI_AUTH)

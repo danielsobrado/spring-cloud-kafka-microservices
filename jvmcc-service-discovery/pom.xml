@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>com.jds.jvmcc</groupId>
 		<artifactId>jvmcc</artifactId>
-		<version>1.0.0</version>
+		<version>1.1.0</version>
 	</parent>
 
 	<groupId>com.jds.jvmcc</groupId>
 	<artifactId>jvmcc-service-discovery</artifactId>
-	<version>1.0</version>
+	<version>1.1.0</version>
 	<name>jvmcc-service-discovery</name>
 	<description>Spring Cloud Microservices Example</description>
 	

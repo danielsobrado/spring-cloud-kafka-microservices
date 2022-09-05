@@ -18,7 +18,7 @@ import reactor.core.publisher.Flux;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-13
  */
 @Slf4j

@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS jvmcc.`review_seq` (
 ) ENGINE=InnoDB;
 
 INSERT INTO review (product_id, review_score, comment) VALUES ('M20324', 1, "test comment 1-1");
+INSERT INTO review_seq (next_val) VALUES (100);
 INSERT INTO review (product_id, review_score, comment) VALUES ('M20324', 2, "test comment 1-2");
 INSERT INTO review (product_id, review_score, comment) VALUES ('M20324', 3, "test comment 1-3");
 INSERT INTO review (product_id, review_score, comment) VALUES ('M20324', 4, "test comment 1-4");

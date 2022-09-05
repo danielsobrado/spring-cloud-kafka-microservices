@@ -8,7 +8,7 @@ import org.springframework.web.context.request.WebRequest;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-21
  */
 public class ProductAppErrorAttributes extends DefaultErrorAttributes {

@@ -13,7 +13,7 @@ import com.jds.jvmcc.reviewservice.reactive.repository.ReviewRepository;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-13
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

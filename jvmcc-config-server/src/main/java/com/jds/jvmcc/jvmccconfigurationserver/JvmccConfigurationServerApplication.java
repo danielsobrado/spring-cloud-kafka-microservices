@@ -6,7 +6,7 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-06
  */
 @EnableConfigServer
