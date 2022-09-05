@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "create_date": "2022-09-05T08:07:49.000+00:00",
+        "update_date": "2022-09-05T08:07:49.000+00:00",
+        "last_update_user": "Not Authenticated",
+        "product_id": "B41234",
+        "review_score": 1,
+        "comment": "test comment 1-1"
+    },
+    {
+        "id": 2,
+        "create_date": "2022-09-05T08:07:49.000+00:00",
+        "update_date": "2022-09-05T08:07:49.000+00:00",
+        "last_update_user": "Not Authenticated",
+        "product_id": "B41234",
+        "review_score": 2,
+        "comment": "test comment 1-2"
+    }
+]

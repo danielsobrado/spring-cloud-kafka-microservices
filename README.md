@@ -649,7 +649,7 @@ For the purpose of this example, we will create a demo database and some initial
 
 MongoDB was chosen because it is a distributed database that is fast. For high availability, MongoDB automatically maintains replica sets.
 
-An operation on a single document in MongoDB is atomic. 
+An operation on a single document in MongoDB is atomic.
 
 There are already integrated reactive drivers for Spring WebFlux and Spring Boot. Multi-document transaction is supported by MongoDB.
 

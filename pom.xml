@@ -65,6 +65,7 @@
 		<springdoc-openapi-maven-plugin.version>1.5-SNAPSHOT</springdoc-openapi-maven-plugin.version>
 		<maven-failsafe-plugin.version>3.0.0-M7</maven-failsafe-plugin.version>
 		<json.version>20220320</json.version>
+		<commons-text.version>1.9</commons-text.version>
 	</properties>
 
 	<repositories>

@@ -1,6 +1,15 @@
+keycloak:
+  enabled: false
 spring:
   application:
     name: product-service
+  main: 
+      web-application-type: none
+  autoconfigure:
+     exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
   jmx:
     enabled: false
     default-domain: product-service
@@ -11,7 +20,7 @@ endpoints:
 # Configured wiremock server to run using port 9999.
 product:
   service:
-    url: http://localhost:9999
+    url: http://localhost:9561
 logging:
   level:
     org:
@@ -20,9 +29,6 @@ logging:
           reactive:
             function:
               client: debug
-product-service:
-  ribbon:
-    listOfServers: http://localhost:9561
 eureka:
   client:
     enabled: false

@@ -13,6 +13,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
@@ -20,7 +21,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.jds.jvmcc.reviewservice.JvmccReviewServiceApplication;
 import com.jds.jvmcc.reviewservice.entity.Review;
-import com.jds.jvmcc.reviewservice.service.ReviewService;
 
 /**
  * @author J. Daniel Sobrado
@@ -30,6 +30,7 @@ import com.jds.jvmcc.reviewservice.service.ReviewService;
  * This test case requires Docker container to be running.
  */
 @ActiveProfiles("test")
+@TestPropertySource(locations="classpath:application-test.yml")
 @Testcontainers
 @DirtiesContext
 @EnableAutoConfiguration
@@ -52,19 +53,14 @@ class JvmccReviewServiceIntegrationTests {
 	@Autowired
 	protected TestRestTemplate testRestTemplate ;
 
-	@Autowired
-	private ReviewService reviewService;
-
     @Test
     @Sql({ "/initSQL.sql" })
-    public void testGetDepartmentById() {
+    public void testGetReviews() {
 
         ResponseEntity<Review> response = testRestTemplate.getForEntity( "/reviews/{productId}",Review.class,"M20324");
         Review review =  response.getBody();
 
-        // assertEquals((short)3,review.getReviewScore());
 		assertEquals("M20324",review.getProductId());
-        // assertEquals("Test Comment", review.getComment());
 
     }
 

@@ -1,5 +1,5 @@
-C:\Development\challenge\load-balancer\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\config\WhiteListConfiguration.java
-C:\Development\challenge\load-balancer\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\util\RealmRoleConverter.java
-C:\Development\challenge\load-balancer\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\util\SecurityUtil.java
-C:\Development\challenge\load-balancer\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\error\ErrorCode.java
-C:\Development\challenge\load-balancer\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\exception\ResourceNotFoundException.java
+C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\config\WhiteListConfiguration.java
+C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\exception\ResourceNotFoundException.java
+C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\error\ErrorCode.java
+C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\util\RealmRoleConverter.java
+C:\Development\challenge\spring-cloud-kafka-microservices\jvmcc-common-libs\src\main\java\com\jds\jvmcc\util\SecurityUtil.java

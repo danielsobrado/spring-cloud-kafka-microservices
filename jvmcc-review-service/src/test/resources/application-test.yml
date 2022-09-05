@@ -1,9 +1,19 @@
 server:
-  port: 8091
+  port: 8191
   forward-headers-strategy: framework
+review:
+  service:
+    url: http://localhost:8191
+keycloak:
+  enabled: false
 spring:
   main: 
       web-application-type: none
+  autoconfigure:
+     exclude:
+      - org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+      - org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     generate-ddl: true
@@ -19,6 +29,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+  datasource:
+    url: ${MYSQL_SERVER_URL:jdbc:mysql://localhost:3306/jvmcc?verifyServerCertificate=false&useSSL=true&requireSSL=true}
+    username: ${MYSQL_USERNAME:jvmcc}
+    password: ${MYSQL_PASSWORD:jvmcc}
+    driverClassName: com.mysql.cj.jdbc.Driver
 jwt:
   secret: jvmcc
 eureka:
