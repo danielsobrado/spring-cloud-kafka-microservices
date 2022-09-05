@@ -17,7 +17,7 @@ import lombok.Setter;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-06
  * Persistent class for the role database table.
  */

@@ -19,7 +19,7 @@ import com.jds.jvmcc.repository.UserRepository;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-07
  */
 @Service

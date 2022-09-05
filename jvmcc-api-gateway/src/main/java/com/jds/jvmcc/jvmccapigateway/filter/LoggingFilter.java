@@ -19,7 +19,7 @@ import static org.springframework.cloud.gateway.support.ServerWebExchangeUtils.G
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-20
  * 
  * This filter can be used to audit the requests that are sent to the gateway.

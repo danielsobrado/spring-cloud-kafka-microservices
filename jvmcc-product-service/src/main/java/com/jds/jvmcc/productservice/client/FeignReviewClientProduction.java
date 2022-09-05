@@ -8,7 +8,7 @@ import com.jds.jvmcc.productservice.config.LoadBalancerConfiguration;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-29
  */
 @Profile("production")

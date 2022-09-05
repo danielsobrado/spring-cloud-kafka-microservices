@@ -64,7 +64,7 @@ We'll follow the following steps:
 * Start App Gateway
   
   ```bash
-    java -Dapp_port=443 -jar .\target\jvmcc-api-gateway-1.0.jar
+    java -Dapp_port=443 -jar .\target\jvmcc-api-gateway-1.1.jar
   ```
 
 Securing a Spring Cloud Gateway application acting as a resource server is no different from a regular resource service.
@@ -111,7 +111,7 @@ By Adding our dependency to our microservices we resuse common code:
 <dependency>
     <groupId>com.jds.jvmcc</groupId>
     <artifactId>jvmcc-common-libs</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
 </dependency>
 ```
 
@@ -200,25 +200,25 @@ eureka:
 Test the Eureka server without High Availability:
 
 ```bash
-java -jar -Dspring.profiles.active=default ./target/jvmcc-service-discovery-1.0.jar
+java -jar -Dspring.profiles.active=default ./target/jvmcc-service-discovery-1.1.jar
 ```
 
 Test the Eureka server with High Availability:
 
 ```bash
-java -jar -Dspring.profiles.active=jvmcc-eureka-1 ./target/jvmcc-service-discovery-1.0.jar
-java -jar -Dspring.profiles.active=jvmcc-eureka-2 ./target/jvmcc-service-discovery-1.0.jar
-java -jar -Dspring.profiles.active=jvmcc-eureka-3 ./target/jvmcc-service-discovery-1.0.jar
+java -jar -Dspring.profiles.active=jvmcc-eureka-1 ./target/jvmcc-service-discovery-1.1.jar
+java -jar -Dspring.profiles.active=jvmcc-eureka-2 ./target/jvmcc-service-discovery-1.1.jar
+java -jar -Dspring.profiles.active=jvmcc-eureka-3 ./target/jvmcc-service-discovery-1.1.jar
 ```
 
 You want to raise multiple instances of your micro-services on different ports and register them in Eureka, you could do:
 
 ```bash
-java -jar .\target\jvmcc-review-service-1.0.jar --server.port=8091
-java -jar .\target\jvmcc-review-service-1.0.jar --server.port=8092
-java -jar .\target\jvmcc-product-service-1.0.jar --server.port=8094
-java -jar .\target\jvmcc-product-service-1.0.jar --server.port=8095
-java -jar .\target\jvmcc-product-service-1.0.jar --server.port=8096
+java -jar .\target\jvmcc-review-service-1.1.jar --server.port=8091
+java -jar .\target\jvmcc-review-service-1.1.jar --server.port=8092
+java -jar .\target\jvmcc-product-service-1.1.jar --server.port=8094
+java -jar .\target\jvmcc-product-service-1.1.jar --server.port=8095
+java -jar .\target\jvmcc-product-service-1.1.jar --server.port=8096
 
 ```
 

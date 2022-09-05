@@ -2,7 +2,7 @@ package com.jds.jvmcc.productservice.error.exception;
 
 /**
  * @author J. Daniel Sobrado
- * @version 1.0
+ * @version 1.1
  * @since 2022-08-21
  */
 public class NonExistingProductException extends RuntimeException implements ErrorCode {
