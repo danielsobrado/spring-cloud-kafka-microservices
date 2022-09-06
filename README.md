@@ -663,7 +663,7 @@ To view the data in the container you can download [Compass](https://www.mongodb
 
 The CAP theorem stands for Consistency, Availability and Partition Tolerance. 
 
-    # *All distributed systems must make trade-offs between guaranteeing consistency, availability, and partition tolerance (CAP Theorem).*
+  *All distributed systems must make trade-offs between guaranteeing consistency, availability, and partition tolerance (CAP Theorem).*
 
 MongoDB is strongly consistent by default, although configuration changes can be made to prioritize availability or the split brain problem:
 
