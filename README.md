@@ -661,7 +661,9 @@ To view the data in the container you can download [Compass](https://www.mongodb
 
 ### Where does MongoDB stand from CAP theorem perspective?
 
-The CAP theorem stands for Consistency, Availability and Partition Tolerance, you can usually have two of them in the same system.
+The CAP theorem stands for Consistency, Availability and Partition Tolerance. 
+
+    # *All distributed systems must make trade-offs between guaranteeing consistency, availability, and partition tolerance (CAP Theorem).*
 
 MongoDB is strongly consistent by default, although configuration changes can be made to prioritize availability or the split brain problem:
 
@@ -670,6 +672,14 @@ MongoDB is strongly consistent by default, although configuration changes can be
 **AP**: Replica-Sets provide High Availability for MongoDB. If a primary fails, the secondary takes over. Every write that was not synchronized to the secondaries will be rolled back to a rollback-file. Consistency is sacrificed in this scenario for the sake of availability.
 
 **CP**: Partition Tolerance is also achieved by using Replica-Sets. A new primary can be selected as long as more than half of the servers in a Replica-Set are connected to each other. When there aren't enough secondary connections between them, you can still read from them but not write to them. For the sake of consistency, availability is traded.
+
+In this scenario, we're talking about a significant number of reviews, which can allow for eventual consistency because reviews can be viewed a bit outdated without major impact; nevertheless, in a critical case like payments, we can't afford consistency issues.
+
+## Middleware
+
+### Use Rest API
+
+### Use Kafka
 
 ## Error management
 
