@@ -659,6 +659,18 @@ docker run -p 27017:27017 --name jvmcc-mongodb -d dalamar/jvmcc-mongodb
 
 To view the data in the container you can download [Compass](https://www.mongodb.com/es/products/compass) and connect to the DB.
 
+### Where does MongoDB stand from CAP theorem perspective?
+
+The CAP theorem stands for Consistency, Availability and Partition Tolerance, you can usually have two of them in the same system.
+
+MongoDB is strongly consistent by default, although configuration changes can be made to prioritize availability or the split brain problem:
+
+**CA**: When MongoDB just employs one partition, the system is available and has high consistency. When a single connection and the appropriate amount of Read/Write concern are used, high consistency is obtained at the sacrifice of execution speed. If you do not meet these requirements, the system will ultimately become eventually available.
+
+**AP**: Replica-Sets provide High Availability for MongoDB. If a primary fails, the secondary takes over. Every write that was not synchronized to the secondaries will be rolled back to a rollback-file. Consistency is sacrificed in this scenario for the sake of availability.
+
+**CP**: Partition Tolerance is also achieved by using Replica-Sets. A new primary can be selected as long as more than half of the servers in a Replica-Set are connected to each other. When there aren't enough secondary connections between them, you can still read from them but not write to them. For the sake of consistency, availability is traded.
+
 ## Error management
 
 The most relevant errors are captured and parsed.
