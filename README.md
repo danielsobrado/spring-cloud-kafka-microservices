@@ -665,6 +665,10 @@ The CAP theorem stands for Consistency, Availability and Partition Tolerance.
 
   *All distributed systems must make trade-offs between guaranteeing consistency, availability, and partition tolerance (CAP Theorem).*
 
+In practice, you must pick between consistency and availability during a partition in a distributed system.
+
+In fact, though, it is not that straightforward. It is important to emphasize that the decision between consistency and availability is not a binary one. You can even have a mix of the two.
+
 MongoDB is strongly consistent by default, although configuration changes can be made to prioritize availability or the split brain problem:
 
 **CA**: When MongoDB just employs one partition, the system is available and has high consistency. When a single connection and the appropriate amount of Read/Write concern are used, high consistency is obtained at the sacrifice of execution speed. If you do not meet these requirements, the system will ultimately become eventually available.
@@ -680,6 +684,8 @@ In this scenario, we're talking about a significant number of reviews, which can
 ### Use Rest API
 
 ### Use Kafka
+
+### Use RabbitMQ
 
 ## Error management
 
@@ -779,6 +785,7 @@ Buildkit needs to be enabled in the ```daemon.json``` file: (e.g. From Docker De
 * Implement High Availability and Scalability by using Docker Swarm or Kubernetes
 * [Rate limiter using Redis](https://spring.io/blog/2021/04/05/api-rate-limiting-with-spring-cloud-gateway), to avoid DDoS or to implement quotas.
 * Complete reactive services.
+* Conform to The HATEOAS constraint feature of REST.
 
 ## Notes
 
